@@ -111,20 +111,34 @@ int Is_full(char board[ROW][COL], int row, int col)
 char Is_win(char board[ROW][COL], int row, int col)
 {
 
+	int temp = 0;
 	int i = 0;
 	int j = 0;
-	//ÅÐ¶Ï ÐÐ
 	for (i = 0; i < row; i++)
 	{
-		if (board[i][0] == board[i][1] && board[i][0] == board[i][2] && board[i][0] != ' ')
-		return  board[i][0];
-
+		temp = 0;
+		for (j = 0; j < col; j++)
+		{
+			temp+=board[i][j];
+		}
+		if ((temp == 3 * board[i][0])&&(temp != 3*' '))
+		{
+			return board[i][0];
+		}
 	}
-	//ÅÐ¶ÏÁÐ
+	
 	for (j = 0; j < col; j++)
 	{
-		if (board[0][j] == board[1][j] && board[0][j] == board[2][j] && board[0][j] != ' ')
-		return  board[0][0];
+		temp = 0;
+		for (i = 0; i < row; i++)
+		{
+			temp+=board[i][j];
+		}
+		if ((temp == 3 * board[0][j]) && (temp != 3 * ' '))
+		{
+			return board[0][j];
+		}
+
 	}
 	//ÅÐ¶Ï¶Ô½ÇÏß
 	if (board[0][0] == board[1][1] && board[0][0] == board[2][2] && board[0][0] != ' ')
@@ -132,11 +146,32 @@ char Is_win(char board[ROW][COL], int row, int col)
 		return  board[0][0];
 	}
 
-	if (board[0][2] == board[1][1] && board[1][1] == board[2][0] && board[1][1] != ' ')
-	{
-		return  board[1][1];
-	}
-	
+	//int i = 0;
+	//int j = 0;
+	////ÅÐ¶Ï ÐÐ
+	//for (i = 0; i < row; i++)
+	//{
+	//	if (board[i][0] == board[i][1] && board[i][0] == board[i][2] && board[i][0] != ' ')
+	//	return  board[i][0];
+
+	//}
+	////ÅÐ¶ÏÁÐ
+	//for (j = 0; j < col; j++)
+	//{
+	//	if (board[0][j] == board[1][j] && board[0][j] == board[2][j] && board[0][j] != ' ')
+	//	return  board[0][0];
+	//}
+	////ÅÐ¶Ï¶Ô½ÇÏß
+	//if (board[0][0] == board[1][1] && board[0][0] == board[2][2] && board[0][0] != ' ')
+	//{
+	//	return  board[0][0];
+	//}
+
+	//if (board[0][2] == board[1][1] && board[1][1] == board[2][0] && board[1][1] != ' ')
+	//{
+	//	return  board[1][1];
+	//}
+	//
 	//ÅÐ¶ÏÂúÁËÃ»ÓÐ  ÂúÁË 1  Î´Âú 0
 	if (0 == Is_full(board ,row,col))
 	{
