@@ -113,6 +113,7 @@ static bool ParseContent(const std::string& res, std::string* content)
         {
           if(ch == '\n') ch = ' ';
           content->push_back(ch);
+          
         }
         break;
       default:
