@@ -4,6 +4,7 @@
 * Date: 2023-01-16
 * Time: 21:36
 */
+
 #include <iostream>
 #include <vector>
 #include <string>
@@ -123,22 +124,37 @@ static bool ParseContent(const std::string& res, std::string* content)
   return true;
 }
 
-static bool ParseUrl(const std::string& res, std::string* url)
+// 解析url 
+static bool ParseUrl(const std::string& file_path, std::string* url)
 {
-
   assert(url);
+  std::string url_head = "https://www.boost.org/doc/libs/1_81_0/doc/html";
+  //std:: cout << file_path << std::endl;
+  std::string url_tail = file_path.substr(src_path.size()); // 这里会自动 带上  / 
+  //std:: cout << url_tail << std::endl;
+  *url = url_head + url_tail;
   return true;
 }
+
+void ShowDoc(const DocInfo_t& doc)
+{
+  std::cout << "title: " << doc.title << std::endl;
+  std::cout << "content: " << doc.content << std::endl;
+  std::cout << "url: " << doc.url << std::endl;
+
+}
+int g = 0;
 // 2. 去标签,把 files_list 中所有的文件内容保存到一个结构体中,
 // 把结构体放在 result中
 bool ParseHtml(const std::vector<std::string> files_list, std::vector<DocInfo_t> *result)
 {
+    //std:: cout << "--------------------" <<std::endl;
   assert(result);
   for(const std::string& file : files_list)
   {
     std::string res;
     // 1. 读取
-    if(ns_util::FileUtil::ReadFile(file, &res)) {continue;}
+    if(!ns_util::FileUtil::ReadFile(file, &res)) {continue;}
 
     DocInfo_t doc;
     // 2. 提取文件 tile 
@@ -147,10 +163,17 @@ bool ParseHtml(const std::vector<std::string> files_list, std::vector<DocInfo_t>
     // 3. 提取content  去标签
     if(!ParseContent(res, &doc.content)) {continue;}
     // 4. 提取 特定的文件路径,构建  url 
-    if(!ParseUrl(res, &doc.url)) {continue;}
+    if(!ParseUrl(file, &doc.url)) {continue;}
 
     result->push_back(doc); // 注意 push 会发生拷贝,效率有点低 bug 可以采用右值
+    //std:: cout << "--------------------" <<std::endl;
+    if(g == 0)
+    {
+g++;
+    ShowDoc(doc);
+    }
   }
+  return true;
 }
 
 bool SaveHtml(const std::vector<DocInfo_t>& result, const std::string& output)
