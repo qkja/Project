@@ -4,6 +4,7 @@
 #include <vector>
 #include <unordered_map>
 #include <fstream>
+#include "util.hpp"
 
 namespace ns_index
 {
@@ -24,14 +25,14 @@ namespace ns_index
 
   class Index
   {
-  public:
-    // 倒排拉链
-    typedef std::vector<InvertedElem> InvertedList;
 
   public:
     Index(){};
     ~Index(){};
 
+  public:
+    // 倒排拉链
+    typedef std::vector<InvertedElem> InvertedList;
   public:
     // 根据 id 找到文档内容
     DocInfo *GetForwardIndex(uint64_t id)
@@ -85,12 +86,38 @@ namespace ns_index
     }
 
   private:
+    // 建立正派索引
     DocInfo *BuildForwardIndex(const std::string &line)
     {
-      return nullptr;
-    }
-    void BuildInvertedIndex(const DocInfo &doc)
+      // 解析line  字符串切分
+      // xxxx/3yyyyyy/3zzzzzzzz/3
+      std::vector<std::string> results;
+      std::string sep;
+      sep.push_back('\3');
+      ns_util::StringUtil::CutString(line, &results, sep);
+      if (results.size() != 3)
+      {
+        return nullptr;
+      }
+
+      // 填充 DocInfo doc;
+
+      DocInfo doc;
+      doc.title = results[0];
+      doc.content = results[1];
+      doc.url = results[2];
+      doc.doc_id = forward_index.size(); // 注意这里
+      
+      // push
+      forward_index.push_back(std::move(doc));
+      return &forward_index.back();
+    } 
+
+    // 建立倒排索引
+    bool BuildInvertedIndex(const DocInfo &doc)
     {
+
+      return true;
     }
 
   private:

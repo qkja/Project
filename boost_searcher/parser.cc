@@ -177,9 +177,9 @@ bool ParseHtml(const std::vector<std::string> files_list, std::vector<DocInfo_t>
       continue;
     }
     // 注意 push 会发生拷贝,效率有点低 bug 可以采用右值
-    //result->push_back(doc);
-    
-    result->push_back(std::move(doc)); 
+    // result->push_back(doc);
+
+    result->push_back(std::move(doc));
     // std:: cout << "--------------------" <<std::endl;
     // if(g == 0)
     //{
@@ -196,14 +196,14 @@ bool SaveHtml(const std::vector<DocInfo_t> &result, const std::string &output)
 
   // 打开文件
   std::ofstream out(output, std::ios::out | std::ios::binary);
-  if(!out.is_open())
+  if (!out.is_open())
   {
-    std::cerr << " open " << output << " fail"<< std::endl;
+    std::cerr << " open " << output << " fail" << std::endl;
     return false;
   }
   //  添加写入规则
   std::string s;
-  for(auto& it : result)
+  for (auto &it : result)
   {
     s.clear();
     s += it.title;
