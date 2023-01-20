@@ -116,6 +116,50 @@ namespace ns_index
     // 建立倒排索引
     bool BuildInvertedIndex(const DocInfo &doc)
     {
+      struct word_cnt {
+        int title_cnt = 0;
+        int content_cnt = 0;
+      };
+
+      std::unordered_map<std::string, word_cnt> word_map;
+
+      // 这里是标头
+      std::vector<std::string> title_words;
+      ns_util::JiebaUtil::CutString(doc.title, &title_words);
+
+      for(auto s:title_words)
+      {
+        // 转成小写
+        boost::to_lower(s);
+        word_map[s].title_cnt++;
+      }
+
+      // 这里是内容
+      std::vector<std::string> content_words;
+      ns_util::JiebaUtil::CutString(doc.title, &content_words);
+      for(auto s:content_words)
+      {
+        boost::to_lower(s);
+        word_map[s].content_cnt++;
+      }
+
+
+      // 构建拉链
+      for(auto& word_pair:word_map)
+      {
+        InvertedElem item;
+        item.doc_id = doc.doc_id;
+        item.word = word_pair.first;
+#define X 10
+#define Y 1
+        item.weight = X*word_pair.second.title_cnt + Y*word_pair.second.content_cnt;
+
+
+        // 插入倒排索引
+        inverted_index[item.word].push_back(std::move(item));
+        // 根据权重进行排序
+      }
+
 
       return true;
     }
