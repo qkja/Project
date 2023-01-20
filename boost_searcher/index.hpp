@@ -33,18 +33,31 @@ namespace ns_index
       // 根据 id 找到文档内容
       DocInfo* GetForwardIndex(uint64_t id)
       {
+        if(id <0 || id >= forward_index.size())
+        {
+          std::cerr << "id越界了"<<std::endl;
+          return nullptr;
+        }
+
         return &(forward_index[id]);
       }
 
       // 根据关键子找到倒排拉链
       InvertedList* GetInvertedList(const std::string& key)
       {
-        return nullptr;
+        auto it = inverted_index.find(key);
+        if(it == inverted_index.end())
+        {
+          std::cerr << key<<"没有倒排拉链"<<std::endl;
+          return nullptr;
+        }
+        return &(it->second);
       }
 
       // 根据去标签之后的文档正派和倒排索引
       bool BuildIndex(const std::string& input)
       {
+
         return true;
       }
 
