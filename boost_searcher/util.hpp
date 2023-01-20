@@ -4,6 +4,7 @@
 #include <fstream>
 #include <vector>
 #include <boost/algorithm/string.hpp>
+#include "cppjieba/Jieba.hpp"
 
 namespace ns_util
 {
@@ -41,4 +42,23 @@ namespace ns_util
     }
   };
 
+
+  const char *const DICT_PATH = "./dict/jieba.dict.utf8";
+  const char *const HMM_PATH = "./dict/hmm_model.utf8";
+  const char *const USER_DICT_PATH = "./dict/user.dict.utf8";
+  const char *const IDF_PATH = "./dict/idf.utf8";
+  const char *const STOP_WORD_PATH = "./dict/stop_words.utf8";
+  class JiebaUtil
+  {
+  public:
+    static void CutString(const std::string &src, std::vector<std::string> *out)
+    {
+      jieba.CutForSearch(src, *out);
+    }
+
+  private:
+    static cppjieba::Jieba jieba;
+  };
+
+  cppjieba::Jieba JiebaUtil::jieba(DICT_PATH, HMM_PATH, USER_DICT_PATH, IDF_PATH, STOP_WORD_PATH);
 }
