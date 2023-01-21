@@ -6,6 +6,7 @@
 #include <mutex>
 #include <fstream>
 #include "util.hpp"
+#include <unistd.h>
 namespace ns_index
 {
   struct DocInfo
@@ -23,21 +24,17 @@ namespace ns_index
     int weight;       // 权重
   };
 
+  // 倒排拉链
+  typedef std::vector<InvertedElem> InvertedList;
   class Index
   {
 
   private:
     Index(){};
     ~Index(){};
-    Index(const Index& index) = delete;
-    Index& operator=(const Index&) = delete;
- // public:
- //   Index(){};
- //   ~Index(){};
+    Index(const Index &index) = delete;
+    Index &operator=(const Index &) = delete;
 
-  public:
-    // 倒排拉链
-    typedef std::vector<InvertedElem> InvertedList;
   public:
     // 根据 id 找到文档内容
     DocInfo *GetForwardIndex(uint64_t id)
@@ -54,7 +51,14 @@ namespace ns_index
     // 根据关键子找到倒排拉链
     InvertedList *GetInvertedList(const std::string &key)
     {
+
+      if (inverted_index.empty())
+      {
+        std::cout << "我们好像是空的" << std::endl;
+      }
+      // std::cout << key << std::endl;
       auto it = inverted_index.find(key);
+
       if (it == inverted_index.end())
       {
         std::cerr << key << "没有倒排拉链" << std::endl;
@@ -74,6 +78,7 @@ namespace ns_index
         return false;
       }
       std::string line;
+      int cnt = 0;
       while (std::getline(in, line))
       {
         // 这里添加到正牌索引中
@@ -86,6 +91,11 @@ namespace ns_index
 
         // 建立倒排索引
         BuildInvertedIndex(*doc);
+        cnt++;
+        if (cnt % 50 == 0)
+        {
+          std::cout << "当前已经建立的索引文档 " << cnt << std::endl;
+        }
       }
       return true;
     }
@@ -112,16 +122,17 @@ namespace ns_index
       doc.content = results[1];
       doc.url = results[2];
       doc.doc_id = forward_index.size(); // 注意这里
-      
+
       // push
       forward_index.push_back(std::move(doc));
       return &forward_index.back();
-    } 
+    }
 
     // 建立倒排索引
     bool BuildInvertedIndex(const DocInfo &doc)
     {
-      struct word_cnt {
+      struct word_cnt
+      {
         int title_cnt = 0;
         int content_cnt = 0;
       };
@@ -132,7 +143,7 @@ namespace ns_index
       std::vector<std::string> title_words;
       ns_util::JiebaUtil::CutString(doc.title, &title_words);
 
-      for(auto s:title_words)
+      for (auto s : title_words)
       {
         // 转成小写
         boost::to_lower(s);
@@ -142,29 +153,35 @@ namespace ns_index
       // 这里是内容
       std::vector<std::string> content_words;
       ns_util::JiebaUtil::CutString(doc.title, &content_words);
-      for(auto s:content_words)
+      for (auto s : content_words)
       {
         boost::to_lower(s);
         word_map[s].content_cnt++;
       }
 
-
       // 构建拉链
-      for(auto& word_pair:word_map)
+      for (auto &word_pair : word_map)
       {
         InvertedElem item;
         item.doc_id = doc.doc_id;
         item.word = word_pair.first;
+
 #define X 10
 #define Y 1
-        item.weight = X*word_pair.second.title_cnt + Y*word_pair.second.content_cnt;
-
+        item.weight = X * word_pair.second.title_cnt + Y * word_pair.second.content_cnt;
 
         // 插入倒排索引
-        inverted_index[item.word].push_back(std::move(item));
+        // if (word_pair.first == "filesystem")
+        // {
+        //   std::cout << "---------------------------" << std::endl;
+        //   sleep(10);
+        //   std::cout << "---------------------------" << std::endl;
+        // }
+        InvertedList &l = inverted_index[word_pair.first];
+        l.push_back(std::move(item));
+        //.push_back(std::move(item));
         // 根据权重进行排序
       }
-
 
       return true;
     }
@@ -174,16 +191,18 @@ namespace ns_index
     std::vector<DocInfo> forward_index;
     // 倒排索引 -- 关键字 找道文档id ,id可能有多个
     std::unordered_map<std::string, InvertedList> inverted_index;
+
   public:
-    static Index* instance;
+    static Index *instance;
     static std::mutex mtx;
+
   public:
-    static Index* GetInstance()
+    static Index *GetInstance()
     {
-      if(nullptr == instance)
+      if (nullptr == instance)
       {
         mtx.lock();
-        if(nullptr == instance)
+        if (nullptr == instance)
         {
           instance = new Index();
         }
@@ -194,6 +213,6 @@ namespace ns_index
     }
   };
 
-
-  Index* Index::instance = nullptr;
+  Index *Index::instance = nullptr;
+  std::mutex Index::mtx;
 }
