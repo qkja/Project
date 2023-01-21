@@ -3,9 +3,9 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
+#include <mutex>
 #include <fstream>
 #include "util.hpp"
-
 namespace ns_index
 {
   struct DocInfo
@@ -26,9 +26,14 @@ namespace ns_index
   class Index
   {
 
-  public:
+  private:
     Index(){};
     ~Index(){};
+    Index(const Index& index) = delete;
+    Index& operator=(const Index&) = delete;
+ // public:
+ //   Index(){};
+ //   ~Index(){};
 
   public:
     // 倒排拉链
@@ -169,5 +174,26 @@ namespace ns_index
     std::vector<DocInfo> forward_index;
     // 倒排索引 -- 关键字 找道文档id ,id可能有多个
     std::unordered_map<std::string, InvertedList> inverted_index;
+  public:
+    static Index* instance;
+    static std::mutex mtx;
+  public:
+    static Index* GetInstance()
+    {
+      if(nullptr == instance)
+      {
+        mtx.lock();
+        if(nullptr == instance)
+        {
+          instance = new Index();
+        }
+        mtx.unlock();
+      }
+
+      return instance;
+    }
   };
+
+
+  Index* Index::instance = nullptr;
 }
