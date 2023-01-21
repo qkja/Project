@@ -67,7 +67,8 @@ namespace ns_srearchre
         // 找到id 序列化和反序列化
         Json::Value elem;
         elem["title"] = doc->title;
-        elem["desc"] = doc->content; // 我们想要的是一部分,这个需要特殊处理
+        // elem["desc"] = doc->content; // 我们想要的是一部分,这个需要特殊处理
+        elem["desc"] = GetDesc(doc->content, item.word); // 我们想要的是一部分,这个需要特殊处理
         elem["url"] = doc->url;
 
         root.append(elem);
@@ -75,6 +76,47 @@ namespace ns_srearchre
 
       Json::StyledWriter writer;
       *json_string = writer.write(root);
+    }
+
+  private:
+    std::string GetDesc(const std::string &content, const std::string &word)
+    {
+
+      const std::size_t prev_step = 50;
+      const std::size_t next_step = 100;
+      std::size_t pos = content.find(word);
+      // std::cout << "1111111111111111" << std::endl;
+      if (pos == std::string::npos)
+      {
+        return "None";
+      }
+      // std::cout << "2222222222222222222222" << std::endl;
+
+      std::size_t start = 0;
+      std::size_t end = content.size() - 1;
+      if (pos - start > prev_step)
+      {
+        start = pos - prev_step;
+      }
+      if (next_step + pos < end)
+      {
+        end = pos + next_step;
+      }
+      // std::cout << "1111111111111111" << std::endl;
+      //  std::cout << "1111111111111111" << std::endl;
+
+      if (start >= end)
+      {
+        // std::cout << start << std::endl;
+        // std::cout << end << std::endl;
+
+        // std::cout << "3333333333333333333333333" << std::endl;
+
+        return "None";
+      }
+      // std::cout << "1111111111111111" << std::endl;
+
+      return content.substr(start, end - start + 1);
     }
 
   private:
