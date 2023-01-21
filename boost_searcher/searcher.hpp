@@ -11,7 +11,9 @@ namespace ns_srearchre
       void InitSearcher(const std::string& input)
       {
         // 1.获取对象
+        index = ns_index::Index::GetInstance(); // 饱含模式
         // 2. 建立索引
+        index->BuildIndex(input);
       }
 
       void Search(const std::string& query, std::string* json_string)
