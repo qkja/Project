@@ -82,18 +82,32 @@ namespace ns_srearchre
     std::string GetDesc(const std::string &content, const std::string &word)
     {
 
-      const std::size_t prev_step = 50;
-      const std::size_t next_step = 100;
-      std::size_t pos = content.find(word);
-      // std::cout << "1111111111111111" << std::endl;
-      if (pos == std::string::npos)
+      //const std::size_t prev_step = 50;
+      //const std::size_t next_step = 100;
+
+      const int prev_step = 50;
+      const int next_step = 100;
+      auto iter = std::search(content.begin(), content.end(), word.begin(), word.end(),
+          [](int x, int y){return (std::tolower(x) == std::tolower(y));});
+
+
+      if(iter == content.end())
       {
-        return "None";
+        return " None 3";
       }
+
+      int pos = std::distance(content.begin(),iter);
+
+      //std::size_t pos = content.find(word);
+      // std::cout << "1111111111111111" << std::endl;
+      //if (pos == std::string::npos)
+      //{
+      //  return "None1";
+      //}
       // std::cout << "2222222222222222222222" << std::endl;
 
-      std::size_t start = 0;
-      std::size_t end = content.size() - 1;
+      int start = 0;
+      int end = content.size() - 1;
       if (pos - start > prev_step)
       {
         start = pos - prev_step;
@@ -112,7 +126,7 @@ namespace ns_srearchre
 
         // std::cout << "3333333333333333333333333" << std::endl;
 
-        return "None";
+        return "None2";
       }
       // std::cout << "1111111111111111" << std::endl;
 

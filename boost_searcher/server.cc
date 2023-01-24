@@ -6,7 +6,9 @@
  */
 #include "searcher.hpp"
 #include <string>
+#include <cstring>
 #include <iostream>
+#include <cstdio>
 
 const std::string input = "./data/raw_html/raw.txt";
 int main()
@@ -17,13 +19,15 @@ int main()
 
   std::string query;
   std::string json_string;
+  char buffer[1024];
   while (1)
   {
     std::cout << "Please Enter You Searcher# ";
-    std::cin >> query;
-
+    //std::cin >> query;    
     //std::cout << query << std::endl;
-
+    fgets(buffer, sizeof(buffer)-1, stdin);
+    buffer[strlen(buffer)-1] = '\0';
+    query = buffer;
     search->Search(query, &json_string);
 
     std::cout << json_string << std::endl;
