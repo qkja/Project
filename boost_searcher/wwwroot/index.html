@@ -1,11 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>boost 搜索引擎</title>
+  <style>
+    /* 去掉网页中的内外边距 */
+    * {
+      /* 设置外边距 */
+      margin: 0;
+      /* 设置内边距 */
+      padding: 0;
+    }
+
+    /* 将我们浏览到的内容是一一匹配的 */
+    html,
+    body {
+      height: 100%;
+    }
+
+    .container {
+      width: 800px;
+      margin: 0px auto;
+      margin-top: 15px;
+    }
+
+    .container .search {
+      /* 宽度于父标签保持一致 */
+      width: 100%;
+      /* 高度设置52 */
+      height: 52px;
+    }
+
+    .container .search input {
+      float: left;
+      width: 600px;
+      height: 50px;
+      /* 设置边框的属性 边框的宽度,颜色 */
+      border: 1px solid black;
+
+
+      /* 去掉输入的右边框 */
+      border-right: none;
+      /* 设置内边距, */
+      padding-left: 10px;
+      /* 设置字体的颜色和扬式 */
+      color: #ccc;
+      font-size: 15px;
+    }
+
+    .container .search button {
+      float: left;
+      width: 120px;
+      height: 52px;
+
+      /* 设置背景颜色 */
+      background-color: #4e6ef2;
+      /* 设置字体颜色 */
+      color: #ffff;
+
+      /* 设置字体大小 */
+      font-size: 19px;
+      /* 设置字体 */
+      font-family: Georgia, 'Times New Roman', Times, serif;
+
+    }
+
+
+
+    .container .result {
+      width: 100%;
+    }
+
+    .container .result .item {
+      /* 上边距 */
+      margin-top: 15px;
+
+    }
+
+    /* 标题 */
+    .container .result .item a {
+      display: block;
+
+      /* 标题的下划线 去掉 */
+      text-decoration: none;
+      /* 标题字体大小 */
+      font-size: 20px;
+      color: #4e6ef2;
+    }
+    .container .result .item a:hover{
+      text-decoration: underline;      
+    }
+
+    /* 内容 -- p标签 */
+    .container .result .item p {
+      margin-top: 5px;
+      font-size: 16px;
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+
+    /* 连接 */
+    .container .result .item i {
+      display: block;
+
+      /* 取消斜体风格 */
+      font-style: normal;
+
+      color: green;
+    }
+  </style>
 </head>
+
 <body>
   <div class="container">
     <div class="search">
@@ -46,4 +153,5 @@
     </div>
   </div>
 </body>
+
 </html>
