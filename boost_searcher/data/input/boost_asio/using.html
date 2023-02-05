@@ -89,8 +89,7 @@
           Win32 using MinGW.
         </li>
 <li class="listitem">
-          Win32 using Cygwin. (<code class="computeroutput"><span class="identifier">__USE_W32_SOCKETS</span></code>
-          must be defined.)
+          Win32 using Cygwin. (<code class="computeroutput">__USE_W32_SOCKETS</code> must be defined.)
         </li>
 </ul></div>
 <h4>
@@ -103,18 +102,17 @@
     </p>
 <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
-          Boost.System for the <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">system</span><span class="special">::</span><span class="identifier">error_code</span></code>
-          and <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">system</span><span class="special">::</span><span class="identifier">system_error</span></code> classes.
+          Boost.System for the <code class="computeroutput">boost::system::error_code</code> and <code class="computeroutput">boost::system::system_error</code>
+          classes.
         </li>
 <li class="listitem">
-          Boost.Coroutine (optional) if you use <a class="link" href="reference/spawn.html" title="spawn"><code class="computeroutput"><span class="identifier">spawn</span><span class="special">()</span></code></a>
+          Boost.Coroutine (optional) if you use <a class="link" href="reference/spawn.html" title="spawn"><code class="computeroutput">spawn()</code></a>
           to launch coroutines.
         </li>
 <li class="listitem">
-          Boost.Regex (optional) if you use any of the <a class="link" href="reference/read_until.html" title="read_until"><code class="computeroutput"><span class="identifier">read_until</span><span class="special">()</span></code></a>
-          or <a class="link" href="reference/async_read_until.html" title="async_read_until"><code class="computeroutput"><span class="identifier">async_read_until</span><span class="special">()</span></code></a>
-          overloads that take a <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">regex</span></code>
-          parameter.
+          Boost.Regex (optional) if you use any of the <a class="link" href="reference/read_until.html" title="read_until"><code class="computeroutput">read_until()</code></a>
+          or <a class="link" href="reference/async_read_until.html" title="async_read_until"><code class="computeroutput">async_read_until()</code></a>
+          overloads that take a <code class="computeroutput">boost::regex</code> parameter.
         </li>
 <li class="listitem">
           <a href="http://www.openssl.org" target="_top">OpenSSL</a> (optional) if you use
@@ -131,10 +129,10 @@
 <th align="left">Note</th>
 </tr>
 <tr><td align="left" valign="top"><p>
-        With MSVC or Borland C++ you may want to add <code class="computeroutput"><span class="special">-</span><span class="identifier">DBOOST_DATE_TIME_NO_LIB</span></code> and <code class="computeroutput"><span class="special">-</span><span class="identifier">DBOOST_REGEX_NO_LIB</span></code>
-        to your project settings to disable autolinking of the Boost.Date_Time and
-        Boost.Regex libraries respectively. Alternatively, you may choose to build
-        these libraries and link to them.
+        With MSVC or Borland C++ you may want to add <code class="computeroutput">-DBOOST_DATE_TIME_NO_LIB</code>
+        and <code class="computeroutput">-DBOOST_REGEX_NO_LIB</code> to your project settings to disable
+        autolinking of the Boost.Date_Time and Boost.Regex libraries respectively.
+        Alternatively, you may choose to build these libraries and link to them.
       </p></td></tr>
 </table></div>
 <h4>
@@ -147,11 +145,11 @@
       its examples by running the following command from the root of the Boost download
       package:
     </p>
-<pre class="programlisting">  b2 --with-system --with-thread --with-date_time --with-regex --with-serialization stage
+<pre class="programlisting">b2 --with-system --with-thread --with-date_time --with-regex --with-serialization stage
 </pre>
 <p>
-      This assumes that you have already built <code class="computeroutput"><span class="identifier">b2</span></code>.
-      Consult the Boost.Build documentation for more details.
+      This assumes that you have already built <code class="computeroutput">b2</code>. Consult the Boost.Build
+      documentation for more details.
     </p>
 <h4>
 <a name="boost_asio.using.h3"></a>
@@ -161,14 +159,15 @@
 <p>
       By default, Boost.Asio is a header-only library. However, some developers may
       prefer to build Boost.Asio using separately compiled source code. To do this,
-      add <code class="computeroutput"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">asio</span><span class="special">/</span><span class="identifier">impl</span><span class="special">/</span><span class="identifier">src</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code> to one (and only one) source file in a
-      program, then build the program with <code class="computeroutput"><span class="identifier">BOOST_ASIO_SEPARATE_COMPILATION</span></code>
-      defined in the project/compiler settings. Alternatively, <code class="computeroutput"><span class="identifier">BOOST_ASIO_DYN_LINK</span></code>
+      add <code class="computeroutput">#include &lt;boost/asio/impl/src.hpp&gt;</code> to one (and only
+      one) source file in a program, then build the program with <code class="computeroutput">BOOST_ASIO_SEPARATE_COMPILATION</code>
+      defined in the project/compiler settings. Alternatively, <code class="computeroutput">BOOST_ASIO_DYN_LINK</code>
       may be defined to build a separately-compiled Boost.Asio as part of a shared
       library.
     </p>
 <p>
-      If using Boost.Asio's SSL support, you will also need to add <code class="computeroutput"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">asio</span><span class="special">/</span><span class="identifier">ssl</span><span class="special">/</span><span class="identifier">impl</span><span class="special">/</span><span class="identifier">src</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code>.
+      If using Boost.Asio's SSL support, you will also need to add <code class="computeroutput">#include
+      &lt;boost/asio/ssl/impl/src.hpp&gt;</code>.
     </p>
 <h4>
 <a name="boost_asio.using.h4"></a>
@@ -199,7 +198,7 @@
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_NO_DEPRECATED</span></code>
+                <code class="computeroutput">BOOST_ASIO_NO_DEPRECATED</code>
               </p>
             </td>
 <td>
@@ -216,7 +215,7 @@
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_NO_TS_EXECUTORS</span></code>
+                <code class="computeroutput">BOOST_ASIO_NO_TS_EXECUTORS</code>
               </p>
             </td>
 <td>
@@ -235,28 +234,26 @@
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_USE_TS_EXECUTOR_AS_DEFAULT</span></code>
+                <code class="computeroutput">BOOST_ASIO_USE_TS_EXECUTOR_AS_DEFAULT</code>
               </p>
             </td>
 <td>
               <p>
-                Specifies that <a class="link" href="reference/any_io_executor.html" title="any_io_executor"><code class="computeroutput"><span class="identifier">any_io_executor</span></code></a> refer to
-                the Networking TS-style polymorphic wrapper.
+                Specifies that <a class="link" href="reference/any_io_executor.html" title="any_io_executor"><code class="computeroutput">any_io_executor</code></a>
+                refer to the Networking TS-style polymorphic wrapper.
               </p>
               <p>
-                The <code class="computeroutput"><span class="identifier">any_io_executor</span></code>
-                type alias is the default runtime-polymorphic executor for all I/O
-                objects. This type alias points to the <a class="link" href="reference/execution__any_executor.html" title="execution::any_executor"><code class="computeroutput"><span class="identifier">execution</span><span class="special">::</span><span class="identifier">any_executor</span><span class="special">&lt;&gt;</span></code></a>
+                The <code class="computeroutput">any_io_executor</code> type alias is the default runtime-polymorphic
+                executor for all I/O objects. This type alias points to the <a class="link" href="reference/execution__any_executor.html" title="execution::any_executor"><code class="computeroutput">execution::any_executor&lt;&gt;</code></a>
                 template with a set of supportable properties specified for use with
                 I/O.
               </p>
               <p>
                 This new name may break existing code that directly uses the old
-                Networking TS-style polymorphic wrapper, <a class="link" href="reference/executor.html" title="executor"><code class="computeroutput"><span class="identifier">executor</span></code></a>. If required for
-                backward compatibility, <code class="computeroutput"><span class="identifier">BOOST_ASIO_USE_TS_EXECUTOR_AS_DEFAULT</span></code>
-                changes the <code class="computeroutput"><span class="identifier">any_io_executor</span></code>
-                type alias to instead point to the <code class="computeroutput"><span class="identifier">executor</span></code>
-                polymorphic wrapper.
+                Networking TS-style polymorphic wrapper, <a class="link" href="reference/executor.html" title="executor"><code class="computeroutput">executor</code></a>.
+                If required for backward compatibility, <code class="computeroutput">BOOST_ASIO_USE_TS_EXECUTOR_AS_DEFAULT</code>
+                changes the <code class="computeroutput">any_io_executor</code> type alias to instead point
+                to the <code class="computeroutput">executor</code> polymorphic wrapper.
               </p>
               <p>
                 See <a class="link" href="std_executors.html" title="Proposed Standard Executors">Proposed Standard Executors</a>
@@ -267,35 +264,38 @@
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_NO_DYNAMIC_BUFFER_V1</span></code>
+                <code class="computeroutput">BOOST_ASIO_NO_DYNAMIC_BUFFER_V1</code>
               </p>
             </td>
 <td>
               <p>
-                Disables support for the <a class="link" href="reference/DynamicBuffer_v1.html" title="Dynamic buffer requirements (version 1)"><code class="computeroutput"><span class="identifier">DynamicBuffer_v1</span></code></a> type requirements.
+                Disables support for the <a class="link" href="reference/DynamicBuffer_v1.html" title="Dynamic buffer requirements (version 1)"><code class="computeroutput">DynamicBuffer_v1</code></a>
+                type requirements.
               </p>
               <p>
-                By default, dynamic buffer operations such as <a class="link" href="reference/read.html" title="read"><code class="computeroutput"><span class="identifier">read</span></code></a>, <a class="link" href="reference/async_read.html" title="async_read"><code class="computeroutput"><span class="identifier">async_read</span></code></a>, <a class="link" href="reference/read_until.html" title="read_until"><code class="computeroutput"><span class="identifier">read_until</span></code></a>, <a class="link" href="reference/async_read_until.html" title="async_read_until"><code class="computeroutput"><span class="identifier">async_read_until</span></code></a>, <a class="link" href="reference/write.html" title="write"><code class="computeroutput"><span class="identifier">write</span></code></a>,
-                and <a class="link" href="reference/async_write.html" title="async_write"><code class="computeroutput"><span class="identifier">async_write</span></code></a> support both
-                the <code class="computeroutput"><span class="identifier">DynamicBuffer_v1</span></code>
-                and the <a class="link" href="reference/DynamicBuffer_v2.html" title="Dynamic buffer requirements (version 2)"><code class="computeroutput"><span class="identifier">DynamicBuffer_v2</span></code></a> type requirements
-                for dynamic buffers.
+                By default, dynamic buffer operations such as <a class="link" href="reference/read.html" title="read"><code class="computeroutput">read</code></a>,
+                <a class="link" href="reference/async_read.html" title="async_read"><code class="computeroutput">async_read</code></a>,
+                <a class="link" href="reference/read_until.html" title="read_until"><code class="computeroutput">read_until</code></a>,
+                <a class="link" href="reference/async_read_until.html" title="async_read_until"><code class="computeroutput">async_read_until</code></a>,
+                <a class="link" href="reference/write.html" title="write"><code class="computeroutput">write</code></a>,
+                and <a class="link" href="reference/async_write.html" title="async_write"><code class="computeroutput">async_write</code></a>
+                support both the <code class="computeroutput">DynamicBuffer_v1</code> and the <a class="link" href="reference/DynamicBuffer_v2.html" title="Dynamic buffer requirements (version 2)"><code class="computeroutput">DynamicBuffer_v2</code></a>
+                type requirements for dynamic buffers.
               </p>
               <p>
-                When <code class="computeroutput"><span class="identifier">BOOST_ASIO_NO_DYNAMIC_BUFFER_V1</span></code>
-                is defined, all support for <code class="computeroutput"><span class="identifier">DynamicBuffer_v1</span></code>
-                types and functions is #ifdef-ed out. Support for using <a class="link" href="reference/basic_streambuf.html" title="basic_streambuf"><code class="computeroutput"><span class="identifier">basic_streambuf</span></code></a> with the
-                <code class="computeroutput"><span class="identifier">read</span></code>, <code class="computeroutput"><span class="identifier">async_read</span></code>, <code class="computeroutput"><span class="identifier">read_until</span></code>,
-                <code class="computeroutput"><span class="identifier">async_read_until</span></code>,
-                <code class="computeroutput"><span class="identifier">write</span></code>, and <code class="computeroutput"><span class="identifier">async_write</span></code> functions is also disabled
-                as a consequence.
+                When <code class="computeroutput">BOOST_ASIO_NO_DYNAMIC_BUFFER_V1</code> is defined, all
+                support for <code class="computeroutput">DynamicBuffer_v1</code> types and functions is
+                #ifdef-ed out. Support for using <a class="link" href="reference/basic_streambuf.html" title="basic_streambuf"><code class="computeroutput">basic_streambuf</code></a>
+                with the <code class="computeroutput">read</code>, <code class="computeroutput">async_read</code>, <code class="computeroutput">read_until</code>,
+                <code class="computeroutput">async_read_until</code>, <code class="computeroutput">write</code>, and <code class="computeroutput">async_write</code>
+                functions is also disabled as a consequence.
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_ENABLE_BUFFER_DEBUGGING</span></code>
+                <code class="computeroutput">BOOST_ASIO_ENABLE_BUFFER_DEBUGGING</code>
               </p>
             </td>
 <td>
@@ -308,21 +308,20 @@
               <p>
                 When using Microsoft Visual C++ 11.0 or later, this macro is defined
                 automatically if the compiler's iterator debugging support is enabled,
-                unless <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_BUFFER_DEBUGGING</span></code>
-                has been defined.
+                unless <code class="computeroutput">BOOST_ASIO_DISABLE_BUFFER_DEBUGGING</code> has been
+                defined.
               </p>
               <p>
                 When using g++, this macro is defined automatically if standard library
-                debugging is enabled (<code class="computeroutput"><span class="identifier">_GLIBCXX_DEBUG</span></code>
-                is defined), unless <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_BUFFER_DEBUGGING</span></code>
-                has been defined.
+                debugging is enabled (<code class="computeroutput">_GLIBCXX_DEBUG</code> is defined), unless
+                <code class="computeroutput">BOOST_ASIO_DISABLE_BUFFER_DEBUGGING</code> has been defined.
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_BUFFER_DEBUGGING</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_BUFFER_DEBUGGING</code>
               </p>
             </td>
 <td>
@@ -334,7 +333,7 @@
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_ENABLE_HANDLER_TRACKING</span></code>
+                <code class="computeroutput">BOOST_ASIO_ENABLE_HANDLER_TRACKING</code>
               </p>
             </td>
 <td>
@@ -347,76 +346,72 @@
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_DEV_POLL</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_DEV_POLL</code>
               </p>
             </td>
 <td>
               <p>
                 Explicitly disables <code class="literal">/dev/poll</code> support on Solaris,
-                forcing the use of a <code class="computeroutput"><span class="identifier">select</span></code>-based
-                implementation.
+                forcing the use of a <code class="computeroutput">select</code>-based implementation.
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_EPOLL</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_EPOLL</code>
               </p>
             </td>
 <td>
               <p>
-                Explicitly disables <code class="computeroutput"><span class="identifier">epoll</span></code>
-                support on Linux, forcing the use of a <code class="computeroutput"><span class="identifier">select</span></code>-based
-                implementation.
-              </p>
-            </td>
-</tr>
-<tr>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_EVENTFD</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                Explicitly disables <code class="computeroutput"><span class="identifier">eventfd</span></code>
-                support on Linux, forcing the use of a pipe to interrupt blocked
-                epoll/select system calls.
+                Explicitly disables <code class="computeroutput">epoll</code> support on Linux, forcing
+                the use of a <code class="computeroutput">select</code>-based implementation.
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_KQUEUE</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_EVENTFD</code>
               </p>
             </td>
 <td>
               <p>
-                Explicitly disables <code class="computeroutput"><span class="identifier">kqueue</span></code>
-                support on macOS and BSD variants, forcing the use of a <code class="computeroutput"><span class="identifier">select</span></code>-based implementation.
+                Explicitly disables <code class="computeroutput">eventfd</code> support on Linux, forcing
+                the use of a pipe to interrupt blocked epoll/select system calls.
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_IOCP</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_KQUEUE</code>
+              </p>
+            </td>
+<td>
+              <p>
+                Explicitly disables <code class="computeroutput">kqueue</code> support on macOS and BSD
+                variants, forcing the use of a <code class="computeroutput">select</code>-based implementation.
+              </p>
+            </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_IOCP</code>
               </p>
             </td>
 <td>
               <p>
                 Explicitly disables I/O completion ports support on Windows, forcing
-                the use of a <code class="computeroutput"><span class="identifier">select</span></code>-based
-                implementation.
+                the use of a <code class="computeroutput">select</code>-based implementation.
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_THREADS</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_THREADS</code>
               </p>
             </td>
 <td>
@@ -429,40 +424,37 @@
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_NO_WIN32_LEAN_AND_MEAN</span></code>
+                <code class="computeroutput">BOOST_ASIO_NO_WIN32_LEAN_AND_MEAN</code>
               </p>
             </td>
 <td>
               <p>
-                By default, Boost.Asio will automatically define <code class="computeroutput"><span class="identifier">WIN32_LEAN_AND_MEAN</span></code>
+                By default, Boost.Asio will automatically define <code class="computeroutput">WIN32_LEAN_AND_MEAN</code>
                 when compiling for Windows, to minimise the number of Windows SDK
-                header files and features that are included. The presence of <code class="computeroutput"><span class="identifier">BOOST_ASIO_NO_WIN32_LEAN_AND_MEAN</span></code>
-                prevents <code class="computeroutput"><span class="identifier">WIN32_LEAN_AND_MEAN</span></code>
-                from being defined.
+                header files and features that are included. The presence of <code class="computeroutput">BOOST_ASIO_NO_WIN32_LEAN_AND_MEAN</code>
+                prevents <code class="computeroutput">WIN32_LEAN_AND_MEAN</code> from being defined.
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_NO_NOMINMAX</span></code>
+                <code class="computeroutput">BOOST_ASIO_NO_NOMINMAX</code>
               </p>
             </td>
 <td>
               <p>
-                By default, Boost.Asio will automatically define <code class="computeroutput"><span class="identifier">NOMINMAX</span></code>
-                when compiling for Windows, to suppress the definition of the <code class="computeroutput"><span class="identifier">min</span><span class="special">()</span></code>
-                and <code class="computeroutput"><span class="identifier">max</span><span class="special">()</span></code>
-                macros. The presence of <code class="computeroutput"><span class="identifier">BOOST_ASIO_NO_NOMINMAX</span></code>
-                prevents <code class="computeroutput"><span class="identifier">NOMINMAX</span></code>
-                from being defined.
+                By default, Boost.Asio will automatically define <code class="computeroutput">NOMINMAX</code>
+                when compiling for Windows, to suppress the definition of the <code class="computeroutput">min()</code>
+                and <code class="computeroutput">max()</code> macros. The presence of <code class="computeroutput">BOOST_ASIO_NO_NOMINMAX</code>
+                prevents <code class="computeroutput">NOMINMAX</code> from being defined.
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_NO_DEFAULT_LINKED_LIBS</span></code>
+                <code class="computeroutput">BOOST_ASIO_NO_DEFAULT_LINKED_LIBS</code>
               </p>
             </td>
 <td>
@@ -471,7 +463,7 @@
                 C++, Boost.Asio will automatically link in the necessary Windows
                 SDK libraries for sockets support (i.e. <code class="literal">ws2_32.lib</code>
                 and <code class="literal">mswsock.lib</code>, or <code class="literal">ws2.lib</code>
-                when building for Windows CE). The <code class="computeroutput"><span class="identifier">BOOST_ASIO_NO_DEFAULT_LINKED_LIBS</span></code>
+                when building for Windows CE). The <code class="computeroutput">BOOST_ASIO_NO_DEFAULT_LINKED_LIBS</code>
                 macro prevents these libraries from being linked.
               </p>
             </td>
@@ -479,117 +471,105 @@
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_ENABLE_CANCELIO</span></code>
+                <code class="computeroutput">BOOST_ASIO_ENABLE_CANCELIO</code>
               </p>
             </td>
 <td>
               <p>
-                Enables use of the <code class="computeroutput"><span class="identifier">CancelIo</span></code>
-                function on older versions of Windows. If not enabled, calls to
-                <code class="computeroutput"><span class="identifier">cancel</span><span class="special">()</span></code>
-                on a socket object will always fail with <code class="computeroutput"><span class="identifier">asio</span><span class="special">::</span><span class="identifier">error</span><span class="special">::</span><span class="identifier">operation_not_supported</span></code>
+                Enables use of the <code class="computeroutput">CancelIo</code> function on older versions
+                of Windows. If not enabled, calls to <code class="computeroutput">cancel()</code> on a socket
+                object will always fail with <code class="computeroutput">asio::error::operation_not_supported</code>
                 when run on Windows XP, Windows Server 2003, and earlier versions
                 of Windows. When running on Windows Vista, Windows Server 2008, and
-                later, the <code class="computeroutput"><span class="identifier">CancelIoEx</span></code>
-                function is always used.
+                later, the <code class="computeroutput">CancelIoEx</code> function is always used.
               </p>
               <p>
-                The <code class="computeroutput"><span class="identifier">CancelIo</span></code> function
-                has two issues that should be considered before enabling its use:
+                The <code class="computeroutput">CancelIo</code> function has two issues that should be
+                considered before enabling its use:
               </p>
-              <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
-<li class="listitem">
-                    It will only cancel asynchronous operations that were initiated
-                    in the current thread.
-                  </li>
-<li class="listitem">
-<p class="simpara">
-                    It can appear to complete without error, but the request to cancel
-                    the unfinished operations may be silently ignored by the operating
-                    system. Whether it works or not seems to depend on the drivers
-                    that are installed.
-                  </p>
-<p class="simpara">
-                    For portable cancellation, consider using one of the following
-                    alternatives:
-                  </p>
-</li>
-<li class="listitem">
-                    Disable asio's I/O completion port backend by defining BOOST_ASIO_DISABLE_IOCP.
-                  </li>
-<li class="listitem">
-                    Use the socket object's close() function to simultaneously cancel
-                    the outstanding operations and close the socket.
-                  </li>
-</ul></div>
-            </td>
-</tr>
-<tr>
-<td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_NO_TYPEID</span></code>
+                * It will only cancel asynchronous operations that were initiated
+                in the current thread.
               </p>
-            </td>
-<td>
               <p>
-                Disables uses of the <code class="computeroutput"><span class="keyword">typeid</span></code>
-                operator in Boost.Asio. Defined automatically if <code class="computeroutput"><span class="identifier">BOOST_NO_TYPEID</span></code>
-                is defined.
+                * It can appear to complete without error, but the request to cancel
+                the unfinished operations may be silently ignored by the operating
+                system. Whether it works or not seems to depend on the drivers that
+                are installed.
+              </p>
+              <p>
+                For portable cancellation, consider using one of the following alternatives:
+              </p>
+              <p>
+                * Disable asio's I/O completion port backend by defining BOOST_ASIO_DISABLE_IOCP.
+              </p>
+              <p>
+                * Use the socket object's close() function to simultaneously cancel
+                the outstanding operations and close the socket.
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HASH_MAP_BUCKETS</span></code>
+                <code class="computeroutput">BOOST_ASIO_NO_TYPEID</code>
               </p>
             </td>
 <td>
               <p>
-                Determines the number of buckets in Boost.Asio's internal <code class="computeroutput"><span class="identifier">hash_map</span></code> objects. The value should
-                be a comma separated list of prime numbers, in ascending order. The
-                <code class="computeroutput"><span class="identifier">hash_map</span></code> implementation
-                will automatically increase the number of buckets as the number of
-                elements in the map increases.
+                Disables uses of the <code class="computeroutput">typeid</code> operator in Boost.Asio.
+                Defined automatically if <code class="computeroutput">BOOST_NO_TYPEID</code> is defined.
+              </p>
+            </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput">BOOST_ASIO_HASH_MAP_BUCKETS</code>
+              </p>
+            </td>
+<td>
+              <p>
+                Determines the number of buckets in Boost.Asio's internal <code class="computeroutput">hash_map</code>
+                objects. The value should be a comma separated list of prime numbers,
+                in ascending order. The <code class="computeroutput">hash_map</code> implementation will
+                automatically increase the number of buckets as the number of elements
+                in the map increases.
               </p>
               <p>
                 Some examples:
               </p>
-              <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
-<li class="listitem">
-                    Defining <code class="computeroutput"><span class="identifier">BOOST_ASIO_HASH_MAP_BUCKETS</span></code>
-                    to <code class="computeroutput"><span class="number">1021</span></code> means that
-                    the <code class="computeroutput"><span class="identifier">hash_map</span></code>
-                    objects will always contain 1021 buckets, irrespective of the
-                    number of elements in the map.
-                  </li>
-<li class="listitem">
-                    Defining <code class="computeroutput"><span class="identifier">BOOST_ASIO_HASH_MAP_BUCKETS</span></code>
-                    to <code class="computeroutput"><span class="number">53</span><span class="special">,</span><span class="number">389</span><span class="special">,</span><span class="number">1543</span></code> means that the <code class="computeroutput"><span class="identifier">hash_map</span></code> objects will initially
-                    contain 53 buckets. The number of buckets will be increased to
-                    389 and then 1543 as elements are added to the map.
-                  </li>
-</ul></div>
-            </td>
-</tr>
-<tr>
-<td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_USE_BOOST_DATE_TIME_FOR_SOCKET_IOSTREAM</span></code>
+                * Defining <code class="computeroutput">BOOST_ASIO_HASH_MAP_BUCKETS</code> to <code class="computeroutput">1021</code>
+                means that the <code class="computeroutput">hash_map</code> objects will always contain
+                1021 buckets, irrespective of the number of elements in the map.
               </p>
-            </td>
-<td>
               <p>
-                Changes <a class="link" href="reference/basic_socket_streambuf.html" title="basic_socket_streambuf"><code class="computeroutput"><span class="identifier">basic_socket_streambuf</span></code></a> and
-                <a class="link" href="reference/basic_socket_iostream.html" title="basic_socket_iostream"><code class="computeroutput"><span class="identifier">basic_socket_iostream</span></code></a> to
-                use the old Boost.Date_Time interface, rather than chrono.
+                * Defining <code class="computeroutput">BOOST_ASIO_HASH_MAP_BUCKETS</code> to <code class="computeroutput">53,389,1543</code>
+                means that the <code class="computeroutput">hash_map</code> objects will initially contain
+                53 buckets. The number of buckets will be increased to 389 and then
+                1543 as elements are added to the map.
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_SEPARATE_COMPILATION</span></code>
+                <code class="computeroutput">BOOST_ASIO_USE_BOOST_DATE_TIME_FOR_SOCKET_IOSTREAM</code>
+              </p>
+            </td>
+<td>
+              <p>
+                Changes <a class="link" href="reference/basic_socket_streambuf.html" title="basic_socket_streambuf"><code class="computeroutput">basic_socket_streambuf</code></a>
+                and <a class="link" href="reference/basic_socket_iostream.html" title="basic_socket_iostream"><code class="computeroutput">basic_socket_iostream</code></a>
+                to use the old Boost.Date_Time interface, rather than chrono.
+              </p>
+            </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput">BOOST_ASIO_SEPARATE_COMPILATION</code>
               </p>
             </td>
 <td>
@@ -605,7 +585,7 @@
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DYN_LINK</span></code>
+                <code class="computeroutput">BOOST_ASIO_DYN_LINK</code>
               </p>
             </td>
 <td>
@@ -622,7 +602,7 @@
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_VISIBILITY</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_VISIBILITY</code>
               </p>
             </td>
 <td>
@@ -645,20 +625,20 @@
 <p>
       Asio automatically defines preprocessor macros corresponding to the detected
       available features on a particular compiler and target platform. These macros
-      are named with the prefix <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_</span></code>,
-      and are listed in the table below.
+      are named with the prefix <code class="computeroutput">BOOST_ASIO_HAS_</code>, and are listed in the
+      table below.
     </p>
 <p>
-      Many of these macros also have a corresponding <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_</span></code>
+      Many of these macros also have a corresponding <code class="computeroutput">BOOST_ASIO_DISABLE_</code>
       macro that may be used to explicitly disable the feature.
     </p>
 <p>
-      In general, <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_</span></code>
-      macros should not be explicitly defined by the user, except when absolutely
-      required as a workaround for the latest version of a compiler or platform.
-      For older compiler/platform combinations where a specific <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_</span></code>
-      macro is not automatically defined, testing may have shown that a claimed feature
-      isn't sufficiently conformant to be compatible with Boost.Asio's needs.
+      In general, <code class="computeroutput">BOOST_ASIO_HAS_</code> macros should not be explicitly defined
+      by the user, except when absolutely required as a workaround for the latest
+      version of a compiler or platform. For older compiler/platform combinations
+      where a specific <code class="computeroutput">BOOST_ASIO_HAS_</code> macro is not automatically defined,
+      testing may have shown that a claimed feature isn't sufficiently conformant
+      to be compatible with Boost.Asio's needs.
     </p>
 <div class="informaltable"><table class="table">
 <colgroup>
@@ -687,7 +667,7 @@
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_ALIAS_TEMPLATES</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_ALIAS_TEMPLATES</code>
               </p>
             </td>
 <td>
@@ -697,14 +677,31 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_ALIAS_TEMPLATES</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_ALIAS_TEMPLATES</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_ALIGNOF</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_ALIGNED_NEW</code>
+              </p>
+            </td>
+<td>
+              <p>
+                Support for operator new with alignment argument.
+              </p>
+            </td>
+<td>
+              <p>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_ALIGNED_NEW</code>
+              </p>
+            </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput">BOOST_ASIO_HAS_ALIGNOF</code>
               </p>
             </td>
 <td>
@@ -714,14 +711,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_ALIGNOF</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_ALIGNOF</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_BOOST_ALIGN</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_BOOST_ALIGN</code>
               </p>
             </td>
 <td>
@@ -731,14 +728,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_BOOST_ALIGN</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_BOOST_ALIGN</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_BOOST_ARRAY</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_BOOST_ARRAY</code>
               </p>
             </td>
 <td>
@@ -748,14 +745,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_BOOST_ARRAY</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_BOOST_ARRAY</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_BOOST_ASSERT</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_BOOST_ASSERT</code>
               </p>
             </td>
 <td>
@@ -765,14 +762,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_BOOST_ASSERT</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_BOOST_ASSERT</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_BOOST_BIND</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_BOOST_BIND</code>
               </p>
             </td>
 <td>
@@ -782,14 +779,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_BOOST_BIND</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_BOOST_BIND</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_BOOST_CHRONO</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_BOOST_CHRONO</code>
               </p>
             </td>
 <td>
@@ -799,20 +796,17 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_BOOST_CHRONO</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_BOOST_CHRONO</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_BOOST_CONFIG</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_BOOST_CONFIG</code>
               </p>
             </td>
 <td>
-              <p>
-                Boost.Config library is available.
-              </p>
             </td>
 <td>
             </td>
@@ -820,41 +814,7 @@
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_BOOST_CONTEXT_FIBER</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                Boost support for the Context library's fibers.
-              </p>
-            </td>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_BOOST_CONTEXT_FIBER</span></code>
-              </p>
-            </td>
-</tr>
-<tr>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_BOOST_COROUTINE</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                Boost support for the Coroutine library.
-              </p>
-            </td>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_BOOST_COROUTINE</span></code>
-              </p>
-            </td>
-</tr>
-<tr>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_BOOST_DATE_TIME</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_BOOST_DATE_TIME</code>
               </p>
             </td>
 <td>
@@ -864,14 +824,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_BOOST_DATE_TIME</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_BOOST_DATE_TIME</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_BOOST_LIMITS</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_BOOST_LIMITS</code>
               </p>
             </td>
 <td>
@@ -881,14 +841,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_BOOST_LIMITS</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_BOOST_LIMITS</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_BOOST_REGEX</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_BOOST_REGEX</code>
               </p>
             </td>
 <td>
@@ -898,31 +858,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_BOOST_REGEX</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_BOOST_REGEX</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_BOOST_SOURCE_LOCATION</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                Boost support for source_location and system errors.
-              </p>
-            </td>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_BOOST_SOURCE_LOCATION</span></code>
-              </p>
-            </td>
-</tr>
-<tr>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_BOOST_THROW_EXCEPTION</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_BOOST_THROW_EXCEPTION</code>
               </p>
             </td>
 <td>
@@ -932,14 +875,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_BOOST_THROW_EXCEPTION</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_BOOST_THROW_EXCEPTION</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_BOOST_WORKAROUND</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_BOOST_WORKAROUND</code>
               </p>
             </td>
 <td>
@@ -949,14 +892,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_BOOST_WORKAROUND</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_BOOST_WORKAROUND</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_CHRONO</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_CHRONO</code>
               </p>
             </td>
 <td>
@@ -970,7 +913,7 @@
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_CLANG_LIBCXX</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_CLANG_LIBCXX</code>
               </p>
             </td>
 <td>
@@ -984,7 +927,7 @@
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_CONCEPTS</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_CONCEPTS</code>
               </p>
             </td>
 <td>
@@ -994,14 +937,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_CONCEPTS</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_CONCEPTS</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_CONSTANT_EXPRESSION_SFINAE</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_CONSTANT_EXPRESSION_SFINAE</code>
               </p>
             </td>
 <td>
@@ -1012,14 +955,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_CONSTANT_EXPRESSION_SFINAE</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_CONSTANT_EXPRESSION_SFINAE</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_CONSTEXPR</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_CONSTEXPR</code>
               </p>
             </td>
 <td>
@@ -1029,14 +972,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_CONSTEXPR</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_CONSTEXPR</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_CO_AWAIT</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_CO_AWAIT</code>
               </p>
             </td>
 <td>
@@ -1046,14 +989,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_CO_AWAIT</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_CO_AWAIT</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_CSTDINT</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_CSTDINT</code>
               </p>
             </td>
 <td>
@@ -1063,14 +1006,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_CSTDINT</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_CSTDINT</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_CXX11_ALLOCATORS</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_CXX11_ALLOCATORS</code>
               </p>
             </td>
 <td>
@@ -1080,14 +1023,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_CXX11_ALLOCATORS</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_CXX11_ALLOCATORS</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_DECLTYPE</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_DECLTYPE</code>
               </p>
             </td>
 <td>
@@ -1097,14 +1040,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_DECLTYPE</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_DECLTYPE</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_DEFAULT_FUNCTION_TEMPLATE_ARGUMENTS</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_DEFAULT_FUNCTION_TEMPLATE_ARGUMENTS</code>
               </p>
             </td>
 <td>
@@ -1115,14 +1058,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_DEFAULT_FUNCTION_TEMPLATE_ARGUMENTS</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_DEFAULT_FUNCTION_TEMPLATE_ARGUMENTS</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_DEV_POLL</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_DEV_POLL</code>
               </p>
             </td>
 <td>
@@ -1132,31 +1075,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_DEV_POLL</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_DEV_POLL</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_ENUM_CLASS</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                Support enum classes on compilers known to allow them.
-              </p>
-            </td>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_ENUM_CLASS</span></code>
-              </p>
-            </td>
-</tr>
-<tr>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_EPOLL</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_EPOLL</code>
               </p>
             </td>
 <td>
@@ -1166,14 +1092,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_EPOLL</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_EPOLL</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_EVENTFD</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_EVENTFD</code>
               </p>
             </td>
 <td>
@@ -1183,31 +1109,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_EVENTFD</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_EVENTFD</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_FILE</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                Files.
-              </p>
-            </td>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_FILE</span></code>
-              </p>
-            </td>
-</tr>
-<tr>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_GETADDRINFO</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_GETADDRINFO</code>
               </p>
             </td>
 <td>
@@ -1217,14 +1126,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_GETADDRINFO</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_GETADDRINFO</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_HANDLER_HOOKS</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_HANDLER_HOOKS</code>
               </p>
             </td>
 <td>
@@ -1234,14 +1143,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_HANDLER_HOOKS</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_HANDLER_HOOKS</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_IOCP</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_IOCP</code>
               </p>
             </td>
 <td>
@@ -1251,28 +1160,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_IOCP</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_IOCP</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_IO_URING_AS_DEFAULT</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                Linux: io_uring is used instead of epoll.
-              </p>
-            </td>
-<td>
-            </td>
-</tr>
-<tr>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_KQUEUE</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_KQUEUE</code>
               </p>
             </td>
 <td>
@@ -1282,14 +1177,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_KQUEUE</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_KQUEUE</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_LOCAL_SOCKETS</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_LOCAL_SOCKETS</code>
               </p>
             </td>
 <td>
@@ -1299,14 +1194,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_LOCAL_SOCKETS</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_LOCAL_SOCKETS</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_MOVE</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_MOVE</code>
               </p>
             </td>
 <td>
@@ -1317,14 +1212,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_MOVE</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_MOVE</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_MSG_NOSIGNAL</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_MSG_NOSIGNAL</code>
               </p>
             </td>
 <td>
@@ -1338,7 +1233,7 @@
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_NOEXCEPT</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_NOEXCEPT</code>
               </p>
             </td>
 <td>
@@ -1348,31 +1243,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_NOEXCEPT</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_NOEXCEPT</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_NOEXCEPT_FUNCTION_TYPE</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                Support noexcept on function types on compilers known to allow it.
-              </p>
-            </td>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_NOEXCEPT_FUNCTION_TYPE</span></code>
-              </p>
-            </td>
-</tr>
-<tr>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_NULLPTR</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_NULLPTR</code>
               </p>
             </td>
 <td>
@@ -1382,31 +1260,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_NULLPTR</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_NULLPTR</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_PIPE</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                Pipes.
-              </p>
-            </td>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_PIPE</span></code>
-              </p>
-            </td>
-</tr>
-<tr>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_POSIX_STREAM_DESCRIPTOR</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_POSIX_STREAM_DESCRIPTOR</code>
               </p>
             </td>
 <td>
@@ -1416,14 +1277,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_POSIX_STREAM_DESCRIPTOR</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_POSIX_STREAM_DESCRIPTOR</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_PTHREADS</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_PTHREADS</code>
               </p>
             </td>
 <td>
@@ -1437,7 +1298,7 @@
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_REF_QUALIFIED_FUNCTIONS</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_REF_QUALIFIED_FUNCTIONS</code>
               </p>
             </td>
 <td>
@@ -1447,14 +1308,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_REF_QUALIFIED_FUNCTIONS</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_REF_QUALIFIED_FUNCTIONS</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_RETURN_TYPE_DEDUCTION</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_RETURN_TYPE_DEDUCTION</code>
               </p>
             </td>
 <td>
@@ -1464,14 +1325,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_RETURN_TYPE_DEDUCTION</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_RETURN_TYPE_DEDUCTION</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_SECURE_RTL</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_SECURE_RTL</code>
               </p>
             </td>
 <td>
@@ -1481,14 +1342,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_SECURE_RTL</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_SECURE_RTL</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_SERIAL_PORT</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_SERIAL_PORT</code>
               </p>
             </td>
 <td>
@@ -1498,14 +1359,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_SERIAL_PORT</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_SERIAL_PORT</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_SFINAE_VARIABLE_TEMPLATES</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_SFINAE_VARIABLE_TEMPLATES</code>
               </p>
             </td>
 <td>
@@ -1515,14 +1376,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_SFINAE_VARIABLE_TEMPLATES</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_SFINAE_VARIABLE_TEMPLATES</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_SIGACTION</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_SIGACTION</code>
               </p>
             </td>
 <td>
@@ -1532,14 +1393,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_SIGACTION</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_SIGACTION</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_SIGNAL</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_SIGNAL</code>
               </p>
             </td>
 <td>
@@ -1549,14 +1410,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_SIGNAL</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_SIGNAL</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_SOURCE_LOCATION</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_SOURCE_LOCATION</code>
               </p>
             </td>
 <td>
@@ -1566,14 +1427,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_SOURCE_LOCATION</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_SOURCE_LOCATION</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_SSIZE_T</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_SSIZE_T</code>
               </p>
             </td>
 <td>
@@ -1583,14 +1444,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_SSIZE_T</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_SSIZE_T</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_STD_ADDRESSOF</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_STD_ADDRESSOF</code>
               </p>
             </td>
 <td>
@@ -1600,31 +1461,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_STD_ADDRESSOF</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_STD_ADDRESSOF</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_STD_ALIGNED_ALLOC</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                Standard library support for aligned allocation.
-              </p>
-            </td>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_STD_ALIGNED_ALLOC</span></code>
-              </p>
-            </td>
-</tr>
-<tr>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_STD_ALLOCATOR_ARG</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_STD_ALLOCATOR_ARG</code>
               </p>
             </td>
 <td>
@@ -1634,14 +1478,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_STD_ALLOCATOR_ARG</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_STD_ALLOCATOR_ARG</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_STD_ANY</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_STD_ANY</code>
               </p>
             </td>
 <td>
@@ -1651,14 +1495,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_STD_ANY</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_STD_ANY</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_STD_ARRAY</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_STD_ARRAY</code>
               </p>
             </td>
 <td>
@@ -1668,14 +1512,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_STD_ARRAY</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_STD_ARRAY</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_STD_ATOMIC</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_STD_ATOMIC</code>
               </p>
             </td>
 <td>
@@ -1685,14 +1529,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_STD_ATOMIC</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_STD_ATOMIC</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_STD_CALL_ONCE</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_STD_CALL_ONCE</code>
               </p>
             </td>
 <td>
@@ -1702,14 +1546,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_STD_CALL_ONCE</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_STD_CALL_ONCE</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_STD_CHRONO</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_STD_CHRONO</code>
               </p>
             </td>
 <td>
@@ -1722,14 +1566,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_STD_CHRONO</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_STD_CHRONO</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_STD_CHRONO_MONOTONIC_CLOCK</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_STD_CHRONO_MONOTONIC_CLOCK</code>
               </p>
             </td>
 <td>
@@ -1746,24 +1590,7 @@
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_STD_CONCEPTS</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                Support concepts on compilers known to allow them.
-              </p>
-            </td>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_STD_CONCEPTS</span></code>
-              </p>
-            </td>
-</tr>
-<tr>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_STD_COROUTINE</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_STD_COROUTINE</code>
               </p>
             </td>
 <td>
@@ -1773,14 +1600,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_STD_COROUTINE</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_STD_COROUTINE</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_STD_EXCEPTION_PTR</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_STD_EXCEPTION_PTR</code>
               </p>
             </td>
 <td>
@@ -1790,14 +1617,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_STD_EXCEPTION_PTR</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_STD_EXCEPTION_PTR</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_STD_EXPERIMENTAL_SOURCE_LOCATION</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_STD_EXPERIMENTAL_SOURCE_LOCATION</code>
               </p>
             </td>
 <td>
@@ -1807,14 +1634,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_STD_EXPERIMENTAL_SOURCE_LOCATION</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_STD_EXPERIMENTAL_SOURCE_LOCATION</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_STD_EXPERIMENTAL_STRING_VIEW</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_STD_EXPERIMENTAL_STRING_VIEW</code>
               </p>
             </td>
 <td>
@@ -1824,14 +1651,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_STD_EXPERIMENTAL_STRING_VIEW</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_STD_EXPERIMENTAL_STRING_VIEW</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_STD_FUNCTION</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_STD_FUNCTION</code>
               </p>
             </td>
 <td>
@@ -1841,14 +1668,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_STD_FUNCTION</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_STD_FUNCTION</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_STD_FUTURE</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_STD_FUTURE</code>
               </p>
             </td>
 <td>
@@ -1858,14 +1685,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_STD_FUTURE</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_STD_FUTURE</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_STD_HASH</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_STD_HASH</code>
               </p>
             </td>
 <td>
@@ -1875,31 +1702,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_STD_HASH</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_STD_HASH</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_STD_INDEX_SEQUENCE</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                Standard library support for std::index_sequence.
-              </p>
-            </td>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_STD_INDEX_SEQUENCE</span></code>
-              </p>
-            </td>
-</tr>
-<tr>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_STD_INVOKE_RESULT</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_STD_INVOKE_RESULT</code>
               </p>
             </td>
 <td>
@@ -1909,14 +1719,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_STD_INVOKE_RESULT</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_STD_INVOKE_RESULT</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_STD_IOSTREAM_MOVE</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_STD_IOSTREAM_MOVE</code>
               </p>
             </td>
 <td>
@@ -1926,14 +1736,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_STD_IOSTREAM_MOVE</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_STD_IOSTREAM_MOVE</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_STD_MUTEX_AND_CONDVAR</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_STD_MUTEX_AND_CONDVAR</code>
               </p>
             </td>
 <td>
@@ -1943,14 +1753,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_STD_MUTEX_AND_CONDVAR</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_STD_MUTEX_AND_CONDVAR</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_STD_NESTED_EXCEPTION</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_STD_NESTED_EXCEPTION</code>
               </p>
             </td>
 <td>
@@ -1960,14 +1770,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_STD_NESTED_EXCEPTION</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_STD_NESTED_EXCEPTION</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_STD_REFERENCE_WRAPPER</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_STD_REFERENCE_WRAPPER</code>
               </p>
             </td>
 <td>
@@ -1977,14 +1787,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_STD_REFERENCE_WRAPPER</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_STD_REFERENCE_WRAPPER</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_STD_SHARED_PTR</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_STD_SHARED_PTR</code>
               </p>
             </td>
 <td>
@@ -1994,14 +1804,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_STD_SHARED_PTR</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_STD_SHARED_PTR</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_STD_STRING_VIEW</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_STD_STRING_VIEW</code>
               </p>
             </td>
 <td>
@@ -2011,14 +1821,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_STD_STRING_VIEW</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_STD_STRING_VIEW</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_STD_SYSTEM_ERROR</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_STD_SYSTEM_ERROR</code>
               </p>
             </td>
 <td>
@@ -2028,14 +1838,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_STD_SYSTEM_ERROR</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_STD_SYSTEM_ERROR</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_STD_THREAD</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_STD_THREAD</code>
               </p>
             </td>
 <td>
@@ -2045,48 +1855,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_STD_THREAD</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_STD_THREAD</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_STD_TO_ADDRESS</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                Standard library support for std::to_address.
-              </p>
-            </td>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_STD_TO_ADDRESS</span></code>
-              </p>
-            </td>
-</tr>
-<tr>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_STD_TUPLE</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                Standard library support for std::tuple.
-              </p>
-            </td>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_STD_TUPLE</span></code>
-              </p>
-            </td>
-</tr>
-<tr>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_STD_TYPE_TRAITS</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_STD_TYPE_TRAITS</code>
               </p>
             </td>
 <td>
@@ -2096,14 +1872,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_STD_TYPE_TRAITS</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_STD_TYPE_TRAITS</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_STRING_VIEW</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_STRING_VIEW</code>
               </p>
             </td>
 <td>
@@ -2113,14 +1889,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_STRING_VIEW</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_STRING_VIEW</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_THREADS</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_THREADS</code>
               </p>
             </td>
 <td>
@@ -2130,14 +1906,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_THREADS</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_THREADS</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_THREAD_KEYWORD_EXTENSION</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_THREAD_KEYWORD_EXTENSION</code>
               </p>
             </td>
 <td>
@@ -2147,14 +1923,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_THREAD_KEYWORD_EXTENSION</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_THREAD_KEYWORD_EXTENSION</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_TIMERFD</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_TIMERFD</code>
               </p>
             </td>
 <td>
@@ -2168,7 +1944,7 @@
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_UNISTD_H</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_UNISTD_H</code>
               </p>
             </td>
 <td>
@@ -2184,7 +1960,7 @@
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_VARIABLE_TEMPLATES</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_VARIABLE_TEMPLATES</code>
               </p>
             </td>
 <td>
@@ -2194,31 +1970,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_VARIABLE_TEMPLATES</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_VARIABLE_TEMPLATES</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_VARIADIC_LAMBDA_CAPTURES</span></code>
-              </p>
-            </td>
-<td>
-              <p>
-                Support for capturing parameter packs in lambdas.
-              </p>
-            </td>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_VARIADIC_LAMBDA_CAPTURES</span></code>
-              </p>
-            </td>
-</tr>
-<tr>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_VARIADIC_TEMPLATES</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_VARIADIC_TEMPLATES</code>
               </p>
             </td>
 <td>
@@ -2228,14 +1987,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_VARIADIC_TEMPLATES</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_VARIADIC_TEMPLATES</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_WINDOWS_OBJECT_HANDLE</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_WINDOWS_OBJECT_HANDLE</code>
               </p>
             </td>
 <td>
@@ -2245,14 +2004,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_WINDOWS_OBJECT_HANDLE</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_WINDOWS_OBJECT_HANDLE</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_WINDOWS_OVERLAPPED_PTR</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_WINDOWS_OVERLAPPED_PTR</code>
               </p>
             </td>
 <td>
@@ -2262,14 +2021,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_WINDOWS_OVERLAPPED_PTR</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_WINDOWS_OVERLAPPED_PTR</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_WINDOWS_RANDOM_ACCESS_HANDLE</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_WINDOWS_RANDOM_ACCESS_HANDLE</code>
               </p>
             </td>
 <td>
@@ -2279,14 +2038,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_WINDOWS_RANDOM_ACCESS_HANDLE</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_WINDOWS_RANDOM_ACCESS_HANDLE</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_WINDOWS_STREAM_HANDLE</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_WINDOWS_STREAM_HANDLE</code>
               </p>
             </td>
 <td>
@@ -2296,14 +2055,14 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_WINDOWS_STREAM_HANDLE</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_WINDOWS_STREAM_HANDLE</code>
               </p>
             </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_WORKING_EXPRESSION_SFINAE</span></code>
+                <code class="computeroutput">BOOST_ASIO_HAS_WORKING_EXPRESSION_SFINAE</code>
               </p>
             </td>
 <td>
@@ -2313,7 +2072,7 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_ASIO_DISABLE_WORKING_EXPRESSION_SFINAE</span></code>
+                <code class="computeroutput">BOOST_ASIO_DISABLE_WORKING_EXPRESSION_SFINAE</code>
               </p>
             </td>
 </tr>
@@ -2328,10 +2087,19 @@
       A mailing list specifically for Boost.Asio may be found on <a href="http://sourceforge.net/mail/?group_id=122478" target="_top">SourceForge.net</a>.
       Newsgroup access is provided via <a href="http://dir.gmane.org/gmane.comp.lib.boost.asio.user" target="_top">Gmane</a>.
     </p>
+<h4>
+<a name="boost_asio.using.h7"></a>
+      <span class="phrase"><a name="boost_asio.using.wiki"></a></span><a class="link" href="using.html#boost_asio.using.wiki">Wiki</a>
+    </h4>
+<p>
+      Users are encouraged to share examples, tips and FAQs on the Boost.Asio wiki,
+      which is located at <a href="http://think-async.com/Asio/" target="_top">http://think-async.com/Asio/</a>.
+    </p>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright © 2003-2022 Christopher M. Kohlhoff<p>
+<td align="right"><div class="copyright-footer">Copyright © 2003-2021 Christopher
+      M. Kohlhoff<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

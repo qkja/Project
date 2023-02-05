@@ -1,57 +1,7 @@
+cc=g++
+parser:parser.cc 
+	$(cc) -std=c++11 -o $@ $^ -lboost_system -lboost_filesystem 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-# PARSER=parser 
-# DUG=debug
-# HTTP_SERVER=http_server
-# cc=g++
-
-# .PHONY:all
-# all:$(PARSER) $(DUG) $(HTTP_SERVER)
-
-# $(PARSER):parser.cc 
-# 	$(cc) -o $@ $^ -std=c++11 -lboost_system -lboost_filesystem
-
-# $(DUG):debug.cc 
-# 	$(cc) -o $@ $^ -std=c++11 -ljsoncpp 
-
-# $(HTTP_SERVER):http_server.cc 
-# 	$(cc) -o $@ $^ -std=c++11 -ljsoncpp -lpthread 
-
-# .PHONY:clean 
-# clean:
-# 	rm -f $(PARSER) $(DUG) $(HTTP_SERVER)
-
-
-
-
-
-#PARSER=parser 
-#SSVR=search_server
-#cc=g++
-#
-#
-#.PHONY:all
-#all:$(PARSER) $(SSVR)
-#
-#$(PARSER):parser.cc 
-#	$(cc) -o $@ $^ -std=c++11 -lboost_system -lboost_filesystem
-#
-#
-#$(SSVR):server.cc 
-#	$(cc) -o $@ $^ -std=c++11 -ljsoncpp 
-#
-#.PHONY:clean 
-#clean:
-#	rm -f $(PARSER) $(SSVR) 
+.PHONY:clean
+clean:
+	rm -f parser

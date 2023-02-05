@@ -2,13 +2,12 @@
 // echo_server.cpp
 // ~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2022 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2021 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
 
-#include <boost/asio/detached.hpp>
 #include <boost/asio/io_context.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/spawn.hpp>
@@ -40,12 +39,10 @@ public:
   {
     boost::asio::spawn(strand_,
         boost::bind(&session::echo,
-          shared_from_this(), boost::placeholders::_1),
-        boost::asio::detached_t());
+          shared_from_this(), boost::placeholders::_1));
     boost::asio::spawn(strand_,
         boost::bind(&session::timeout,
-          shared_from_this(), boost::placeholders::_1),
-        boost::asio::detached_t());
+          shared_from_this(), boost::placeholders::_1));
   }
 
 private:
@@ -111,9 +108,8 @@ int main(int argc, char* argv[])
     boost::asio::io_context io_context;
 
     boost::asio::spawn(io_context,
-        boost::bind(do_accept, boost::ref(io_context),
-          atoi(argv[1]), boost::placeholders::_1),
-        boost::asio::detached_t());
+        boost::bind(do_accept,
+          boost::ref(io_context), atoi(argv[1]), boost::placeholders::_1));
 
     io_context.run();
   }

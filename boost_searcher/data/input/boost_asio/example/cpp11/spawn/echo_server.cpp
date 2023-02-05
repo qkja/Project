@@ -2,13 +2,12 @@
 // echo_server.cpp
 // ~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2022 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2021 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
 
-#include <boost/asio/detached.hpp>
 #include <boost/asio/io_context.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/spawn.hpp>
@@ -40,7 +39,7 @@ public:
             char data[128];
             for (;;)
             {
-              timer_.expires_after(std::chrono::seconds(10));
+              timer_.expires_from_now(std::chrono::seconds(10));
               std::size_t n = socket_.async_read_some(boost::asio::buffer(data), yield);
               boost::asio::async_write(socket_, boost::asio::buffer(data, n), yield);
             }
@@ -50,7 +49,7 @@ public:
             socket_.close();
             timer_.cancel();
           }
-        }, boost::asio::detached);
+        });
 
     boost::asio::spawn(strand_,
         [this, self](boost::asio::yield_context yield)
@@ -59,10 +58,10 @@ public:
           {
             boost::system::error_code ignored_ec;
             timer_.async_wait(yield[ignored_ec]);
-            if (timer_.expiry() <= boost::asio::steady_timer::clock_type::now())
+            if (timer_.expires_from_now() <= std::chrono::seconds(0))
               socket_.close();
           }
-        }, boost::asio::detached);
+        });
   }
 
 private:
@@ -99,11 +98,6 @@ int main(int argc, char* argv[])
               std::make_shared<session>(io_context, std::move(socket))->go();
             }
           }
-        },
-        [](std::exception_ptr e)
-        {
-          if (e)
-            std::rethrow_exception(e);
         });
 
     io_context.run();

@@ -2,7 +2,7 @@
 // parallel_sort.cpp
 // ~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2022 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2021 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -10,6 +10,7 @@
 
 #include <boost/asio.hpp>
 #include <boost/thread/thread.hpp>
+#include <boost/asio/experimental/append.hpp>
 #include <boost/asio/experimental/parallel_group.hpp>
 #include <algorithm>
 #include <chrono>
@@ -89,7 +90,7 @@ auto parallel_sort(
               [self = std::make_shared<self_type>(std::move(self))]
               {
                 boost::asio::dispatch(
-                    boost::asio::append(
+                    boost::asio::experimental::append(
                       std::move(*self), 0));
               }
             );
