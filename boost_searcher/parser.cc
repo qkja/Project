@@ -12,6 +12,8 @@
 
 #include <boost/filesystem.hpp> // 引入boost库
 
+#include "util.hpp"
+
 // 这是一个目录,下面放的是所有的html网页
 const std::string src_path = "data/input";
 
@@ -57,21 +59,82 @@ static bool EnumFile(const std::string &src_path, std::vector<std::string> *file
     {
       continue;
     }
-    std::cout << "debug: " << iter->path().string() << std::endl;
+
+    // std::cout << "debug: " << iter->path().string() << std::endl;
 
     // 此时一定 是以 html 后缀结尾的普通文件
     file_list->push_back(iter->path().string());
   }
+
   return true;
 }
 
-/// @brief 读取数组中的每一个文件里面的内容,把他保存到一个结构体中,其中结构体放在数组中
+/// @brief  提取title
+/// @param file 
+/// @param title 
+/// @return 
+static bool ParseTitle(const std::string &file, std::string *title)
+{
+  assert(title);
+  return true;
+}
+
+/// @brief 提取 内容
+/// @param file 
+/// @param content 
+/// @return 
+static bool ParseContent(const std::string &file, std::string *content)
+{
+  assert(content);
+  return true;
+}
+
+/// @brief 提取url
+/// @param file 
+/// @param url 
+/// @return 
+static bool ParseUrl(const std::string &file, std::string *url)
+{
+  assert(url);
+  return true;
+}
+
+/// @brief 读取数组中的每一个文件里面的内容,把它保存到一个结构体中,其中结构体放在数组中
 /// @param file_list 保存文件名的数组
 /// @param results  保存结构体的数组指针
 /// @return  成功返回ture,否则就是false
 static bool ParseHtml(const std::vector<std::string> &file_list, std::vector<DocInfo_t> *results)
 {
   assert(results);
+  for (auto &e : file_list)
+  {
+    // 1. 读取文件
+    std::string result;
+    if (false == ns_util::FileUtil::ReadFile(e, &result))
+    {
+      continue;
+    }
+    DocInfo_t doc;
+    // 2. 提取title
+    if (false == ParseTitle(result, &doc.title))
+    {
+      continue;
+    }
+    // 3. 提取content  本质时 去标签
+    if (false == ParseContent(result, &doc.content))
+    {
+      continue;
+    }
+    // 4. 提取url
+    if (false == ParseUrl(result, &doc.url))
+    {
+      continue;
+    }
+
+    // 到这里一定时完成了解析任务
+    results->push_back(std::move(doc));
+  }
+
   return true;
 }
 
