@@ -1,5 +1,6 @@
 #ifndef __UTIL_HPP__
 #define __UTIL_HPP__
+#include <iostream>
 #include <string>
 #include <cassert>
 #include <fstream>
@@ -12,16 +13,29 @@ namespace ns_util
   {
   public:
     /// @brief 读物文件内容到 out中
-    /// @param file_path 
-    /// @param out 
-    /// @return 
+    /// @param file_path
+    /// @param out
+    /// @return
     static bool ReadFile(const std::string &file_path, std::string *out)
     {
       assert(out);
+      std::ifstream in(file_path, std::ios::in);
+      if (in.is_open() == false)
+      {
+        std::cerr << file_path << " 打开失败" << std::endl;
+        return false;
+      }
+
+      std::string line;
+      // 注意 getline 不会 读取 \n
+      while (std::getline(in, line)) 
+      {
+       *out += line;
+      }
+      
+      in.close();
       return true;
     }
-
-
   };
 
 }
