@@ -8,6 +8,9 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <cassert>
+
+#include <boost/filesystem.hpp> // 引入boost库
 
 // 这是一个目录,下面放的是所有的html网页
 const std::string src_path = "data/input";
@@ -29,6 +32,37 @@ typedef struct DocInfo
 /// @return 成功返回ture,否则就是false
 static bool EnumFile(const std::string &src_path, std::vector<std::string> *file_list)
 {
+  assert(file_list);
+  namespace fs = boost::filesystem; // 这是一个习惯
+  fs::path root_path(src_path);     // 定义一个path对象
+
+  if (fs::exists(root_path) == false) // 判断路径是不是存在
+  {
+    std::cerr << src_path << " 路径是不存在的" << std::endl;
+    return false;
+  }
+
+  // 定义一个空的跌打器, 用来判断 迭代器递归结束
+  fs::recursive_directory_iterator end;
+  for (fs::recursive_directory_iterator iter(root_path); iter != end; iter++)
+  {
+    // 保证是普通的文件
+    if (fs::is_regular_file(*iter) == false)
+    {
+      continue;
+    }
+
+    // 普通文件需要 html 文件后缀结束
+    if (iter->path().extension() != ".html")
+    {
+      continue;
+    }
+    std::cout << "debug: " << iter->path().string() << std::endl;
+
+    // 此时一定 是以 html 后缀结尾的普通文件
+    file_list->push_back(iter->path().string());
+  }
+  return true;
 }
 
 /// @brief 读取数组中的每一个文件里面的内容,把他保存到一个结构体中,其中结构体放在数组中
@@ -37,6 +71,8 @@ static bool EnumFile(const std::string &src_path, std::vector<std::string> *file
 /// @return  成功返回ture,否则就是false
 static bool ParseHtml(const std::vector<std::string> &file_list, std::vector<DocInfo_t> *results)
 {
+  assert(results);
+  return true;
 }
 
 /// @brief 把数组结构体的内容保存按照一定的格式保存到 文件中
@@ -45,6 +81,8 @@ static bool ParseHtml(const std::vector<std::string> &file_list, std::vector<Doc
 /// @return 成功返回ture,否则就是false
 static bool SaveHtml(const std::vector<DocInfo_t> &results, const std::string *output)
 {
+  assert(output);
+  return true;
 }
 
 int main(void)
