@@ -165,11 +165,32 @@ static bool ParseContent(const std::string &file, std::string *content)
 /// @param file
 /// @param url
 /// @return
-static bool ParseUrl(const std::string &file, std::string *url)
+static bool ParseUrl(const std::string &file_path, std::string *url)
 {
   assert(url);
+
+  // 我们实际上的url 和库里面的url 是不一样的,有对应关系
+  // 官网URL样例： https://www.boost.org/doc/libs/1_78_0/doc/html/accumulators.html
+  // 我们下载下来的url样例：boost_1_78_0/doc/html/accumulators.html
+  // data/input/accumulators.html
+
+  //  url_head = "https://www.boost.org/doc/libs/1_78_0/doc/html"
+  //  url_tail = "/accumulators.html"
+  std::string url_head = " https://www.boost.org/doc/libs/1_78_0/doc/html";
+  std::string url_tail = file_path.substr(src_path.size());
+  *url = url_head + url_tail;
   return true;
 }
+
+/// @brief  仅仅是为了调试
+/// @param doc
+void ShowDoc(const DocInfo_t &doc)
+{
+  std::cout << "title: " << doc.title << std::endl;
+  std::cout << "content: " << doc.content << std::endl;
+  std::cout << "url: " << doc.url << std::endl;
+}
+
 //////////////////////////////////////////////////////////////////////////////////
 
 /// @brief 读取数组中的每一个文件里面的内容,把它保存到一个结构体中,其中结构体放在数组中
@@ -179,11 +200,11 @@ static bool ParseUrl(const std::string &file, std::string *url)
 static bool ParseHtml(const std::vector<std::string> &file_list, std::vector<DocInfo_t> *results)
 {
   assert(results);
-  for (auto &e : file_list)
+  for (auto &file_path : file_list)
   {
     // 1. 读取文件
     std::string result;
-    if (false == ns_util::FileUtil::ReadFile(e, &result))
+    if (false == ns_util::FileUtil::ReadFile(file_path, &result))
     {
       continue;
     }
@@ -199,11 +220,13 @@ static bool ParseHtml(const std::vector<std::string> &file_list, std::vector<Doc
       continue;
     }
     // 4. 提取url
-    if (false == ParseUrl(result, &doc.url))
+    if (false == ParseUrl(file_path, &doc.url))
     {
       continue;
     }
-
+    // for debug
+    // ShowDoc(doc);
+    // break;
     // 到这里一定时完成了解析任务
     results->push_back(std::move(doc));
   }
@@ -211,7 +234,7 @@ static bool ParseHtml(const std::vector<std::string> &file_list, std::vector<Doc
   return true;
 }
 
-/// @brief 把数组结构体的内容保存按照一定的格式保存到 文件中
+/// @brief 把结构体数组的内容保存按照一定的格式保存到 文件中
 /// @param results 结构体数组
 /// @param output  文件名
 /// @return 成功返回ture,否则就是false
