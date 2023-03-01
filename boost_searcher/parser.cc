@@ -115,6 +115,49 @@ static bool ParseTitle(const std::string &file, std::string *title)
 static bool ParseContent(const std::string &file, std::string *content)
 {
   assert(content);
+  // 这就是我们去标签最重要的地方
+  // 我们这里使用一个简单的状态机
+
+  enum status
+  {
+    LABLE,
+    CONTENT
+  };
+  enum status s = LABLE; // 默认第一个是 '<'
+
+  for (char ch : file) // 注意这里我没有使用引用,后面解释
+  {
+    switch (s)
+    {
+    case LABLE:
+      if (ch == '>')
+      {
+        // 此时意味这当前的标签被处理完毕
+        s = CONTENT;
+      }
+      break;
+
+    case CONTENT:
+      if (ch == '<')
+      {
+        s = LABLE;
+      }
+      else
+      {
+        // 这里有一个细节 我们不想要'\n' 字符
+        // 我们希望用'\n' 作为分隔符
+        if (ch == '\n')
+        {
+          ch = ' ';
+        }
+        content->push_back(ch);
+      }
+      break;
+
+    default:
+      break;
+    }
+  }
   return true;
 }
 
