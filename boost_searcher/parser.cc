@@ -44,7 +44,7 @@ static bool EnumFile(const std::string &src_path, std::vector<std::string> *file
     return false;
   }
 
-  // 定义一个空的跌打器, 用来判断 迭代器递归结束
+  // 定义一个空的迭代器, 用来判断 迭代器递归结束
   fs::recursive_directory_iterator end;
   for (fs::recursive_directory_iterator iter(root_path); iter != end; iter++)
   {
@@ -69,20 +69,49 @@ static bool EnumFile(const std::string &src_path, std::vector<std::string> *file
   return true;
 }
 
+//////////////////////////////////////////////////////////////////////////////////
 /// @brief  提取title
-/// @param file 
-/// @param title 
-/// @return 
+/// @param file
+/// @param title
+/// @return
 static bool ParseTitle(const std::string &file, std::string *title)
 {
   assert(title);
+  std::size_t begin = file.find("<title>");
+
+  if (begin == std::string::npos)
+  {
+    return false;
+  }
+
+  std::size_t end = file.find("</title>");
+  if (end == std::string::npos)
+  {
+    return false;
+  }
+
+  begin += std::string("<title>").size();
+  // if (begin >= end)
+  // 这里允许 没有标题的
+  if (begin > end)
+  {
+    // if(begin == end)
+    // {
+    //   std::cout << file <<std::endl;
+    // }
+    return false;
+  }
+  // 这里我想测试一下 如果先相等的话  我们结构体的个数是不是会发生变化
+  // 在家里面我们确实存在了些问题
+  // 这里一定是 存在 title的
+  *title = file.substr(begin, end - begin);
   return true;
 }
 
 /// @brief 提取 内容
-/// @param file 
-/// @param content 
-/// @return 
+/// @param file
+/// @param content
+/// @return
 static bool ParseContent(const std::string &file, std::string *content)
 {
   assert(content);
@@ -90,14 +119,15 @@ static bool ParseContent(const std::string &file, std::string *content)
 }
 
 /// @brief 提取url
-/// @param file 
-/// @param url 
-/// @return 
+/// @param file
+/// @param url
+/// @return
 static bool ParseUrl(const std::string &file, std::string *url)
 {
   assert(url);
   return true;
 }
+//////////////////////////////////////////////////////////////////////////////////
 
 /// @brief 读取数组中的每一个文件里面的内容,把它保存到一个结构体中,其中结构体放在数组中
 /// @param file_list 保存文件名的数组
@@ -168,6 +198,8 @@ int main(void)
     std::cerr << "解析文件失败" << std::endl;
     return 2;
   }
+
+  // std::cout << "读取文件的个数 " << results.size() << std::endl;
   // 第三步: 把解析文件的内容写入到output中,按照\3\n 作为每一个文档的分割符
   if (false == SaveHtml(results, &output))
   {
