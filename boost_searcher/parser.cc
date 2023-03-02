@@ -211,6 +211,7 @@ static bool ParseHtml(const std::vector<std::string> &file_list, std::vector<Doc
     {
       continue;
     }
+
     DocInfo_t doc;
     // 2. 提取title
     if (false == ParseTitle(result, &doc.title))
@@ -231,7 +232,7 @@ static bool ParseHtml(const std::vector<std::string> &file_list, std::vector<Doc
     // ShowDoc(doc);
     // break;
     // 到这里一定时完成了解析任务
-    results->push_back(std::move(doc));
+    results->push_back(std::move(doc));  // 右值引用  
   }
 
   return true;
