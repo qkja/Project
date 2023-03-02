@@ -58,7 +58,14 @@ namespace ns_index
     /// @return
     InvertedList *GetInvertedList(const std::string &word)
     {
-      return nullptr;
+      auto it = inverted_index.find(word);
+      if(it == inverted_index.end())
+      {
+        std::cerr << "关键字 " << word << " 不存在" << std::endl;
+        return nullptr;
+      }
+      
+      return &(it->second);
     }
 
     /// @brief 根据目录 文件 构建 正派和倒排索引,这里是最重的一步
