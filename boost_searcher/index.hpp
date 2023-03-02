@@ -44,23 +44,29 @@ namespace ns_index
     /// @return 返回文档结构体的地址
     struct DocInfo *GetForwardIndex(const uint64_t doc_id)
     {
-      return nullptr;
+      if (doc_id < 0 || doc_id >= forward_index.size())
+      {
+        std::cerr << "索引id " << doc_id << " 越界了" <<std::endl;
+        return nullptr;
+      }
+      
+      return &(forward_index[doc_id]);
     }
-    
+
     /// @brief 根据关键字 获取倒排拉链
     /// @param word 关键
-    /// @return 
+    /// @return
     InvertedList *GetInvertedList(const std::string &word)
     {
       return nullptr;
     }
-    
+
     /// @brief 根据目录 文件 构建 正派和倒排索引,这里是最重的一步
-    /// @param src_path 目录文件 
-    /// @return 
-    bool BuildIndex(const std::string& src_path)
+    /// @param src_path 目录文件
+    /// @return
+    bool BuildIndex(const std::string &src_path)
     {
-      
+
       return true;
     }
 
