@@ -146,6 +146,8 @@ static bool ParseContent(const std::string &file, std::string *content)
       {
         // 这里有一个细节 我们不想要'\n' 字符
         // 我们希望用'\n' 作为分隔符
+        // 注意,这个应该不会出现\n,
+        // 毕竟我们读取文件的时候使用的getline,可是不我们不能把希望寄托到被人身上
         if (ch == '\n')
         {
           ch = ' ';
@@ -179,6 +181,7 @@ static bool ParseUrl(const std::string &file_path, std::string *url)
   std::string url_head = " https://www.boost.org/doc/libs/1_78_0/doc/html";
   std::string url_tail = file_path.substr(src_path.size());
   *url = url_head + url_tail;
+
   return true;
 }
 
@@ -238,9 +241,35 @@ static bool ParseHtml(const std::vector<std::string> &file_list, std::vector<Doc
 /// @param results 结构体数组
 /// @param output  文件名
 /// @return 成功返回ture,否则就是false
-static bool SaveHtml(const std::vector<DocInfo_t> &results, const std::string *output)
+static bool SaveHtml(const std::vector<DocInfo_t> &results, const std::string& output)
 {
-  assert(output);
+#define SEP "\3"
+  // 我们按照下面的方式,要知道我们把文档的内容去掉了\n
+  // title\3content\3url\n title\3content\3url\n title\3content\3url\n return true;
+
+  // explicit basic_ofstream (const char* filename,
+  //                       ios_base::openmode mode = ios_base::out);
+  std::ofstream out(output.c_str(), std::ios::out | std::ios::binary);
+
+  if(out.is_open() == false)
+  {
+    std::cerr << "打开文件失败 " << output <<std::endl;
+    return false;
+  }
+
+  for (auto &e : results)
+  {
+    std::string str = e.title;
+    str += SEP;
+
+    str += e.content;
+    str += SEP;
+
+    str += e.url;
+    str += "\n";
+    out.write(str.c_str(),str.size());
+  }
+  out.close();
   return true;
 }
 
@@ -267,7 +296,7 @@ int main(void)
 
   // std::cout << "读取文件的个数 " << results.size() << std::endl;
   // 第三步: 把解析文件的内容写入到output中,按照\3\n 作为每一个文档的分割符
-  if (false == SaveHtml(results, &output))
+  if (false == SaveHtml(results, output))
   {
     std::cerr << "保存文件失败" << std::endl;
     return 3;
