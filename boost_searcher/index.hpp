@@ -103,6 +103,7 @@ namespace ns_index
         return false;
       }
 
+      int count = 0;
       std::string line;
       while (std::getline(in, line))
       {
@@ -117,6 +118,12 @@ namespace ns_index
 
         // 建立 倒排索引
         BuildInvertedIndex(*doc);
+        count++;
+        if(count%50 == 0)
+        {
+          // 后期加上一个进度条
+          std::cout << "当前已经处理了 索引文档 " <<count <<std::endl;
+        }
       }
 
       return true;
@@ -229,6 +236,7 @@ namespace ns_index
   };
 
   Index *Index::instance = nullptr;
+  std::mutex Index::mtx;
 }
 
 #endif
