@@ -6,6 +6,7 @@
 #include <vector>
 #include <fstream>
 
+#include <boost/algorithm/string.hpp>
 // 这是一个工具集
 namespace ns_util
 {
@@ -46,7 +47,9 @@ namespace ns_util
     static void CutString(const std::string &target, std::vector<std::string> *out, std::string sep)
     {
       assert(out);
-      
+      // 我们这里使用现成的切分函数
+      boost::split(*out, target, boost::is_any_of(sep),
+          boost::token_compress_on);
     }
   };
 

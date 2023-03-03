@@ -9,7 +9,6 @@
 
 #include "util.hpp"
 
-
 namespace ns_index
 {
   struct DocInfo
@@ -111,11 +110,12 @@ namespace ns_index
     DocInfo *BuildForwardIndex(const std::string &line)
     {
       // title\3content\3url\n
-#define SEP "\3"
-      std::vector<std::string> results; 
-      ns_util::StringUtil::CutString(line, &results, SEP);
-      
-      if(results.size() != 3)
+
+      std::vector<std::string> results;
+      const std::string sep = "\3";
+      ns_util::StringUtil::CutString(line, &results, sep);
+
+      if (results.size() != 3)
         return nullptr;
 
       DocInfo doc;
@@ -125,7 +125,7 @@ namespace ns_index
       doc.doc_id = forward_index.size(); // 注意这里是 正派拉链
 
       forward_index.push_back(std::move(doc));
-      return &(forward_index[forward_index.size()-1]);
+      return &(forward_index[forward_index.size() - 1]);
     }
 
     /// @brief 根据一个文档内容的结构体建立倒排索引,需要经行分词  --
@@ -133,6 +133,7 @@ namespace ns_index
     /// @return
     bool BuildInvertedIndex(const DocInfo &doc)
     {
+
       return false;
     }
 
