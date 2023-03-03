@@ -154,6 +154,7 @@ namespace ns_index
       int content_cnt;
       word_cnt() : title_cnt(0), content_cnt(0) {}
     };
+
     /// @brief 根据一个文档内容的结构体建立倒排索引,需要经行分词  --
     /// @param doc  这个是一个结构体
     /// @return
