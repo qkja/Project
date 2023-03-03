@@ -72,7 +72,7 @@ namespace ns_index
     }
 
     /// @brief 根据目录 文件 构建 正派和倒排索引,这里是最重的一步
-    /// @param src_path 目录文件
+    /// @param src_path 去标签后目录文件目录
     /// @return
     bool BuildIndex(const std::string &src_path)
     {
@@ -128,13 +128,76 @@ namespace ns_index
       return &(forward_index[forward_index.size() - 1]);
     }
 
+    // 为了词频统计
+    struct word_cnt
+    {
+      int title_cnt;
+      int content_cnt;
+      word_cnt() : title_cnt(0), content_cnt(0) {}
+    };
     /// @brief 根据一个文档内容的结构体建立倒排索引,需要经行分词  --
     /// @param doc  这个是一个结构体
     /// @return
     bool BuildInvertedIndex(const DocInfo &doc)
     {
 
-      return false;
+      // 用来暂存 词频
+      std::unordered_map<std::string, word_cnt> word_map;
+      // 1.对标题 分词
+      std::vector<std::string> title_words;
+      ns_util::JiebaUtil::CutString(doc.title, &title_words);
+
+      // 不区分大小写
+      // 那么用户也不因该区分大小写
+      for (std::string s : title_words)
+      {
+        boost::to_lower(s);
+        word_map[s].title_cnt++; // 解释一下
+      }
+      // for (std::string &s : title_words)
+      //{
+      //   // 这里有点bug
+      //   word_map[s].title_cnt++; // 解释一下
+      // }
+
+      // 对文档内容分词
+      std::vector<std::string> content_words;
+      ns_util::JiebaUtil::CutString(doc.content, &content_words);
+      // for (auto &s : content_words)
+      //{
+      //   word_map[s].content_cnt++;
+      // }
+
+      for (auto s : content_words)
+      {
+        boost::to_lower(s);
+        word_map[s].content_cnt++;
+      }
+      // 3 构建倒排拉链
+      for (auto &word_pair : word_map)
+      {
+        InvertedElem item;
+        item.doc_id = doc.doc_id; // 这里解释了上面我们为何添加了id
+        item.word = word_pair.first;
+        item.weight = _build_relevance(word_pair.second);
+
+        // 加入倒排拉链中
+        InvertedList &inverted_list = inverted_index[word_pair.first];
+        inverted_list.push_back(std::move(item));
+      }
+
+      return true;
+    }
+
+  private:
+    /// @brief 构建权重
+    /// @param word
+    /// @return
+    int _build_relevance(const struct word_cnt &word)
+    {
+#define X 10
+#define Y 1
+      return X * word.title_cnt + Y * word.content_cnt;
     }
 
   private:
