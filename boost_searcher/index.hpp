@@ -41,12 +41,12 @@ namespace ns_index
     Index(const Index &) = delete;
     Index &operator=(const Index &) = delete;
     static Index *instance;
+    static std::mutex mtx;
 
   public:
     ~Index()
     {
     }
-    static std::mutex mtx;
     static Index *GetInstance()
     {
       if (nullptr == instance)
