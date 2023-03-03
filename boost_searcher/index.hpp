@@ -7,6 +7,8 @@
 #include <fstream>
 #include <unordered_map>
 
+#include <mutex>
+
 #include "util.hpp"
 
 namespace ns_index
@@ -34,12 +36,29 @@ namespace ns_index
   class Index
   {
 
+  private:
+    Index() {}
+    Index(const Index &) = delete;
+    Index &operator=(const Index &) = delete;
+    static Index *instance;
+
   public:
-    Index()
-    {
-    }
     ~Index()
     {
+    }
+    static std::mutex mtx;
+    static Index *GetInstance()
+    {
+      if (nullptr == instance)
+      {
+        mtx.lock();
+        if (instance == nullptr)
+        {
+          instance = new Index;
+        }
+        mtx.unlock();
+      }
+      return instance;
     }
 
     /// @brief 根据doc_id来获取正派索引 ,也就是文旦内容
@@ -207,6 +226,8 @@ namespace ns_index
     // 倒排索引 一个关键字 可能在很多的文档中出现,一定是一个关键字和一组InvertedElem对应
     std::unordered_map<std::string, InvertedList> inverted_index;
   };
+
+  Index *Index::instance = nullptr;
 }
 
 #endif
