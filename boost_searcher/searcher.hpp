@@ -18,11 +18,11 @@ namespace ns_searcher
     {
       // 获取创建index对象
       index = ns_index::Index::GetInstance();
-      std::cout << "获取单例成功" <<std::endl;
+      std::cout << "获取单例成功" << std::endl;
       // 根据index对象建立索引
       index->BuildIndex(input);
 
-      std::cout << "建立正派倒排索引成功" <<std::endl;
+      std::cout << "建立正派倒排索引成功" << std::endl;
     }
 
     /// @brief
@@ -73,7 +73,7 @@ namespace ns_searcher
         // 获取了 文档内容
         Json::Value elem;
         elem["title"] = doc->title;
-        elem["desc"] = make_summary(doc->content);
+        elem["desc"] = make_summary(doc->content, item.word); // 我们需要根据关键字来提取摘要
         elem["url"] = doc->url;
 
         root.append(elem); // 这里是有序的
@@ -84,9 +84,32 @@ namespace ns_searcher
     }
 
   private:
-    std::string make_summary(const std::string &content)
+    // 获取摘要
+    std::string make_summary(const std::string &content, const std::string &words)
     {
-      return content;
+      // 这里获取摘要有点问题,关键字不一定会出现在内容中, 注意是非常小的概率
+      std::size_t pos = content.find(words);
+      if (pos == std::string::npos)
+        return content;
+
+      const std::size_t prev_step = 50;
+      const std::size_t next_step = 100;
+      // 先前找 50个 向后找 50个
+      std::size_t begin = 0;
+      if (pos > prev_step)
+      {
+        begin = pos - prev_step;
+      }
+      std::size_t end = pos + next_step;
+      if (end > content.size())
+      {
+        end = content.size();
+      }
+
+      if (end > begin)
+        return content.substr(begin, end - begin);
+      else
+        return "";
     }
     ns_index::Index *index; // 提供系统经行查找索引
   };

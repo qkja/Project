@@ -119,10 +119,10 @@ namespace ns_index
         // 建立 倒排索引
         BuildInvertedIndex(*doc);
         count++;
-        if(count%50 == 0)
+        if (count % 50 == 0)
         {
           // 后期加上一个进度条
-          std::cout << "当前已经处理了 索引文档 " <<count <<std::endl;
+          std::cout << "当前已经处理了 索引文档 " << count << std::endl;
         }
       }
 

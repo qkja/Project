@@ -232,7 +232,7 @@ static bool ParseHtml(const std::vector<std::string> &file_list, std::vector<Doc
     // ShowDoc(doc);
     // break;
     // 到这里一定时完成了解析任务
-    results->push_back(std::move(doc));  // 右值引用  
+    results->push_back(std::move(doc)); // 右值引用
   }
 
   return true;
@@ -242,7 +242,7 @@ static bool ParseHtml(const std::vector<std::string> &file_list, std::vector<Doc
 /// @param results 结构体数组
 /// @param output  文件名
 /// @return 成功返回ture,否则就是false
-static bool SaveHtml(const std::vector<DocInfo_t> &results, const std::string& output)
+static bool SaveHtml(const std::vector<DocInfo_t> &results, const std::string &output)
 {
 #define SEP "\3"
   // 我们按照下面的方式,要知道我们把文档的内容去掉了\n
@@ -252,9 +252,9 @@ static bool SaveHtml(const std::vector<DocInfo_t> &results, const std::string& o
   //                       ios_base::openmode mode = ios_base::out);
   std::ofstream out(output, std::ios::out | std::ios::binary);
 
-  if(out.is_open() == false)
+  if (out.is_open() == false)
   {
-    std::cerr << "打开文件失败 " << output <<std::endl;
+    std::cerr << "打开文件失败 " << output << std::endl;
     return false;
   }
 
@@ -268,7 +268,7 @@ static bool SaveHtml(const std::vector<DocInfo_t> &results, const std::string& o
 
     str += e.url;
     str += "\n";
-    out.write(str.c_str(),str.size());
+    out.write(str.c_str(), str.size());
   }
   out.close();
   return true;

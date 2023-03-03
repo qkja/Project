@@ -15,25 +15,6 @@ clean:
 	rm -f $(SSVR) $(PARSER)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # cc=g++
 
 # parser:parser.cc
