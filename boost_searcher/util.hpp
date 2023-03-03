@@ -19,7 +19,7 @@ namespace ns_util
     static bool ReadFile(const std::string &file_path, std::string *out)
     {
       assert(out);
-      std::ifstream in(file_path.c_str(), std::ios::in);
+      std::ifstream in(file_path, std::ios::in);
       if (in.is_open() == false)
       {
         std::cerr << file_path << " 打开失败" << std::endl;

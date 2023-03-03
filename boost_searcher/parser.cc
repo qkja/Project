@@ -250,7 +250,7 @@ static bool SaveHtml(const std::vector<DocInfo_t> &results, const std::string& o
 
   // explicit basic_ofstream (const char* filename,
   //                       ios_base::openmode mode = ios_base::out);
-  std::ofstream out(output.c_str(), std::ios::out | std::ios::binary);
+  std::ofstream out(output, std::ios::out | std::ios::binary);
 
   if(out.is_open() == false)
   {
