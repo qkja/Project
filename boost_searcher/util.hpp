@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <cassert>
+#include <vector>
 #include <fstream>
 
 // 这是一个工具集
@@ -28,13 +29,24 @@ namespace ns_util
 
       std::string line;
       // 注意 getline 不会 读取 \n
-      while (std::getline(in, line)) 
+      while (std::getline(in, line))
       {
-       *out += line;
+        *out += line;
       }
-      
+
       in.close();
       return true;
+    }
+  };
+
+  /// @brief 字符串切分
+  class StringUtil
+  {
+  public:
+    static void CutString(const std::string &target, std::vector<std::string> *out, std::string sep)
+    {
+      assert(out);
+      
     }
   };
 

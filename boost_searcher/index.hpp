@@ -4,9 +4,11 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <fstream>
 #include <unordered_map>
 
-#include <fstream>
+#include "util.hpp"
+
 
 namespace ns_index
 {
@@ -82,6 +84,7 @@ namespace ns_index
         std::cerr << "文件目录 " << src_path << "无效" << std::endl;
         return false;
       }
+
       std::string line;
       while (std::getline(in, line))
       {
@@ -93,6 +96,7 @@ namespace ns_index
           std::cerr << "建立一个正派索引失败" << line << std::endl;
           continue;
         }
+
         // 建立 倒排索引
         BuildInvertedIndex(*doc);
       }
@@ -101,15 +105,30 @@ namespace ns_index
     }
 
   private:
-    /// @brief 根据字符串建立正派索引
+    /// @brief 根据字符串建立正派索引  也就是根据文旦id找到 文档内容
     /// @param line 一个字符串,该字符串保留一个html文档的所有内容
     /// @return
     DocInfo *BuildForwardIndex(const std::string &line)
     {
-      return nullptr;
+      // title\3content\3url\n
+#define SEP "\3"
+      std::vector<std::string> results; 
+      ns_util::StringUtil::CutString(line, &results, SEP);
+      
+      if(results.size() != 3)
+        return nullptr;
+
+      DocInfo doc;
+      doc.title = results[0];
+      doc.content = results[1];
+      doc.url = results[2];
+      doc.doc_id = forward_index.size(); // 注意这里是 正派拉链
+
+      forward_index.push_back(std::move(doc));
+      return &(forward_index[forward_index.size()-1]);
     }
 
-    /// @brief 根据一个文档内容的结构体建立倒排索引,需要经行分词
+    /// @brief 根据一个文档内容的结构体建立倒排索引,需要经行分词  --
     /// @param doc  这个是一个结构体
     /// @return
     bool BuildInvertedIndex(const DocInfo &doc)
