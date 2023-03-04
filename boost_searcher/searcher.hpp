@@ -4,6 +4,7 @@
 #include "util.hpp"
 #include <algorithm>
 #include <jsoncpp/json/json.h>
+#include "log.hpp"
 
 namespace ns_searcher
 {
@@ -28,11 +29,13 @@ namespace ns_searcher
     {
       // 获取创建index对象
       index = ns_index::Index::GetInstance();
-      std::cout << "获取单例成功" << std::endl;
-      // 根据index对象建立索引
+      LOG(NORMAL, "获取单例成功");
+      // std::cout << "获取单例成功" << std::endl;
+      //  根据index对象建立索引
       index->BuildIndex(input);
 
-      std::cout << "建立正派倒排索引成功" << std::endl;
+      LOG(NORMAL, "建立正派倒排索引成功");
+      // std::cout << "建立正派倒排索引成功" << std::endl;
     }
 
     /// @brief
