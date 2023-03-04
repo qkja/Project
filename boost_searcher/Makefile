@@ -1,9 +1,13 @@
 cc=g++
 PARSER=parser
 SSVR=search_server
+HTTP_SERVER=http_server 
 
 .PHONY:all
-all:$(PARSER) $(SSVR)
+all:$(PARSER) $(SSVR) $(HTTP_SERVER)
+
+$(HTTP_SERVER):http_server.cc
+	$(cc) -o $@ $^ -std=c++11 
 
 $(PARSER):parser.cc
 	$(cc) -o $@ $^ -std=c++11 -lboost_system -lboost_filesystem
@@ -12,7 +16,7 @@ $(SSVR):server.cc
 
 .PHONY:clean
 clean:
-	rm -f $(SSVR) $(PARSER)
+	rm -f $(SSVR) $(PARSER) $(HTTP_SERVER)
 
 
 # cc=g++
