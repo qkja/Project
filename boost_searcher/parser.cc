@@ -178,7 +178,7 @@ static bool ParseUrl(const std::string &file_path, std::string *url)
 
   //  url_head = "https://www.boost.org/doc/libs/1_78_0/doc/html"
   //  url_tail = "/accumulators.html"
-  std::string url_head = " https://www.boost.org/doc/libs/1_78_0/doc/html";
+  std::string url_head = "https://www.boost.org/doc/libs/1_78_0/doc/html";
   std::string url_tail = file_path.substr(src_path.size());
   *url = url_head + url_tail;
 

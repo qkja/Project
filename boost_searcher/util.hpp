@@ -46,7 +46,7 @@ namespace ns_util
   class StringUtil
   {
   public:
-    static void CutString(const std::string &target, std::vector<std::string> *out, const std::string sep)
+    static void Split(const std::string &target, std::vector<std::string> *out, const std::string sep)
     {
       assert(out);
       // 我们这里使用现成的切分函数

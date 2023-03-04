@@ -76,6 +76,9 @@ namespace ns_searcher
         elem["desc"] = make_summary(doc->content, item.word); // 我们需要根据关键字来提取摘要
         elem["url"] = doc->url;
 
+        //fordebug
+        elem["id"] = (int)item.doc_id;
+        elem["weight"] = item.weight; // 会自动转成string
         root.append(elem); // 这里是有序的
       }
 
@@ -85,17 +88,28 @@ namespace ns_searcher
 
   private:
     // 获取摘要
-    std::string make_summary(const std::string &content, const std::string &words)
+    std::string make_summary(const std::string &content, const std::string &word)
     {
+      //这里有点问题  content 是文档内容,不区分大小写  word 确是 小的的
       // 这里获取摘要有点问题,关键字不一定会出现在内容中, 注意是非常小的概率
-      std::size_t pos = content.find(words);
-      if (pos == std::string::npos)
-        return content;
+      //std::size_t pos = content.find(words);
+      //if (pos == std::string::npos)
+      //  return "Node";
 
+      auto item = std::search(content.begin(), content.end(), word.begin(), word.end(),
+          [](int x, int y){
+          return std::tolower(x) == std::tolower(y);
+          });
+      if(item == content.end())
+        return "Node";
+
+      // 找到了 计算 跌打器到begin的距离
+      std::size_t pos = std::distance(content.begin(), item);
       const std::size_t prev_step = 50;
       const std::size_t next_step = 100;
       // 先前找 50个 向后找 50个
       std::size_t begin = 0;
+      // 注意szie_t是一个无符号数,这里我们-1 绝对有问题
       if (pos > prev_step)
       {
         begin = pos - prev_step;
@@ -109,7 +123,7 @@ namespace ns_searcher
       if (end > begin)
         return content.substr(begin, end - begin);
       else
-        return "";
+        return "Node";
     }
     ns_index::Index *index; // 提供系统经行查找索引
   };

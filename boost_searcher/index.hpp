@@ -139,7 +139,7 @@ namespace ns_index
 
       std::vector<std::string> results;
       const std::string sep = "\3";
-      ns_util::StringUtil::CutString(line, &results, sep);
+      ns_util::StringUtil::Split(line, &results, sep);
 
       if (results.size() != 3)
         return nullptr;
