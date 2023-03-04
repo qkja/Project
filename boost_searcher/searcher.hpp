@@ -7,6 +7,16 @@
 
 namespace ns_searcher
 {
+
+  struct InvertedElemPrint
+  {
+    uint64_t doc_id; // 文旦id
+
+    int weight;                     // 权重
+    std::vector<std::string> words; // 关键字>
+    InvertedElemPrint() : doc_id(0), weight(0) {}
+  };
+
   class Searcher
   {
   public:
@@ -35,8 +45,9 @@ namespace ns_searcher
       ns_util::JiebaUtil::CutString(query, &words);
 
       // 2 根据分词结果依次触发  搜索
-
-      ns_index::InvertedList inverted_list_all; // 保存所有的倒排拉链里面的内容
+      std::unordered_map<uint64_t, InvertedElemPrint> tokens_map;
+      std::vector<InvertedElemPrint> inverted_list_all; // 为了去重
+      // ns_index::InvertedList inverted_list_all; // 保存所有的倒排拉链里面的内容
 
       for (std::string s : words)
       {
@@ -49,16 +60,39 @@ namespace ns_searcher
         }
         // 此时找到了 保存所有的 拉链里面的值
         // 不完美 一个词可能和多个文档相关 一个文档
-        inverted_list_all.insert(inverted_list_all.end(),
-                                 inverted_list->begin(), inverted_list->end());
+        // inverted_list_all.insert(inverted_list_all.end(),
+        //                          inverted_list->begin(), inverted_list->end());
+
+        for (const auto &elem : *inverted_list)
+        {
+          auto &item = tokens_map[elem.doc_id];
+          item.doc_id = elem.doc_id; // 这个没有必要
+          item.words.push_back(elem.word);
+          item.weight += elem.weight;
+        }
+
+        // 此时我们相同的id 已经被保存了
       }
+      for (const auto &item : tokens_map)
+      {
+        inverted_list_all.push_back(item.second);
+      }
+      // 必须先去重 + 排序 是不是可以使用  set
 
       // 3 合并排序  -- 按照相关性进行降序排序
+
       std::sort(inverted_list_all.begin(), inverted_list_all.end(),
-                [](const ns_index::InvertedElem &e1, const ns_index::InvertedElem &e2)
+                [](const InvertedElemPrint &e1, const InvertedElemPrint &e2)
                 {
                   return e1.weight > e2.weight;
                 });
+
+      // std::sort(inverted_list_all.begin(), inverted_list_all.end(),
+      //           [](const ns_index::InvertedElem &e1, const ns_index::InvertedElem &e2)
+      //           {
+      //             return e1.weight > e2.weight;
+      //           });
+
       // 4 构建json串 使用序列化和反序列化
       Json::Value root;
       for (auto &item : inverted_list_all)
@@ -73,12 +107,12 @@ namespace ns_searcher
         // 获取了 文档内容
         Json::Value elem;
         elem["title"] = doc->title;
-        elem["desc"] = make_summary(doc->content, item.word); // 我们需要根据关键字来提取摘要
+        elem["desc"] = make_summary(doc->content, item.words[0]); // 我们需要根据关键字来提取摘要
         elem["url"] = doc->url;
 
-        //fordebug
-        elem["id"] = (int)item.doc_id;
-        elem["weight"] = item.weight; // 会自动转成string
+        // fordebug
+        //  elem["id"] = (int)item.doc_id;
+        //  elem["weight"] = item.weight; // 会自动转成string
         root.append(elem); // 这里是有序的
       }
 
@@ -90,17 +124,18 @@ namespace ns_searcher
     // 获取摘要
     std::string make_summary(const std::string &content, const std::string &word)
     {
-      //这里有点问题  content 是文档内容,不区分大小写  word 确是 小的的
-      // 这里获取摘要有点问题,关键字不一定会出现在内容中, 注意是非常小的概率
-      //std::size_t pos = content.find(words);
-      //if (pos == std::string::npos)
-      //  return "Node";
+      // 这里有点问题  content 是文档内容,不区分大小写  word 确是 小的的
+      //  这里获取摘要有点问题,关键字不一定会出现在内容中, 注意是非常小的概率
+      // std::size_t pos = content.find(words);
+      // if (pos == std::string::npos)
+      //   return "Node";
 
       auto item = std::search(content.begin(), content.end(), word.begin(), word.end(),
-          [](int x, int y){
-          return std::tolower(x) == std::tolower(y);
-          });
-      if(item == content.end())
+                              [](int x, int y)
+                              {
+                                return std::tolower(x) == std::tolower(y);
+                              });
+      if (item == content.end())
         return "Node";
 
       // 找到了 计算 跌打器到begin的距离
@@ -121,7 +156,12 @@ namespace ns_searcher
       }
 
       if (end > begin)
-        return content.substr(begin, end - begin);
+      {
+        std::string desc = content.substr(begin, end - begin);
+        desc += "....";
+        return desc;
+      }
+
       else
         return "Node";
     }
