@@ -5,9 +5,12 @@
 #include <cassert>
 #include <vector>
 #include <fstream>
-
+#include <unordered_map>
+#include <mutex>
 #include <boost/algorithm/string.hpp>
 #include "cppjieba/Jieba.hpp"
+
+#include "log.hpp"
 
 // 这是一个工具集
 namespace ns_util
@@ -68,15 +71,73 @@ namespace ns_util
     /// @brief 这里是分词
     /// @param src
     /// @param out
+    void CutStringHelper(const std::string &src, std::vector<std::string> *out)
+    {
+     jieba.CutForSearch(src, *out);
+     for(auto iter = out->begin(); iter!= out->end();)
+     {
+       auto it = stop_words.find(*iter);
+       if(it != stop_words.end())
+       {
+         //此时是暂停词 删除
+         // 避免迭代器失效
+         iter = out->erase(iter);
+       }
+       else
+       {
+         iter++;
+       }
+     }
+    }
+    static JiebaUtil* get_instance()
+    {
+      static std::mutex mtx;
+      if(nullptr == instance)
+      {
+        mtx.lock();
+        if(nullptr == instance)
+        {
+          instance = new JiebaUtil;
+          instance->InitJiebaUtil();
+        }
+        mtx.unlock();
+      }
+      return instance;
+    }
     static void CutString(const std::string &src, std::vector<std::string> *out)
     {
-      jieba.CutForSearch(src, *out);
+      assert(out);
+      ns_util::JiebaUtil::get_instance()->CutStringHelper(src,out);
+     // jieba.CutForSearch(src, *out);
+    }
+
+    void InitJiebaUtil()
+    {
+      std::ifstream in(STOP_WORD_PATH);
+      if(in.is_open() == false)
+      {
+        LOG(FATAL, "加载暂停词错误");
+        return;
+      }
+      std::string line;
+      while(std::getline(in, line))
+      {
+        stop_words.insert(std::make_pair(line, true));
+      }
+      in.close();
     }
 
   private:
-    static cppjieba::Jieba jieba;
-  };
-  cppjieba::Jieba JiebaUtil::jieba(DICT_PATH, HMM_PATH, USER_DICT_PATH, IDF_PATH, STOP_WORD_PATH);
 
+    static JiebaUtil* instance;
+
+    //static cppjieba::Jieba jieba;
+    cppjieba::Jieba jieba;
+    std::unordered_map<std::string, bool> stop_words;
+    JiebaUtil():jieba(DICT_PATH, HMM_PATH, USER_DICT_PATH, IDF_PATH, STOP_WORD_PATH){}
+    // 拷贝构造等 delte
+  };
+  //cppjieba::Jieba JiebaUtil::jieba(DICT_PATH, HMM_PATH, USER_DICT_PATH, IDF_PATH, STOP_WORD_PATH);
+  JiebaUtil* JiebaUtil:: instance = nullptr;
 }
 #endif

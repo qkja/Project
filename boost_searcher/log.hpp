@@ -16,7 +16,7 @@ void log(std::string level, std::string message, std::string file, int line)
             << "[" << time(nullptr) << "]"
             << "[" << message << "]"
             << "[" << file << "]"
-            << ":" << line << "]" << std::endl;
+            << "[:" << line << "]" << std::endl;
 }
 
 #endif

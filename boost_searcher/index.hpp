@@ -123,7 +123,7 @@ namespace ns_index
         if (count % 100 == 0)
         {
           // 后期加上一个进度条
-          LOG(NORMAL, "当前已经处理了 索引文档" + std::to_string(count));
+          LOG(NORMAL, "当前已经处理了 " + std::to_string(count) + " 个文档");
           // std::cout << "当前已经处理了 索引文档 " << count << std::endl;
         }
       }
