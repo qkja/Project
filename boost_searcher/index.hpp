@@ -120,7 +120,7 @@ namespace ns_index
         // 建立 倒排索引
         BuildInvertedIndex(*doc);
         count++;
-        if (count % 100 == 0)
+        if (count % 50 == 0)
         {
           // 后期加上一个进度条
           LOG(NORMAL, "当前已经处理了 " + std::to_string(count) + " 个文档");

@@ -160,9 +160,9 @@
       // 1. 提取数据 jquery
 
       let query = $(".container .search input").val();
-      //if(query == '' || query == null){
-      //  return;
-      //}
+      if(query == '' || query == null){
+        return;
+      }
       console.log("query = " + query);
 
       // 2. 发起http 请求
@@ -180,10 +180,10 @@
 
     function BuildHtml(data) {
 
-      //if(date == '' || data == null){
-      //  document.write("搜索的内容没有");
-      //  return;
-      //}
+      if(date == '' || data == null){
+        document.write("搜索的内容没有");
+        return;
+      }
       let result_lable = $(".container .result");
       result_lable.empty();
 

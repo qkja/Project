@@ -81,6 +81,7 @@ namespace ns_util
        {
          //此时是暂停词 删除
          // 避免迭代器失效
+         //std::cout << *iter << std::endl;
          iter = out->erase(iter);
        }
        else
