@@ -3,9 +3,9 @@
 // 这是一个工具集
 
 #include <iostream>
+#include <fstream>
 #include <string>
 
-#include <fstream>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
@@ -78,7 +78,6 @@ namespace aod
       if (ifs.good() == false)
       {
         std::cerr << "读取文件失败" << std::endl;
-
         ifs.close();
         return false;
       }
@@ -113,7 +112,7 @@ namespace aod
       int ret = access(_name.c_str(), F_OK);
       if (ret != 0)
       {
-        // 文件不存在
+        std::cout << "文件不存在" << std::endl;
         return false;
       }
       return true;
