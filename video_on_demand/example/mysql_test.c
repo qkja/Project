@@ -22,8 +22,7 @@ int add(MYSQL* mysql)
   int ret = mysql_query(mysql, sql);
   if(ret != 0)
   {
-    printf("sql 语句执行失败, %s \n 失败原因 %s\n",
-        sql, mysql_error(mysql));
+    printf("sql 语句执行失败, %s  失败原因 %s\n", sql, mysql_error(mysql));
     return -2;
   }
   return 0;
@@ -38,8 +37,7 @@ int mod(MYSQL* mysql)
   int ret = mysql_query(mysql, sql);
   if(ret != 0)
   {
-    printf("sql 语句执行失败, %s \n 失败原因 %s\n",
-        sql, mysql_error(mysql));
+    printf("sql 语句执行失败, %s  失败原因 %s\n",sql, mysql_error(mysql));
     return -2;
   }
   return 0;
@@ -49,13 +47,12 @@ int mod(MYSQL* mysql)
 int del(MYSQL* mysql)
 {
   assert(mysql);
-  const char* sql = "update test_tb set name='小王' where id=2;";
+  const char* sql = "delete from test_tb set where id=2;";
   // 执行语句
   int ret = mysql_query(mysql, sql);
   if(ret != 0)
   {
-    printf("sql 语句执行失败, %s \n 失败原因 %s\n",
-        sql, mysql_error(mysql));
+    printf("sql 语句执行失败, %s  失败原因 %s\n", sql, mysql_error(mysql));
     return -2;
   }
   return 0;
@@ -65,13 +62,12 @@ int del(MYSQL* mysql)
 int get(MYSQL* mysql)
 {
   assert(mysql);
-  const char* sql = "update test_tb set name='小王' where id=2;";
+  const char* sql = "select * from test_t;";
   // 执行语句
   int ret = mysql_query(mysql, sql);
   if(ret != 0)
   {
-    printf("sql 语句执行失败, %s \n 失败原因 %s\n",
-        sql, mysql_error(mysql));
+    printf("sql 语句执行失败, %s  失败原因 %s\n", sql, mysql_error(mysql));
     return -2;
   }
 
@@ -110,10 +106,11 @@ int main()
   // 初始化句柄
   MYSQL* mysql = mysql_init(NULL);
   assert(mysql);
+
   // 链接服务器
-  if(NULL == mysql_real_connect(mysql, "127.0.0.1", "root", "", "test_db", 0, NULL, 0 ))
+  if (NULL == mysql_real_connect(mysql /*句柄*/, "127.0.0.1", "root", "" /*密码*/, "test_db" /*数据库名称*/, 0 /*0 默认 就是3306*/, NULL, 0))
   {
-    printf("数据库链接呢失败\n");
+    printf("数据库链接失败\n");
     return -1;
   }
 
