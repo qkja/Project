@@ -10,8 +10,7 @@
 #include <string>
 #include <memory>
 #include <jsoncpp/json/json.h>
-
-int main()
+void serialize()
 {
   char *name = "四小明";
   int age = 18;
@@ -31,5 +30,34 @@ int main()
   sw->write(val, &ss);
 
   std::cout << ss.str() << std::endl;
+}
+// 反序列化
+void unserialize()
+{
+  std::string str = R"({"姓名":"小明", "年龄":18, "成绩":[77.5, 88, 99.5]})";
+
+  Json::Value val;
+
+  Json::CharReaderBuilder crb;
+  std::unique_ptr<Json::CharReader> cr(crb.newCharReader());
+  std::string err;
+
+  bool ret = cr->parse(str.c_str(), str.c_str() + str.size(), &val, &err);
+  if (ret == true)
+  {
+    std::cout << val["姓名"].asString() << std::endl;
+    std::cout << val["年龄"].asString() << std::endl;
+    int sz = val["成绩"].size();
+    for (int i = 0; i < sz; i++)
+    {
+      std::cout << val["成绩"][i] << " ";
+    }
+    std::cout << std::endl;
+  }
+}
+
+int main()
+{
+  unserialize();
   return 0;
 }
