@@ -4,6 +4,8 @@
 
 #include <iostream>
 #include <string>
+#include <unistd.h>
+
 #include <fstream>
 
 namespace aod
@@ -41,6 +43,16 @@ namespace aod
     /// @return
     std::size_t Size()
     {
+    }
+    /// @brief 判断文件是否存在
+    /// @return
+    bool Exists()
+    {
+      int ret = access(_name.c_str(), F_OK);
+      if (ret != 0)
+      {
+        // 文件不存在
+      }
     }
 
   private:
