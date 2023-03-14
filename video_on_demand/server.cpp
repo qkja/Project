@@ -51,15 +51,15 @@ int main()
   // 正则表达式 ,在正则表达式中
   // d 表示数字,
   // + 表示一次或者多次
-  // ()--表示捕捉数据
+  // ()--表示捕捉数据s
   server.Get("/numbers/(\\d+)", Numbers);
 
   server.Post("/multipart", Multipart);
 
-  std::cout << "sssssssssssss" << std::endl;
+ // std::cout << "sssssssssssss" << std::endl;
   server.listen("0.0.0.0", 8081);
 
-  std::cout << "aaaaaaaaaaaaa" << std::endl;
+  //std::cout << "aaaaaaaaaaaaa" << std::endl;
 
   return 0;
 }
