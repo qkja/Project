@@ -3,12 +3,15 @@
 // 这是一个工具集
 
 #include <iostream>
+#include <sstream>
 #include <fstream>
 #include <string>
 
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <jsoncpp/json/json.h>
+#include <memory>
 
 namespace aod
 {
@@ -121,6 +124,50 @@ namespace aod
   private:
     std::string _name; // 文件路径名称
   };
+
+  /// @brief 回去看看序列化和反序列化的一些接口
+  class JsonUtil
+  {
+  public:
+    /// @brief 序列化
+    /// @param val
+    /// @param body
+    /// @return
+    static bool Serialize(const Json::Value &val, std::string *body)
+    {
+      Json::StreamWriterBuilder swb;
+      std::unique_ptr<Json::StreamWriter> sw(swb.newStreamWriter());
+
+      std::stringstream ss;
+      int ret = sw->write(val, &ss);
+      if (ret != 0)
+      {
+        std::cerr << "序列化失败" << std::endl;
+        return false;
+      }
+      *body = ss.str();
+      return true;
+    }
+
+    /// @brief 反序列化
+    /// @param val
+    /// @param body
+    /// @return
+    static bool UnSerialize(const std::string &body, Json::Value *val)
+    {
+      Json::CharReaderBuilder crb;
+      std::unique_ptr<Json::CharReader> cr(crb.newCharReader());
+      std::string err;
+      bool ret = cr->parse(body.c_str(), body.c_str() + body.size(), val, &err);
+      if (ret == false)
+      {
+        std::cerr << "反序列化失败" << std::endl;
+        return false;
+      }
+      return true;
+    }
+  };
+
 }
 
 #endif
