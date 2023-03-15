@@ -46,7 +46,45 @@ namespace aod
 
   public:
     static void Insert(const httplib::Request &req, httplib::Response &rsp);
-    static void Update(const httplib::Request &req, httplib::Response &rsp);
+    static void Update(const httplib::Request &req, httplib::Response &rsp)
+    {
+      // 需要进行捕捉
+      // 这个是捕捉的数据 /numbers/123
+      // matches[0] = "/numbers/123"  matches[1] = "123"
+      std::string s = req.matches[1];
+      int video_id = atoi(s.c_str()); // 捕捉id
+
+      // 去数据库里面查找是否存在
+      Json::Value v;
+      if (false == tb_video->SelectOne(video_id, &v))
+      {
+        rsp.status = 400;
+        rsp.body = R"({"result":false, "reason":"视频不存在"})";
+        rsp.set_header("Content-Type", "application/json");
+        return;
+      }
+
+      // 开始修改
+
+      Json::Value video;
+      if (false == JsonUtil::UnSerialize(req.body, &video))
+      {
+        rsp.status = 400;
+        rsp.body = R"({"result":false, "reason":"反序列化失败"})";
+        rsp.set_header("Content-Type", "application/json");
+        return;
+      }
+
+      if(false == tb_video->Update(video_id,video))
+      {
+        rsp.status = 500;
+        rsp.body = R"({"result":false, "reason":"修改数据库失败"})";
+        rsp.set_header("Content-Type", "application/json");
+        return;
+      }
+    }
+
+
     static void Delete(const httplib::Request &req, httplib::Response &rsp)
     {
       // 需要进行捕捉
@@ -62,6 +100,7 @@ namespace aod
         rsp.status = 500;
         rsp.body = R"({"result":false, "reason":"视频不存在"})";
         rsp.set_header("Content-Type", "application/json");
+        return;
       }
       std::string root = WWWROOT;
       std::string video_path = root + video["video"].asString();
@@ -76,6 +115,7 @@ namespace aod
         rsp.status = 500;
         rsp.body = R"({"result":false, "reason":"删除数据库信息失败"})";
         rsp.set_header("Content-Type", "application/json");
+        return;
       }
     }
     static void SelectOne(const httplib::Request &req, httplib::Response &rsp);
