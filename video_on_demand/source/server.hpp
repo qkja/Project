@@ -207,14 +207,19 @@ namespace aod
     //  filename,
     //  content
     // };
-    std::string video_name = name.content; // 这里解释一下content为何是这个,不是文件名称
+    
+    // for debug
+    // std::cout << "content   :  " << name.content << std::endl;
+    // std::cout << "filename  :  " << name.filename << std::endl;
+
+    std::string video_name = name.content; // 这里解释一下content为何是这个,不是文件名称--对于视频而言,这里确实是
     std::string video_info = info.content;
 
     // ../http/www/video/变形金刚ss.mp4
     std::string root = WWWROOT;
-    std::string video_path = root + VIDEO_ROOT + name + video.filename;
+    std::string video_path = root + VIDEO_ROOT + video_name + video.filename;
     //../http/www/image/变形金刚1.jpg
-    std::string image_path = root + IMAGE_ROOT + name + image.filename;
+    std::string image_path = root + IMAGE_ROOT + video_name + image.filename;
 
     if (false == FileUtil(video_path).SetContent(video.content))
     {
@@ -239,8 +244,8 @@ namespace aod
 
     video_json["info"] = video_info;
 
-    video_json["video"] = VIDEO_ROOT + name + video.filename;
-    video_json["image"] = IMAGE_ROOT + name + image.filename;
+    video_json["video"] = VIDEO_ROOT + video_name + video.filename;
+    video_json["image"] = IMAGE_ROOT + video_name + image.filename;
 
     // 数据库插入
     if (false == tb_video->Insert(video_json))
