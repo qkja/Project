@@ -257,6 +257,8 @@ namespace aod
       rsp.set_header("Content-Type", "application/json");
       return;
     }
+
+    rsp.set_redirect("/index.html", 303);
   }
 }
 #endif
