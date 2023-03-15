@@ -70,8 +70,8 @@ void DataTset()
   // tb_video.Insert(video);
   // tb_video.Update(2,video);
   // tb_video.SelectAll(&video);
-  //tb_video.SelectOne(2, &video);
-  //tb_video.SelectLike("传奇", &video);
+  // tb_video.SelectOne(2, &video);
+  // tb_video.SelectLike("传奇", &video);
 
   // 如何产看结果 序列化
   // std::string body;
@@ -84,6 +84,6 @@ int main()
 {
   // FileTset();
   // JsonTset();
-  DataTset();
+  // DataTset();
   return 0;
 }
