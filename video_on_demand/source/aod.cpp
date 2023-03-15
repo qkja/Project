@@ -6,6 +6,7 @@
  */
 #include "util.hpp"
 #include "data.hpp"
+#include "server.hpp"
 /// @brief 工具集的测试
 void FileTset()
 {
@@ -79,11 +80,16 @@ void DataTset()
   // std::cout << body << std::endl;
   tb_video.Delete(1);
 }
-
+void ServerTest()
+{
+  aod::Server server(8081);
+  server.RunModule();
+}
 int main()
 {
   // FileTset();
   // JsonTset();
   // DataTset();
+  ServerTest();
   return 0;
 }

@@ -75,7 +75,7 @@ namespace aod
         return;
       }
 
-      if(false == tb_video->Update(video_id,video))
+      if (false == tb_video->Update(video_id, video))
       {
         rsp.status = 500;
         rsp.body = R"({"result":false, "reason":"修改数据库失败"})";
@@ -83,7 +83,6 @@ namespace aod
         return;
       }
     }
-
 
     static void Delete(const httplib::Request &req, httplib::Response &rsp)
     {
@@ -118,8 +117,67 @@ namespace aod
         return;
       }
     }
-    static void SelectOne(const httplib::Request &req, httplib::Response &rsp);
-    static void SelectAll(const httplib::Request &req, httplib::Response &rsp);
+
+    static void SelectOne(const httplib::Request &req, httplib::Response &rsp)
+    {
+      // 需要进行捕捉
+      // 这个是捕捉的数据 /numbers/123
+      // matches[0] = "/numbers/123"  matches[1] = "123"
+      std::string s = req.matches[1];
+      int video_id = atoi(s.c_str()); // 捕捉id
+      Json::Value video;
+      if (false == tb_video->SelectOne(video_id, &video))
+      {
+        rsp.status = 500;
+        rsp.body = R"({"result":false, "reason":"视频不存在"})";
+        rsp.set_header("Content-Type", "application/json");
+        return;
+      }
+
+      JsonUtil::Serialize(video, &rsp.body);
+      rsp.set_header("Content-Type", "application/json");
+    }
+    static void SelectAll(const httplib::Request &req, httplib::Response &rsp)
+    {
+      // 可能是 模糊匹配
+
+      bool select_flag = true;
+      std::string search_key;
+      if (true == req.has_param("search"))
+      {
+        // 表示是 模糊匹配
+        select_flag = false;
+        search_key = req.get_param_value("search");
+      }
+      Json::Value videos;
+
+      if (select_flag == true)
+      {
+        // 这里是全部
+        if (false == tb_video->SelectAll(&videos))
+        {
+          rsp.status = 500;
+          rsp.body = R"({"result":false, "reason":"数据库信息不存在"})";
+          rsp.set_header("Content-Type", "application/json");
+          return;
+        }
+      }
+      else
+      {
+        if (false == tb_video->SelectLike(search_key, &videos))
+        {
+          rsp.status = 500;
+          rsp.body = R"({"result":false, "reason":"数据库信息不存在"})";
+          rsp.set_header("Content-Type", "application/json");
+          return;
+        }
+      }
+
+      rsp.status = 200;
+      JsonUtil::Serialize(videos, &rsp.body);
+      rsp.set_header("Content-Type", "application/json");
+      return;
+    }
 
   private:
     uint16_t _port;
