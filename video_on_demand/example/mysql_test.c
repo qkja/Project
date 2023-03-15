@@ -1,9 +1,9 @@
 /**
-* User: Qkj
-* Description: 测试mysql
-* Date: 2023-03-06
-* Time: 19:54
-*/
+ * User: Qkj
+ * Description: 测试mysql
+ * Date: 2023-03-06
+ * Time: 19:54
+ */
 
 #include <stdio.h>
 #include <unistd.h>
@@ -13,14 +13,14 @@
 #include <mysql/mysql.h>
 
 // 增加
-int add(MYSQL* mysql)
+int add(MYSQL *mysql)
 {
   assert(mysql);
-  const char* sql = "insert into test_tb values(null, 18, '小张', 77.5);";
+  const char *sql = "insert into test_tb values(null, 18, '小张', 77.5);";
 
   // 执行语句
   int ret = mysql_query(mysql, sql);
-  if(ret != 0)
+  if (ret != 0)
   {
     printf("sql 语句执行失败, %s  失败原因 %s\n", sql, mysql_error(mysql));
     return -2;
@@ -29,28 +29,28 @@ int add(MYSQL* mysql)
 }
 
 // 修改
-int mod(MYSQL* mysql)
+int mod(MYSQL *mysql)
 {
   assert(mysql);
-  const char* sql = "update test_tb set name='小王' where id=2;";
+  const char *sql = "update test_tb set name='小王' where id=2;";
   // 执行语句
   int ret = mysql_query(mysql, sql);
-  if(ret != 0)
+  if (ret != 0)
   {
-    printf("sql 语句执行失败, %s  失败原因 %s\n",sql, mysql_error(mysql));
+    printf("sql 语句执行失败, %s  失败原因 %s\n", sql, mysql_error(mysql));
     return -2;
   }
   return 0;
 }
 
 // 删除
-int del(MYSQL* mysql)
+int del(MYSQL *mysql)
 {
   assert(mysql);
-  const char* sql = "delete from test_tb set where id=2;";
+  const char *sql = "delete from test_tb set where id=2;";
   // 执行语句
   int ret = mysql_query(mysql, sql);
-  if(ret != 0)
+  if (ret != 0)
   {
     printf("sql 语句执行失败, %s  失败原因 %s\n", sql, mysql_error(mysql));
     return -2;
@@ -58,23 +58,22 @@ int del(MYSQL* mysql)
   return 0;
 }
 
-// 查询 
-int get(MYSQL* mysql)
+// 查询
+int get(MYSQL *mysql)
 {
   assert(mysql);
-  const char* sql = "select * from test_t;";
+  const char *sql = "select * from test_t;";
   // 执行语句
   int ret = mysql_query(mysql, sql);
-  if(ret != 0)
+  if (ret != 0)
   {
     printf("sql 语句执行失败, %s  失败原因 %s\n", sql, mysql_error(mysql));
     return -2;
   }
 
-
   // 保存结果集到本地
-  MYSQL_RES* res = mysql_store_result(mysql);
-  if(NULL == res)
+  MYSQL_RES *res = mysql_store_result(mysql);
+  if (NULL == res)
   {
     printf("保存的数据出错了 %s\n", mysql_error(mysql));
     return 3;
@@ -84,10 +83,10 @@ int get(MYSQL* mysql)
   // 得到子段数
   int col_num = mysql_num_fields(res);
 
-  for(int i = 0; i < row_num; i++)
+  for (int i = 0; i < row_num; i++)
   {
     MYSQL_ROW row = mysql_fetch_row(res);
-    for(int j = 0; j < col_num; j++)
+    for (int j = 0; j < col_num; j++)
     {
       printf("%s\t", row[j]);
     }
@@ -99,12 +98,10 @@ int get(MYSQL* mysql)
   return 0;
 }
 
-
-
 int main()
 {
   // 初始化句柄
-  MYSQL* mysql = mysql_init(NULL);
+  MYSQL *mysql = mysql_init(NULL);
   assert(mysql);
 
   // 链接服务器

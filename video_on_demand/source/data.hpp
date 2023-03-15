@@ -95,10 +95,10 @@ namespace aod
 
     bool Delete(int video_id)
     {
-#define DELETE_VIDEO "delete from tb_video where id = %d;"
+#define DELETE_VIDEO "delete from tb_video where id=%d;"
       std::string sql;
       sql.resize(1024);
-      sprintf(&sql[0], UPDATE_VIDEO, video_id);
+      sprintf(&sql[0], DELETE_VIDEO, video_id);
       return MySQLQuery(_mysql, sql);
     }
 
@@ -151,7 +151,7 @@ namespace aod
 
     bool SelectOne(int video_id, Json::Value *video)
     {
-#define SELECTONE_VIDEO "select  from tb_video where id = %d;"
+#define SELECTONE_VIDEO "select * from tb_video where id=%d;"
       _mutex.lock();
       std::string sql;
       sql.resize(1024);
@@ -184,7 +184,6 @@ namespace aod
       }
       MYSQL_ROW row = mysql_fetch_row(res);
 
-      Json::Value video;
       (*video)["id"] = atoi(row[0]);
       (*video)["name"] = row[1];
       (*video)["info"] = row[2];
@@ -198,7 +197,7 @@ namespace aod
 
     bool SelectLike(const std::string &key, Json::Value *videos)
     {
-#define SELECTLIKE_VIDEO "select from tb_video where name like '%%%s%%';"
+#define SELECTLIKE_VIDEO "select * from tb_video where name like '%%%s%%';"
       _mutex.lock();
       std::string sql;
       sql.resize(1024);
