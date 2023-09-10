@@ -9,9 +9,7 @@
 #include <string>
 #include <vector>
 #include <cassert>
-
 #include <boost/filesystem.hpp> // 引入boost库
-
 #include "util.hpp"
 
 // 这是一个目录,下面放的是所有的html网页
@@ -28,14 +26,48 @@ typedef struct DocInfo
   std::string url;     // 该文档在官网的的url
 } DocInfo_t;
 
-/// @brief  把目录下的所有html 文件名 保存到 数组中
-/// @param src_path 目录
-/// @param file_list 数组指针,数组中保存文件名
-/// @return 成功返回ture,否则就是false
+static bool EnumFile(const std::string &src_path, std::vector<std::string> *file_list);
+static bool ParseHtml(const std::vector<std::string> &file_list, std::vector<DocInfo_t> *results);
+static bool SaveHtml(const std::vector<DocInfo_t> &results, const std::string &output);
+
+
+
+
+int main(void)
+{
+  // 保存所有的 html 的文件名
+  std::vector<std::string> file_list;
+
+  // 第一步: EnumFile 枚举所有的文件名(带路径),仅限 网页,方便后期对一个一个文件进行读取
+  if (false == EnumFile(src_path, &file_list))
+  {
+    std::cerr << "枚举文件名失败" << std::endl;
+    return 1;
+  }
+
+  // 第二部:读取每一个文件的内容,进行解析,解析的格式 为DocInfo_t
+  std::vector<DocInfo_t> results;
+  if (false == ParseHtml(file_list, &results))
+  {
+    std::cerr << "解析文件失败" << std::endl;
+    return 2;
+  }
+
+
+  
+  // 第三步: 把解析文件的内容写入到output中,按照\3\n 作为每一个文档的分割符
+  if (false == SaveHtml(results, output))
+  {
+    std::cerr << "保存文件失败" << std::endl;
+    return 3;
+  }
+  return 0;
+}
+
 static bool EnumFile(const std::string &src_path, std::vector<std::string> *file_list)
 {
   assert(file_list);
-  namespace fs = boost::filesystem; // 这是一个习惯
+  namespace fs = boost::filesystem; // 这是一个习惯, C++支持
   fs::path root_path(src_path);     // 定义一个path对象
 
   if (fs::exists(root_path) == false) // 判断路径是不是存在
@@ -69,137 +101,16 @@ static bool EnumFile(const std::string &src_path, std::vector<std::string> *file
   return true;
 }
 
-//////////////////////////////////////////////////////////////////////////////////
-/// @brief  提取title
-/// @param file
-/// @param title
-/// @return
-static bool ParseTitle(const std::string &file, std::string *title)
-{
-  assert(title);
-  std::size_t begin = file.find("<title>");
+static bool ParseTitle(const std::string &file, std::string *title);
+static bool ParseContent(const std::string &file, std::string *content);
+static bool ParseUrl(const std::string &file_path, std::string *url);
 
-  if (begin == std::string::npos)
-  {
-    return false;
-  }
-
-  std::size_t end = file.find("</title>");
-  if (end == std::string::npos)
-  {
-    return false;
-  }
-
-  begin += std::string("<title>").size();
-  // if (begin >= end)
-  // 这里允许 没有标题的
-  if (begin > end)
-  {
-    // if(begin == end)
-    // {
-    //   std::cout << file <<std::endl;
-    // }
-    return false;
-  }
-  // 这里我想测试一下 如果先相等的话  我们结构体的个数是不是会发生变化
-  // 在家里面我们确实存在了些问题
-  // 这里一定是 存在 title的
-  *title = file.substr(begin, end - begin);
-  return true;
-}
-
-/// @brief 提取 内容
-/// @param file
-/// @param content
-/// @return
-static bool ParseContent(const std::string &file, std::string *content)
-{
-  assert(content);
-  // 这就是我们去标签最重要的地方
-  // 我们这里使用一个简单的状态机
-
-  enum status
-  {
-    LABLE,
-    CONTENT
-  };
-  enum status s = LABLE; // 默认第一个是 '<'
-
-  for (char ch : file) // 注意这里我没有使用引用,后面解释
-  {
-    switch (s)
-    {
-    case LABLE:
-      if (ch == '>')
-      {
-        // 此时意味这当前的标签被处理完毕
-        s = CONTENT;
-      }
-      break;
-
-    case CONTENT:
-      if (ch == '<')
-      {
-        s = LABLE;
-      }
-      else
-      {
-        // 这里有一个细节 我们不想要'\n' 字符
-        // 我们希望用'\n' 作为分隔符
-        // 注意,这个应该不会出现\n,
-        // 毕竟我们读取文件的时候使用的getline,可是不我们不能把希望寄托到被人身上
-        if (ch == '\n')
-        {
-          ch = ' ';
-        }
-        content->push_back(ch);
-      }
-      break;
-
-    default:
-      break;
-    }
-  }
-  return true;
-}
-
-/// @brief 提取url
-/// @param file
-/// @param url
-/// @return
-static bool ParseUrl(const std::string &file_path, std::string *url)
-{
-  assert(url);
-
-  // 我们实际上的url 和库里面的url 是不一样的,有对应关系
-  // 官网URL样例： https://www.boost.org/doc/libs/1_78_0/doc/html/accumulators.html
-  // 我们下载下来的url样例：boost_1_78_0/doc/html/accumulators.html
-  // data/input/accumulators.html
-
-  //  url_head = "https://www.boost.org/doc/libs/1_78_0/doc/html"
-  //  url_tail = "/accumulators.html"
-  std::string url_head = "https://www.boost.org/doc/libs/1_78_0/doc/html";
-  std::string url_tail = file_path.substr(src_path.size());
-  *url = url_head + url_tail;
-
-  return true;
-}
-
-/// @brief  仅仅是为了调试
-/// @param doc
 void ShowDoc(const DocInfo_t &doc)
 {
   std::cout << "title: " << doc.title << std::endl;
   std::cout << "content: " << doc.content << std::endl;
   std::cout << "url: " << doc.url << std::endl;
 }
-
-//////////////////////////////////////////////////////////////////////////////////
-
-/// @brief 读取数组中的每一个文件里面的内容,把它保存到一个结构体中,其中结构体放在数组中
-/// @param file_list 保存文件名的数组
-/// @param results  保存结构体的数组指针
-/// @return  成功返回ture,否则就是false
 static bool ParseHtml(const std::vector<std::string> &file_list, std::vector<DocInfo_t> *results)
 {
   assert(results);
@@ -238,10 +149,91 @@ static bool ParseHtml(const std::vector<std::string> &file_list, std::vector<Doc
   return true;
 }
 
-/// @brief 把结构体数组的内容保存按照一定的格式保存到 文件中
-/// @param results 结构体数组
-/// @param output  文件名
-/// @return 成功返回ture,否则就是false
+static bool ParseTitle(const std::string &file, std::string *title)
+{
+  assert(title);
+  std::size_t begin = file.find("<title>");
+
+  if (begin == std::string::npos)
+  {
+    return false;
+  }
+
+  std::size_t end = file.find("</title>"); // 反方向查
+  if (end == std::string::npos)
+  {
+    return false;
+  }
+
+  begin += std::string("<title>").size();
+  if (begin > end)
+  {
+    return false;
+  }
+  *title = file.substr(begin, end - begin);
+  return true;
+}
+
+
+static bool ParseContent(const std::string &file, std::string *content)
+{
+  assert(content);
+  // 这就是我们去标签最重要的地方
+  // 我们这里使用一个简单的状态机
+  enum status
+  {
+    LABLE,
+    CONTENT
+  };
+
+  enum status s = LABLE; // 默认第一个是 '<'
+
+  for (char ch : file) // 注意这里我没有使用引用,后面解释
+  {
+    switch (s)
+    {
+    case LABLE:
+      if (ch == '>')
+      {
+        // 此时意味这当前的标签被处理完毕
+        s = CONTENT;
+      }
+      break;
+
+    case CONTENT:
+      if (ch == '<')
+      {
+        s = LABLE;
+      }
+      else
+      {
+        if (ch == '\n')
+        {
+          ch = ' ';
+        }
+        content->push_back(ch);
+      }
+      break;
+
+    default:
+      break;
+    }
+  }
+  return true;
+}
+
+static bool ParseUrl(const std::string &file_path, std::string *url)
+{
+  assert(url);
+  std::string url_head = "https://www.boost.org/doc/libs/1_83_0/doc/html";
+  std::string url_tail = file_path.substr(src_path.size());
+  *url = url_head + url_tail;
+
+  return true;
+}
+
+
+
 static bool SaveHtml(const std::vector<DocInfo_t> &results, const std::string &output)
 {
 #define SEP "\3"
@@ -272,35 +264,4 @@ static bool SaveHtml(const std::vector<DocInfo_t> &results, const std::string &o
   }
   out.close();
   return true;
-}
-
-int main(void)
-{
-  // 保存所有的 html 的文件名
-  std::vector<std::string> file_list;
-
-  // 第一步: EnumFile 枚举所有的文件名(带路径),仅限 网页,方便后期对一个一个文件进行读取
-  if (false == EnumFile(src_path, &file_list))
-  {
-    std::cerr << "枚举文件名失败" << std::endl;
-    return 1;
-  }
-
-  // 第二部:读取每一个文件的内容,进行解析,解析的格式 为DocInfo_t
-  std::vector<DocInfo_t> results;
-
-  if (false == ParseHtml(file_list, &results))
-  {
-    std::cerr << "解析文件失败" << std::endl;
-    return 2;
-  }
-
-  // std::cout << "读取文件的个数 " << results.size() << std::endl;
-  // 第三步: 把解析文件的内容写入到output中,按照\3\n 作为每一个文档的分割符
-  if (false == SaveHtml(results, output))
-  {
-    std::cerr << "保存文件失败" << std::endl;
-    return 3;
-  }
-  return 0;
 }

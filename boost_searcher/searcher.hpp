@@ -1,11 +1,8 @@
-#ifndef __SEARCHER_HPP__
-#define __SEARCHER_HPP__
+#pragma once
 #include "index.hpp"
 #include "util.hpp"
 #include <algorithm>
 #include <jsoncpp/json/json.h>
-#include "log.hpp"
-
 namespace ns_searcher
 {
 
@@ -30,12 +27,12 @@ namespace ns_searcher
       // 获取创建index对象
       index = ns_index::Index::GetInstance();
       LOG(NORMAL, "获取单例成功");
-      // std::cout << "获取单例成功" << std::endl;
+      std::cout << "获取单例成功" << std::endl;
       //  根据index对象建立索引
       index->BuildIndex(input);
 
       LOG(NORMAL, "建立正派倒排索引成功");
-      // std::cout << "建立正派倒排索引成功" << std::endl;
+      std::cout << "建立正派倒排索引成功" << std::endl;
     }
 
     /// @brief
@@ -48,53 +45,45 @@ namespace ns_searcher
       ns_util::JiebaUtil::CutString(query, &words);
 
       // 2 根据分词结果依次触发  搜索
-      std::unordered_map<uint64_t, InvertedElemPrint> tokens_map;
+      std::unordered_map<uint64_t, InvertedElemPrint> tokens_map; // 根据id,找到InvertedElemPrint
+
       std::vector<InvertedElemPrint> inverted_list_all; // 为了去重
-      // ns_index::InvertedList inverted_list_all; // 保存所有的倒排拉链里面的内容
 
       for (std::string s : words)
       {
-        boost::to_lower(s); // 建立索引的时候是忽略大小写的,我们搜索的时候也需要
+        boost::to_lower(s);
         // 先查倒排
         ns_index::InvertedList *inverted_list = index->GetInvertedList(s);
         if (nullptr == inverted_list)
         {
           continue;
         }
-        // 此时找到了 保存所有的 拉链里面的值
-        // 不完美 一个词可能和多个文档相关 一个文档
-        // inverted_list_all.insert(inverted_list_all.end(),
-        //                          inverted_list->begin(), inverted_list->end());
 
+        // 根据倒排拉量找到我们所有的文档id
         for (const auto &elem : *inverted_list)
         {
+          // 去看这个id是不在哈希表中,如果在,拿到InvertedElemPrint
           auto &item = tokens_map[elem.doc_id];
-          item.doc_id = elem.doc_id; // 这个没有必要
+          item.doc_id = elem.doc_id;
+          // 把关键字也插入其中
           item.words.push_back(elem.word);
+          // 计算权重
           item.weight += elem.weight;
         }
-
         // 此时我们相同的id 已经被保存了
       }
+      // 这里就把我们相同id的InvertedElemPrint插入所有的数组中
       for (const auto &item : tokens_map)
       {
         inverted_list_all.push_back(item.second);
       }
-      // 必须先去重 + 排序 是不是可以使用  set
 
-      // 3 合并排序  -- 按照相关性进行降序排序
-
+      // 3 合并排序  -- 按照相关性进行降序排序,这里是根据新的权重.
       std::sort(inverted_list_all.begin(), inverted_list_all.end(),
                 [](const InvertedElemPrint &e1, const InvertedElemPrint &e2)
                 {
                   return e1.weight > e2.weight;
                 });
-
-      // std::sort(inverted_list_all.begin(), inverted_list_all.end(),
-      //           [](const ns_index::InvertedElem &e1, const ns_index::InvertedElem &e2)
-      //           {
-      //             return e1.weight > e2.weight;
-      //           });
 
       // 4 构建json串 使用序列化和反序列化
       Json::Value root;
@@ -171,4 +160,3 @@ namespace ns_searcher
     ns_index::Index *index; // 提供系统经行查找索引
   };
 }
-#endif

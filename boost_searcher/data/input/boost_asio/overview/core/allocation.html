@@ -8,6 +8,7 @@
 <link rel="up" href="../core.html" title="Core Concepts and Functionality">
 <link rel="prev" href="line_based.html" title="Line-Based Operations">
 <link rel="next" href="cancellation.html" title="Per-Operation Cancellation">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table cellpadding="2" width="100%"><tr>
@@ -107,12 +108,18 @@
         </p>
 <p>
           The custom memory allocation functions may be called from any user-created
-          thread that is calling a library function. The implementation guarantees
-          that, for the asynchronous operations included the library, the implementation
-          will not make concurrent calls to the memory allocation functions for that
-          handler. The implementation will insert appropriate memory barriers to
-          ensure correct memory visibility should allocation functions need to be
-          called from different threads.
+          thread that is calling an Boost.Asio library function. The implementation
+          guarantees, for the asynchronous operations included with the library,
+          that within the context of an individual operation the implementation will
+          not make concurrent calls to the memory allocation functions for that handler.
+          The implementation will insert appropriate memory barriers to ensure correct
+          memory visibility should an asynchronous operation need to call the allocation
+          functions from different threads. (Note: If the same allocator is shared
+          across multiple concurrent asynchronous operations, this can result in
+          concurrent calls to the memory allocation functions. Use of a <a class="link" href="strands.html" title="Strands: Use Threads Without Explicit Locking">strand</a>
+          does not prevent these concurrent calls, as an operation may need to allocate
+          memory from outside the strand. In this case, the shared allocator is responsible
+          for providing the necessary thread safety guarantees.)
         </p>
 <h6>
 <a name="boost_asio.overview.core.allocation.h0"></a>
@@ -127,15 +134,11 @@
           memory allocation example (C++11)</a>.
         </p>
 </div>
-<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright © 2003-2021 Christopher
-      M. Kohlhoff<p>
+<div class="copyright-footer">Copyright © 2003-2023 Christopher M. Kohlhoff<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>
-</div></td>
-</tr></table>
+</div>
 <hr>
 <div class="spirit-nav">
 <a accesskey="p" href="line_based.html"><img src="../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../core.html"><img src="../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../../boost_asio.html"><img src="../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="cancellation.html"><img src="../../../../../doc/src/images/next.png" alt="Next"></a>

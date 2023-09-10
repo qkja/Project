@@ -9,6 +9,7 @@
 <link rel="up" href="concept_check.html#concepts.reference" title="Concept reference">
 <link rel="prev" href="BidirectionalIterator.html" title="Concept BidirectionalIterator">
 <link rel="next" href="DefaultConstructible.html" title="Concept DefaultConstructible">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table cellpadding="2" width="100%"><tr>
@@ -30,7 +31,7 @@
 <p>RandomAccessIterator</p>
 </div>
 <div class="refsect1">
-<a name="id-1.3.50.3.9.3"></a><h2>Description</h2>
+<a name="id-1.3.47.3.9.3"></a><h2>Description</h2>
 <p>A random access iterator is an iterator that can read through
   a sequence of values.  It can move in either direction through the
   sequence (by any amount in constant time), and can be either mutable
@@ -41,14 +42,14 @@
   dereferenceable or incrementable).</p>
 </div>
 <div class="refsect1">
-<a name="id-1.3.50.3.9.4"></a><h2>Refinement of</h2>
+<a name="id-1.3.47.3.9.4"></a><h2>Refinement of</h2>
 <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem"><p><a class="link" href="BidirectionalIterator.html" title="Concept BidirectionalIterator">BidirectionalIterator</a></p></li>
 <li class="listitem"><p><a class="link" href="LessThanComparable.html" title="Concept LessThanComparable">LessThanComparable</a></p></li>
 </ul></div>
 </div>
 <div class="refsect1">
-<a name="id-1.3.50.3.9.5"></a><h2>Associated types</h2>
+<a name="id-1.3.47.3.9.5"></a><h2>Associated types</h2>
 <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
 <p><span class="bold"><strong>value_type</strong></span></p>
@@ -69,7 +70,7 @@
 </ul></div>
 </div>
 <div class="refsect1">
-<a name="id-1.3.50.3.9.6"></a><h2>Notation</h2>
+<a name="id-1.3.47.3.9.6"></a><h2>Notation</h2>
 <div class="variablelist"><dl class="variablelist">
 <dt><span class="term">Iter</span></dt>
 <dd>A type playing the role of iterator-type in the <a class="link" href="RandomAccessIterator.html" title="Concept RandomAccessIterator">RandomAccessIterator</a> concept.</dd>
@@ -86,7 +87,7 @@
 </dl></div>
 </div>
 <div class="refsect1">
-<a name="id-1.3.50.3.9.7"></a><h2>Type expressions</h2>
+<a name="id-1.3.47.3.9.7"></a><h2>Type expressions</h2>
 <div class="variablelist"><dl class="variablelist">
 <dt><span class="term">Category tag</span></dt>
 <dd><p><span class="type">category</span> must be
@@ -95,7 +96,7 @@
 </dl></div>
 </div>
 <div class="refsect1">
-<a name="id-1.3.50.3.9.8"></a><h2>Valid expressions</h2>
+<a name="id-1.3.47.3.9.8"></a><h2>Valid expressions</h2>
 <div class="informaltable"><table class="table">
 <colgroup>
 <col>
@@ -201,13 +202,13 @@
 </table></div>
 </div>
 <div class="refsect1">
-<a name="id-1.3.50.3.9.9"></a><h2>Complexity</h2>
+<a name="id-1.3.47.3.9.9"></a><h2>Complexity</h2>
 <p>
   All iterator operations must take amortized constant time.
   </p>
 </div>
 <div class="refsect1">
-<a name="id-1.3.50.3.9.10"></a><h2>Models</h2>
+<a name="id-1.3.47.3.9.10"></a><h2>Models</h2>
 <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem"><span class="simplelist"><span class="type">T *</span></span></li>
 <li class="listitem"><span class="simplelist"><span class="type">std::vector&lt;T&gt;::iterator</span></span></li>
@@ -217,13 +218,11 @@
 </ul></div>
 </div>
 <div class="refsect1">
-<a name="id-1.3.50.3.9.11"></a><h2>See also</h2>
+<a name="id-1.3.47.3.9.11"></a><h2>See also</h2>
 <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><a class="link" href="LessThanComparable.html" title="Concept LessThanComparable">LessThanComparable</a></p></li></ul></div>
 </div>
 </div>
-<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright © 2001, 2002 Indiana University<br>Copyright © 2000, 2001 University of Notre Dame du Lac<br>Copyright © 2000 Jeremy Siek, Lie-Quan Lee, Andrew Lumsdaine<br>Copyright © 1996-1999 Silicon Graphics Computer Systems, Inc.<br>Copyright © 1994 Hewlett-Packard Company<p>Distributed under the Boost Software License, Version 1.0.
+<div class="copyright-footer">Copyright © 2001, 2002 Indiana University<br>Copyright © 2000, 2001 University of Notre Dame du Lac<br>Copyright © 2000 Jeremy Siek, Lie-Quan Lee, Andrew Lumsdaine<br>Copyright © 1996-1999 Silicon Graphics Computer Systems, Inc.<br>Copyright © 1994 Hewlett-Packard Company<p>Distributed under the Boost Software License, Version 1.0.
       (See accompanying file <code class="filename">LICENSE_1_0.txt</code> or copy at 
       <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>
@@ -249,8 +248,7 @@
         about the suitability of this software for any purpose.  It is
         provided "as is" without express or implied
         warranty.</p></blockquote></div>
-</div></td>
-</tr></table>
+</div>
 <hr>
 <div class="spirit-nav">
 <a accesskey="p" href="BidirectionalIterator.html"><img src="../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="concept_check.html#concepts.reference"><img src="../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="index.html"><img src="../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="DefaultConstructible.html"><img src="../../doc/src/images/next.png" alt="Next"></a>

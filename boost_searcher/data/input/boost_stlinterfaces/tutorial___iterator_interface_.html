@@ -6,9 +6,10 @@
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../stl_interfaces.html" title="Chapter 39. Boost.STLInterfaces">
+<link rel="up" href="../stl_interfaces.html" title="Chapter 37. Boost.STLInterfaces">
 <link rel="prev" href="the__v1__and__v2__namespaces__and_the_use_of_c__20_concepts.html" title="The v1 and v2 Namespaces, and the Use of C++20 Concepts">
 <link rel="next" href="tutorial___view_interface_.html" title="Tutorial: view_interface">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table cellpadding="2" width="100%"><tr>
@@ -54,11 +55,24 @@
     </p>
 <p>
       It is possible to define any iterator <code class="computeroutput"><span class="identifier">Iter</span></code>
-      in terms of a subset of user-defined operations. By deriving <code class="computeroutput"><span class="identifier">Iter</span></code> from <code class="computeroutput">iterator_interface</code> using <a href="https://en.wikipedia.org/wiki/Curiously_recurring_template_pattern" target="_top">CRTP</a>,
-      we can generate the full set of operations. Here is the declaration of <code class="computeroutput">iterator_interface</code>:
+      in terms of a subset of user-defined operations. By deriving <code class="computeroutput"><span class="identifier">Iter</span></code> from <code class="computeroutput">iterator_interface</code>, we can generate
+      the full set of operations. <code class="computeroutput">iterator_interface</code> uses <a href="https://en.wikipedia.org/wiki/Curiously_recurring_template_pattern" target="_top">CRTP</a>
+      in C++20 and earlier, and deducing <code class="computeroutput"><span class="keyword">this</span></code>
+      in C++23 and later. Here is the declaration of <code class="computeroutput">iterator_interface</code>:
     </p>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span>
     <span class="keyword">typename</span> <span class="identifier">Derived</span><span class="special">,</span>
+    <span class="keyword">typename</span> <span class="identifier">IteratorConcept</span><span class="special">,</span>
+    <span class="keyword">typename</span> <span class="identifier">ValueType</span><span class="special">,</span>
+    <span class="keyword">typename</span> <span class="identifier">Reference</span> <span class="special">=</span> <span class="identifier">ValueType</span> <span class="special">&amp;,</span>
+    <span class="keyword">typename</span> <span class="identifier">Pointer</span> <span class="special">=</span> <span class="identifier">ValueType</span> <span class="special">*,</span>
+    <span class="keyword">typename</span> <span class="identifier">DifferenceType</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ptrdiff_t</span><span class="special">&gt;</span>
+<span class="keyword">struct</span> <span class="identifier">iterator_interface</span><span class="special">;</span>
+</pre>
+<p>
+      Or, for C++23 and later:
+    </p>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span>
     <span class="keyword">typename</span> <span class="identifier">IteratorConcept</span><span class="special">,</span>
     <span class="keyword">typename</span> <span class="identifier">ValueType</span><span class="special">,</span>
     <span class="keyword">typename</span> <span class="identifier">Reference</span> <span class="special">=</span> <span class="identifier">ValueType</span> <span class="special">&amp;,</span>
@@ -73,6 +87,17 @@
       <code class="computeroutput"><span class="identifier">Derived</span></code> is the type that you're
       deriving <code class="computeroutput">iterator_interface</code> from.
     </p>
+<div class="important"><table border="0" summary="Important">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Important]" src="../../../doc/src/images/important.png"></td>
+<th align="left">Important</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+        In C++23 and later, as long as you have not defined <code class="computeroutput"><span class="identifier">BOOST_STL_INTERFACES_DISABLE_DEDUCED_THIS</span></code>,
+        you do not pass the derived type to <code class="computeroutput">iterator_interface</code>; it has
+        no <code class="computeroutput"><span class="identifier">Derived</span></code> template parameter.
+      </p></td></tr>
+</table></div>
 <p>
       <code class="computeroutput"><span class="identifier">IteratorConcept</span></code> defines the
       iterator category/concept. This must be one of the C++ standard iterator tag
@@ -147,6 +172,21 @@
     <span class="identifier">proxy_arrow_result</span><span class="special">&lt;</span><span class="identifier">Reference</span><span class="special">&gt;,</span>
     <span class="identifier">DifferenceType</span><span class="special">&gt;;</span>
 </pre>
+<p>
+      Or, for C++23 and later:
+    </p>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span>
+    <span class="keyword">typename</span> <span class="identifier">IteratorConcept</span><span class="special">,</span>
+    <span class="keyword">typename</span> <span class="identifier">ValueType</span><span class="special">,</span>
+    <span class="keyword">typename</span> <span class="identifier">Reference</span> <span class="special">=</span> <span class="identifier">ValueType</span><span class="special">,</span>
+    <span class="keyword">typename</span> <span class="identifier">DifferenceType</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ptrdiff_t</span><span class="special">&gt;</span>
+<span class="keyword">using</span> <span class="identifier">proxy_iterator_interface</span> <span class="special">=</span> <span class="identifier">iterator_interface</span><span class="special">&lt;</span>
+    <span class="identifier">IteratorConcept</span><span class="special">,</span>
+    <span class="identifier">ValueType</span><span class="special">,</span>
+    <span class="identifier">Reference</span><span class="special">,</span>
+    <span class="identifier">proxy_arrow_result</span><span class="special">&lt;</span><span class="identifier">Reference</span><span class="special">&gt;,</span>
+    <span class="identifier">DifferenceType</span><span class="special">&gt;;</span>
+</pre>
 <div class="note"><table border="0" summary="Note">
 <tr>
 <td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../../doc/src/images/note.png"></td>
@@ -159,6 +199,17 @@
         by <code class="computeroutput"><span class="keyword">operator</span><span class="special">*</span></code>,
         and then returns a pointer to the copy in its <code class="computeroutput"><span class="keyword">operator</span><span class="special">-&gt;</span></code>. You may want to use something else
         if this is a performance concern.
+      </p></td></tr>
+</table></div>
+<div class="important"><table border="0" summary="Important">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Important]" src="../../../doc/src/images/important.png"></td>
+<th align="left">Important</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+        If you are using C++23 or later and have not defined <code class="computeroutput"><span class="identifier">BOOST_STL_INTERFACES_DISABLE_DEDUCED_THIS</span></code>,
+        the <code class="computeroutput"><span class="identifier">Derived</span></code> template parameter
+        above will not be present.
       </p></td></tr>
 </table></div>
 <h4>
@@ -179,7 +230,7 @@
       and <code class="computeroutput"><span class="identifier">n</span></code> is a value of type <code class="computeroutput"><span class="identifier">difference_type</span></code>.
     </p>
 <div class="table">
-<a name="boost_stlinterfaces.tutorial___iterator_interface_.t0"></a><p class="title"><b>Table 39.1. User-Defined Operations</b></p>
+<a name="boost_stlinterfaces.tutorial___iterator_interface_.t0"></a><p class="title"><b>Table 37.1. User-Defined Operations</b></p>
 <div class="table-contents"><table class="table" summary="User-Defined Operations">
 <colgroup>
 <col>
@@ -373,7 +424,7 @@
       operations used with each iterator concept:
     </p>
 <div class="table">
-<a name="boost_stlinterfaces.tutorial___iterator_interface_.t1"></a><p class="title"><b>Table 39.2. Operations Required for Each Concept</b></p>
+<a name="boost_stlinterfaces.tutorial___iterator_interface_.t1"></a><p class="title"><b>Table 37.2. Operations Required for Each Concept</b></p>
 <div class="table-contents"><table class="table" summary="Operations Required for Each Concept">
 <colgroup>
 <col>
@@ -514,9 +565,12 @@
     </p>
 <p>
 </p>
-<pre class="programlisting"><span class="keyword">using</span> <span class="identifier">base_type</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">stl_interfaces</span><span class="special">::</span>
-    <span class="identifier">iterator_interface</span><span class="special">&lt;</span><span class="identifier">node_iterator</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">forward_iterator_tag</span><span class="special">,</span> <span class="identifier">T</span><span class="special">&gt;;</span>
-<span class="keyword">using</span> <span class="identifier">base_type</span><span class="special">::</span><span class="keyword">operator</span><span class="special">++;</span>
+<pre class="programlisting">    <span class="keyword">using</span> <span class="identifier">base_type</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">stl_interfaces</span><span class="special">::</span><span class="identifier">iterator_interface</span><span class="special">&lt;</span>
+<span class="preprocessor">#if</span> <span class="special">!</span><span class="identifier">BOOST_STL_INTERFACES_USE_DEDUCED_THIS</span>
+        <span class="identifier">node_iterator</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;,</span>
+<span class="preprocessor">#endif</span>
+        <span class="identifier">std</span><span class="special">::</span><span class="identifier">forward_iterator_tag</span><span class="special">,</span> <span class="identifier">T</span><span class="special">&gt;;</span>
+    <span class="keyword">using</span> <span class="identifier">base_type</span><span class="special">::</span><span class="keyword">operator</span><span class="special">++;</span>
 </pre>
 <p>
     </p>
@@ -571,18 +625,22 @@
 </p>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
 <span class="keyword">struct</span> <span class="identifier">node_iterator</span>
-    <span class="special">:</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">stl_interfaces</span><span class="special">::</span>
-          <span class="identifier">iterator_interface</span><span class="special">&lt;</span><span class="identifier">node_iterator</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">forward_iterator_tag</span><span class="special">,</span> <span class="identifier">T</span><span class="special">&gt;</span>
+    <span class="special">:</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">stl_interfaces</span><span class="special">::</span><span class="identifier">iterator_interface</span><span class="special">&lt;</span>
+<span class="preprocessor">#if</span> <span class="special">!</span><span class="identifier">BOOST_STL_INTERFACES_USE_DEDUCED_THIS</span>
+          <span class="identifier">node_iterator</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;,</span>
+<span class="preprocessor">#endif</span>
+          <span class="identifier">std</span><span class="special">::</span><span class="identifier">forward_iterator_tag</span><span class="special">,</span> <span class="identifier">T</span><span class="special">&gt;</span>
 </pre>
 <p>
     </p>
 <p>
       We are deriving <code class="computeroutput"><span class="identifier">node_iterator</span></code>
       from <code class="computeroutput">iterator_interface</code>, and because
-      we're using <a href="https://en.wikipedia.org/wiki/Curiously_recurring_template_pattern" target="_top">CRTP</a>,
-      we first have to pass <code class="computeroutput"><span class="identifier">node_iterator</span></code>
-      for the <code class="computeroutput"><span class="identifier">Derived</span></code> template parameter,
-      so that <code class="computeroutput">iterator_interface</code> knows what
+      we're using <a href="https://en.wikipedia.org/wiki/Curiously_recurring_template_pattern" target="_top">CRTP</a>
+      in C++20 and earlier, we first have to pass <code class="computeroutput"><span class="identifier">node_iterator</span></code>
+      for the <code class="computeroutput"><span class="identifier">Derived</span></code> template parameter
+      if <code class="computeroutput"><span class="identifier">BOOST_STL_INTERFACES_USE_DEDUCED_THIS</span></code>
+      is not defined, so that <code class="computeroutput">iterator_interface</code> knows what
       derived type to cast to in order to get at the user-defined operations. Then,
       we pass <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">forward_iterator_tag</span></code> for <code class="computeroutput"><span class="identifier">IteratorConcept</span></code>,
       since that's appropriate for a singly-linked list. Finally, we pass <code class="computeroutput"><span class="identifier">T</span></code> to let <code class="computeroutput">iterator_interface</code> know what
@@ -674,9 +732,12 @@
     </p>
 <p>
 </p>
-<pre class="programlisting"><span class="keyword">using</span> <span class="identifier">base_type</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">stl_interfaces</span><span class="special">::</span>
-    <span class="identifier">iterator_interface</span><span class="special">&lt;</span><span class="identifier">node_iterator</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">forward_iterator_tag</span><span class="special">,</span> <span class="identifier">T</span><span class="special">&gt;;</span>
-<span class="keyword">using</span> <span class="identifier">base_type</span><span class="special">::</span><span class="keyword">operator</span><span class="special">++;</span>
+<pre class="programlisting">    <span class="keyword">using</span> <span class="identifier">base_type</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">stl_interfaces</span><span class="special">::</span><span class="identifier">iterator_interface</span><span class="special">&lt;</span>
+<span class="preprocessor">#if</span> <span class="special">!</span><span class="identifier">BOOST_STL_INTERFACES_USE_DEDUCED_THIS</span>
+        <span class="identifier">node_iterator</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;,</span>
+<span class="preprocessor">#endif</span>
+        <span class="identifier">std</span><span class="special">::</span><span class="identifier">forward_iterator_tag</span><span class="special">,</span> <span class="identifier">T</span><span class="special">&gt;;</span>
+    <span class="keyword">using</span> <span class="identifier">base_type</span><span class="special">::</span><span class="keyword">operator</span><span class="special">++;</span>
 </pre>
 <p>
     </p>
@@ -719,7 +780,9 @@
 </p>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Pred</span><span class="special">&gt;</span>
 <span class="keyword">struct</span> <span class="identifier">filtered_int_iterator</span> <span class="special">:</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">stl_interfaces</span><span class="special">::</span><span class="identifier">iterator_interface</span><span class="special">&lt;</span>
+<span class="preprocessor">#if</span> <span class="special">!</span><span class="identifier">BOOST_STL_INTERFACES_USE_DEDUCED_THIS</span>
                                    <span class="identifier">filtered_int_iterator</span><span class="special">&lt;</span><span class="identifier">Pred</span><span class="special">&gt;,</span>
+<span class="preprocessor">#endif</span>
                                    <span class="identifier">std</span><span class="special">::</span><span class="identifier">bidirectional_iterator_tag</span><span class="special">,</span>
                                    <span class="keyword">int</span><span class="special">&gt;</span>
 <span class="special">{</span>
@@ -844,17 +907,14 @@
     </p>
 <p>
       There's also a macro that can help you check that <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">iterator_traits</span></code>
-      is well-formed and provides the correct types. See <code class="computeroutput"><a class="link" href="../BOOST_STL__1_3_40_12_2_4_3.html" title="Macro BOOST_STL_INTERFACES_STATIC_ASSERT_ITERATOR_TRAITS">BOOST_STL_INTERFACES_STATIC_ASSERT_ITERATOR_TRAITS</a></code>.
+      is well-formed and provides the correct types. See <code class="computeroutput"><a class="link" href="../BOOST_STL__1_3_38_15_2_4_3.html" title="Macro BOOST_STL_INTERFACES_STATIC_ASSERT_ITERATOR_TRAITS">BOOST_STL_INTERFACES_STATIC_ASSERT_ITERATOR_TRAITS</a></code>.
     </p>
 </div>
-<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright © 2019 T. Zachary Laine<p>
+<div class="copyright-footer">Copyright © 2019 T. Zachary Laine<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>
-</div></td>
-</tr></table>
+</div>
 <hr>
 <div class="spirit-nav">
 <a accesskey="p" href="the__v1__and__v2__namespaces__and_the_use_of_c__20_concepts.html"><img src="../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../stl_interfaces.html"><img src="../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="tutorial___view_interface_.html"><img src="../../../doc/src/images/next.png" alt="Next"></a>

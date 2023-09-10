@@ -9,6 +9,7 @@
 <link rel="up" href="../../boost_random/reference.html#header.boost.random.inversive_congruential_hpp" title="Header &lt;boost/random/inversive_congruential.hpp&gt;">
 <link rel="prev" href="independent_bits_engine.html" title="Class template independent_bits_engine">
 <link rel="next" href="hellekalek1995.html" title="Type definition hellekalek1995">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table cellpadding="2" width="100%"><tr>
@@ -29,8 +30,8 @@
 <h2><span class="refentrytitle">Class template inversive_congruential_engine</span></h2>
 <p>boost::random::inversive_congruential_engine</p>
 </div>
-<h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
-<div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="comment">// In header: &lt;<a class="link" href="../../boost_random/reference.html#header.boost.random.inversive_congruential_hpp" title="Header &lt;boost/random/inversive_congruential.hpp&gt;">boost/random/inversive_congruential.hpp</a>&gt;
+<h2 class="refsynopsisdiv-title">Synopsis</h2>
+<div class="refsynopsisdiv"><pre class="synopsis"><span class="comment">// In header: &lt;<a class="link" href="../../boost_random/reference.html#header.boost.random.inversive_congruential_hpp" title="Header &lt;boost/random/inversive_congruential.hpp&gt;">boost/random/inversive_congruential.hpp</a>&gt;
 
 </span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> IntType<span class="special">,</span> <span class="identifier">IntType</span> a<span class="special">,</span> <span class="identifier">IntType</span> b<span class="special">,</span> <span class="identifier">IntType</span> p<span class="special">&gt;</span> 
 <span class="keyword">class</span> <a class="link" href="invers_1_3_33_5_6_20_1_1_1.html" title="Class template inversive_congruential_engine">inversive_congruential_engine</a> <span class="special">{</span>
@@ -59,17 +60,17 @@
 
   <span class="comment">// <a class="link" href="invers_1_3_33_5_6_20_1_1_1.html#id-1_3_33_5_6_20_1_1_1_15-bb">friend functions</a></span>
   <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharT<span class="special">,</span> <span class="keyword">typename</span> Traits<span class="special">&gt;</span> 
-    <span class="keyword">friend</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_ostream</span><span class="special">&lt;</span> <span class="identifier">CharT</span><span class="special">,</span> <span class="identifier">Traits</span> <span class="special">&gt;</span> <span class="special">&amp;</span> 
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_ostream</span><span class="special">&lt;</span> <span class="identifier">CharT</span><span class="special">,</span> <span class="identifier">Traits</span> <span class="special">&gt;</span> <span class="special">&amp;</span> 
     <a class="link" href="invers_1_3_33_5_6_20_1_1_1.html#id-1_3_33_5_6_20_1_1_1_15_1-bb"><span class="keyword">operator</span><span class="special">&lt;&lt;</span></a><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_ostream</span><span class="special">&lt;</span> <span class="identifier">CharT</span><span class="special">,</span> <span class="identifier">Traits</span> <span class="special">&gt;</span> <span class="special">&amp;</span><span class="special">,</span> 
                <span class="keyword">const</span> <a class="link" href="invers_1_3_33_5_6_20_1_1_1.html" title="Class template inversive_congruential_engine">inversive_congruential_engine</a> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
   <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharT<span class="special">,</span> <span class="keyword">typename</span> Traits<span class="special">&gt;</span> 
-    <span class="keyword">friend</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_istream</span><span class="special">&lt;</span> <span class="identifier">CharT</span><span class="special">,</span> <span class="identifier">Traits</span> <span class="special">&gt;</span> <span class="special">&amp;</span> 
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_istream</span><span class="special">&lt;</span> <span class="identifier">CharT</span><span class="special">,</span> <span class="identifier">Traits</span> <span class="special">&gt;</span> <span class="special">&amp;</span> 
     <a class="link" href="invers_1_3_33_5_6_20_1_1_1.html#id-1_3_33_5_6_20_1_1_1_15_2-bb"><span class="keyword">operator</span><span class="special">&gt;&gt;</span></a><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_istream</span><span class="special">&lt;</span> <span class="identifier">CharT</span><span class="special">,</span> <span class="identifier">Traits</span> <span class="special">&gt;</span> <span class="special">&amp;</span><span class="special">,</span> 
                <span class="keyword">const</span> <a class="link" href="invers_1_3_33_5_6_20_1_1_1.html" title="Class template inversive_congruential_engine">inversive_congruential_engine</a> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">friend</span> <span class="keyword">bool</span> <a class="link" href="invers_1_3_33_5_6_20_1_1_1.html#id-1_3_33_5_6_20_1_1_1_15_3-bb"><span class="keyword">operator</span><span class="special">==</span></a><span class="special">(</span><span class="keyword">const</span> <a class="link" href="invers_1_3_33_5_6_20_1_1_1.html" title="Class template inversive_congruential_engine">inversive_congruential_engine</a> <span class="special">&amp;</span><span class="special">,</span> 
-                         <span class="keyword">const</span> <a class="link" href="invers_1_3_33_5_6_20_1_1_1.html" title="Class template inversive_congruential_engine">inversive_congruential_engine</a> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">friend</span> <span class="keyword">bool</span> <a class="link" href="invers_1_3_33_5_6_20_1_1_1.html#id-1_3_33_5_6_20_1_1_1_15_4-bb"><span class="keyword">operator</span><span class="special">!=</span></a><span class="special">(</span><span class="keyword">const</span> <a class="link" href="invers_1_3_33_5_6_20_1_1_1.html" title="Class template inversive_congruential_engine">inversive_congruential_engine</a> <span class="special">&amp;</span><span class="special">,</span> 
-                         <span class="keyword">const</span> <a class="link" href="invers_1_3_33_5_6_20_1_1_1.html" title="Class template inversive_congruential_engine">inversive_congruential_engine</a> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">bool</span> <a class="link" href="invers_1_3_33_5_6_20_1_1_1.html#id-1_3_33_5_6_20_1_1_1_15_3-bb"><span class="keyword">operator</span><span class="special">==</span></a><span class="special">(</span><span class="keyword">const</span> <a class="link" href="invers_1_3_33_5_6_20_1_1_1.html" title="Class template inversive_congruential_engine">inversive_congruential_engine</a> <span class="special">&amp;</span><span class="special">,</span> 
+                  <span class="keyword">const</span> <a class="link" href="invers_1_3_33_5_6_20_1_1_1.html" title="Class template inversive_congruential_engine">inversive_congruential_engine</a> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">bool</span> <a class="link" href="invers_1_3_33_5_6_20_1_1_1.html#id-1_3_33_5_6_20_1_1_1_15_4-bb"><span class="keyword">operator</span><span class="special">!=</span></a><span class="special">(</span><span class="keyword">const</span> <a class="link" href="invers_1_3_33_5_6_20_1_1_1.html" title="Class template inversive_congruential_engine">inversive_congruential_engine</a> <span class="special">&amp;</span><span class="special">,</span> 
+                  <span class="keyword">const</span> <a class="link" href="invers_1_3_33_5_6_20_1_1_1.html" title="Class template inversive_congruential_engine">inversive_congruential_engine</a> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
 
   <span class="comment">// public data members</span>
   <span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">bool</span> <span class="identifier">has_fixed_range</span><span class="special">;</span>
@@ -171,40 +172,37 @@
 <div class="orderedlist"><ol class="orderedlist" type="1">
 <li class="listitem">
 <pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharT<span class="special">,</span> <span class="keyword">typename</span> Traits<span class="special">&gt;</span> 
-  <span class="keyword">friend</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_ostream</span><span class="special">&lt;</span> <span class="identifier">CharT</span><span class="special">,</span> <span class="identifier">Traits</span> <span class="special">&gt;</span> <span class="special">&amp;</span> 
+  <span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_ostream</span><span class="special">&lt;</span> <span class="identifier">CharT</span><span class="special">,</span> <span class="identifier">Traits</span> <span class="special">&gt;</span> <span class="special">&amp;</span> 
   <a name="id-1_3_33_5_6_20_1_1_1_15_1-bb"></a><span class="keyword">operator</span><span class="special">&lt;&lt;</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_ostream</span><span class="special">&lt;</span> <span class="identifier">CharT</span><span class="special">,</span> <span class="identifier">Traits</span> <span class="special">&gt;</span> <span class="special">&amp;</span> os<span class="special">,</span> 
              <span class="keyword">const</span> <a class="link" href="invers_1_3_33_5_6_20_1_1_1.html" title="Class template inversive_congruential_engine">inversive_congruential_engine</a> <span class="special">&amp;</span> x<span class="special">)</span><span class="special">;</span></pre>
 <p>Writes the textual representation of the generator to a <code class="computeroutput">std::ostream</code>. </p>
 </li>
 <li class="listitem">
 <pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharT<span class="special">,</span> <span class="keyword">typename</span> Traits<span class="special">&gt;</span> 
-  <span class="keyword">friend</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_istream</span><span class="special">&lt;</span> <span class="identifier">CharT</span><span class="special">,</span> <span class="identifier">Traits</span> <span class="special">&gt;</span> <span class="special">&amp;</span> 
+  <span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_istream</span><span class="special">&lt;</span> <span class="identifier">CharT</span><span class="special">,</span> <span class="identifier">Traits</span> <span class="special">&gt;</span> <span class="special">&amp;</span> 
   <a name="id-1_3_33_5_6_20_1_1_1_15_2-bb"></a><span class="keyword">operator</span><span class="special">&gt;&gt;</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_istream</span><span class="special">&lt;</span> <span class="identifier">CharT</span><span class="special">,</span> <span class="identifier">Traits</span> <span class="special">&gt;</span> <span class="special">&amp;</span> is<span class="special">,</span> 
              <span class="keyword">const</span> <a class="link" href="invers_1_3_33_5_6_20_1_1_1.html" title="Class template inversive_congruential_engine">inversive_congruential_engine</a> <span class="special">&amp;</span> x<span class="special">)</span><span class="special">;</span></pre>
 <p>Reads the textual representation of the generator from a <code class="computeroutput">std::istream</code>. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">friend</span> <span class="keyword">bool</span> <a name="id-1_3_33_5_6_20_1_1_1_15_3-bb"></a><span class="keyword">operator</span><span class="special">==</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="invers_1_3_33_5_6_20_1_1_1.html" title="Class template inversive_congruential_engine">inversive_congruential_engine</a> <span class="special">&amp;</span> x<span class="special">,</span> 
-                       <span class="keyword">const</span> <a class="link" href="invers_1_3_33_5_6_20_1_1_1.html" title="Class template inversive_congruential_engine">inversive_congruential_engine</a> <span class="special">&amp;</span> y<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">bool</span> <a name="id-1_3_33_5_6_20_1_1_1_15_3-bb"></a><span class="keyword">operator</span><span class="special">==</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="invers_1_3_33_5_6_20_1_1_1.html" title="Class template inversive_congruential_engine">inversive_congruential_engine</a> <span class="special">&amp;</span> x<span class="special">,</span> 
+                <span class="keyword">const</span> <a class="link" href="invers_1_3_33_5_6_20_1_1_1.html" title="Class template inversive_congruential_engine">inversive_congruential_engine</a> <span class="special">&amp;</span> y<span class="special">)</span><span class="special">;</span></pre>
 <p>Returns true if the two generators will produce identical sequences of outputs. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">friend</span> <span class="keyword">bool</span> <a name="id-1_3_33_5_6_20_1_1_1_15_4-bb"></a><span class="keyword">operator</span><span class="special">!=</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="invers_1_3_33_5_6_20_1_1_1.html" title="Class template inversive_congruential_engine">inversive_congruential_engine</a> <span class="special">&amp;</span> lhs<span class="special">,</span> 
-                       <span class="keyword">const</span> <a class="link" href="invers_1_3_33_5_6_20_1_1_1.html" title="Class template inversive_congruential_engine">inversive_congruential_engine</a> <span class="special">&amp;</span> rhs<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">bool</span> <a name="id-1_3_33_5_6_20_1_1_1_15_4-bb"></a><span class="keyword">operator</span><span class="special">!=</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="invers_1_3_33_5_6_20_1_1_1.html" title="Class template inversive_congruential_engine">inversive_congruential_engine</a> <span class="special">&amp;</span> lhs<span class="special">,</span> 
+                <span class="keyword">const</span> <a class="link" href="invers_1_3_33_5_6_20_1_1_1.html" title="Class template inversive_congruential_engine">inversive_congruential_engine</a> <span class="special">&amp;</span> rhs<span class="special">)</span><span class="special">;</span></pre>
 <p>Returns true if the two generators will produce different sequences of outputs. </p>
 </li>
 </ol></div>
 </div>
 </div>
 </div>
-<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright © 2000-2005 Jens Maurer<br>Copyright © 2009, 2010 Steven Watanabe<p>
+<div class="copyright-footer">Copyright © 2000-2005 Jens Maurer<br>Copyright © 2009, 2010 Steven Watanabe<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>
-</div></td>
-</tr></table>
+</div>
 <hr>
 <div class="spirit-nav">
 <a accesskey="p" href="independent_bits_engine.html"><img src="../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../../boost_random/reference.html#header.boost.random.inversive_congruential_hpp"><img src="../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="hellekalek1995.html"><img src="../../../../doc/src/images/next.png" alt="Next"></a>

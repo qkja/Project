@@ -1,16 +1,14 @@
-#ifndef __INDEX_HPP__
-#define __INDEX_HPP__
+#pragma once
 // 建立 索引
 #include <iostream>
 #include <string>
 #include <vector>
 #include <fstream>
 #include <unordered_map>
-
 #include <mutex>
-
-#include "util.hpp"
 #include "log.hpp"
+#include "util.hpp"
+#include "test/test.hpp"
 
 namespace ns_index
 {
@@ -69,6 +67,7 @@ namespace ns_index
     {
       if (doc_id < 0 || doc_id >= forward_index.size())
       {
+
         std::cerr << "索引id " << doc_id << " 越界了" << std::endl;
         return nullptr;
       }
@@ -94,6 +93,7 @@ namespace ns_index
     /// @brief 根据目录 文件 构建 正派和倒排索引,这里是最重的一步
     /// @param src_path 去标签后目录文件目录
     /// @return
+
     bool BuildIndex(const std::string &src_path)
     {
       std::ifstream in(src_path, std::ios::in | std::ios::binary);
@@ -127,6 +127,10 @@ namespace ns_index
           // std::cout << "当前已经处理了 索引文档 " << count << std::endl;
         }
       }
+      // //////////for test
+      test("正派索引",forward_index.size());
+      test("倒排搜索",inverted_index.size());
+      ////////////////////
 
       return true;
     }
@@ -141,6 +145,7 @@ namespace ns_index
 
       std::vector<std::string> results;
       const std::string sep = "\3";
+
       ns_util::StringUtil::Split(line, &results, sep);
 
       if (results.size() != 3)
@@ -183,25 +188,16 @@ namespace ns_index
         boost::to_lower(s);
         word_map[s].title_cnt++; // 解释一下
       }
-      // for (std::string &s : title_words)
-      //{
-      //   // 这里有点bug
-      //   word_map[s].title_cnt++; // 解释一下
-      // }
 
-      // 对文档内容分词
       std::vector<std::string> content_words;
       ns_util::JiebaUtil::CutString(doc.content, &content_words);
-      // for (auto &s : content_words)
-      //{
-      //   word_map[s].content_cnt++;
-      // }
 
       for (auto s : content_words)
       {
         boost::to_lower(s);
         word_map[s].content_cnt++;
       }
+      
       // 3 构建倒排拉链
       for (auto &word_pair : word_map)
       {
@@ -240,5 +236,3 @@ namespace ns_index
   Index *Index::instance = nullptr;
   std::mutex Index::mtx;
 }
-
-#endif

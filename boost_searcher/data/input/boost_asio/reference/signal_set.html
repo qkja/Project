@@ -7,7 +7,8 @@
 <link rel="home" href="../../boost_asio.html" title="Boost.Asio">
 <link rel="up" href="../reference.html" title="Reference">
 <link rel="prev" href="service_already_exists/service_already_exists.html" title="service_already_exists::service_already_exists">
-<link rel="next" href="socket_base.html" title="socket_base">
+<link rel="next" href="signal_set_base.html" title="signal_set_base">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table cellpadding="2" width="100%"><tr>
@@ -20,18 +21,19 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="service_already_exists/service_already_exists.html"><img src="../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../reference.html"><img src="../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../boost_asio.html"><img src="../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="socket_base.html"><img src="../../../../doc/src/images/next.png" alt="Next"></a>
+<a accesskey="p" href="service_already_exists/service_already_exists.html"><img src="../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../reference.html"><img src="../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../boost_asio.html"><img src="../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="signal_set_base.html"><img src="../../../../doc/src/images/next.png" alt="Next"></a>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="boost_asio.reference.signal_set"></a><a class="link" href="signal_set.html" title="signal_set">signal_set</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="boost_asio.indexterm.signal_set"></a> 
-Typedef for the typical usage of
-        a signal set.
+        <a class="indexterm" name="boost_asio.indexterm.signal_set"></a>
       </p>
-<pre class="programlisting">typedef basic_signal_set signal_set;
+<p>
+        Typedef for the typical usage of a signal set.
+      </p>
+<pre class="programlisting"><span class="keyword">typedef</span> <span class="identifier">basic_signal_set</span> <span class="identifier">signal_set</span><span class="special">;</span>
 </pre>
 <h5>
 <a name="boost_asio.reference.signal_set.h0"></a>
@@ -79,6 +81,31 @@ Typedef for the typical usage of
                 </p>
               </td>
 </tr>
+<tr>
+<td>
+                <p>
+                  <a class="link" href="basic_signal_set/flags.html" title="basic_signal_set::flags"><span class="bold"><strong>flags</strong></span></a>
+                </p>
+              </td>
+<td>
+                <p>
+                  Enumeration representing the different types of flags that may
+                  specified when adding a signal to a set.
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  <a class="link" href="basic_signal_set/flags_t.html" title="basic_signal_set::flags_t"><span class="bold"><strong>flags_t</strong></span></a>
+                </p>
+              </td>
+<td>
+                <p>
+                  Portability typedef.
+                </p>
+              </td>
+</tr>
 </tbody>
 </table></div>
 <h5>
@@ -112,7 +139,8 @@ Typedef for the typical usage of
               </td>
 <td>
                 <p>
-                  Add a signal to a signal_set.
+                  Add a signal to a signal_set. <br> <span class="silver"> —</span><br> Add a signal to a signal_set
+                  with the specified flags.
                 </p>
               </td>
 </tr>
@@ -206,7 +234,7 @@ Typedef for the typical usage of
 </tbody>
 </table></div>
 <p>
-        The <a class="link" href="basic_signal_set.html" title="basic_signal_set"><code class="computeroutput">basic_signal_set</code></a>
+        The <a class="link" href="basic_signal_set.html" title="basic_signal_set"><code class="computeroutput"><span class="identifier">basic_signal_set</span></code></a>
         class provides the ability to perform an asynchronous wait for one or more
         signals to occur.
       </p>
@@ -228,23 +256,23 @@ Typedef for the typical usage of
 <p>
         Performing an asynchronous wait:
       </p>
-<pre class="programlisting">void handler(
-    const boost::system::error_code&amp; error,
-    int signal_number)
-{
-  if (!error)
-  {
-    // A signal occurred.
-  }
-}
+<pre class="programlisting"><span class="keyword">void</span> <span class="identifier">handler</span><span class="special">(</span>
+    <span class="keyword">const</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">system</span><span class="special">::</span><span class="identifier">error_code</span><span class="special">&amp;</span> <span class="identifier">error</span><span class="special">,</span>
+    <span class="keyword">int</span> <span class="identifier">signal_number</span><span class="special">)</span>
+<span class="special">{</span>
+  <span class="keyword">if</span> <span class="special">(!</span><span class="identifier">error</span><span class="special">)</span>
+  <span class="special">{</span>
+    <span class="comment">// A signal occurred.</span>
+  <span class="special">}</span>
+<span class="special">}</span>
 
-...
+<span class="special">...</span>
 
-// Construct a signal set registered for process termination.
-boost::asio::signal_set signals(my_context, SIGINT, SIGTERM);
+<span class="comment">// Construct a signal set registered for process termination.</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">signal_set</span> <span class="identifier">signals</span><span class="special">(</span><span class="identifier">my_context</span><span class="special">,</span> <span class="identifier">SIGINT</span><span class="special">,</span> <span class="identifier">SIGTERM</span><span class="special">);</span>
 
-// Start an asynchronous wait for one of the signals to occur.
-signals.async_wait(handler);
+<span class="comment">// Start an asynchronous wait for one of the signals to occur.</span>
+<span class="identifier">signals</span><span class="special">.</span><span class="identifier">async_wait</span><span class="special">(</span><span class="identifier">handler</span><span class="special">);</span>
 </pre>
 <h5>
 <a name="boost_asio.reference.signal_set.h4"></a>
@@ -260,9 +288,8 @@ signals.async_wait(handler);
         signal number.
       </p>
 <p>
-        If a signal number is removed from a signal_set (using the <code class="computeroutput">remove</code>
-        or <code class="computeroutput">erase</code> member functions) then any queued notifications for
-        that signal are discarded.
+        If a signal number is removed from a signal_set (using the <code class="computeroutput"><span class="identifier">remove</span></code> or <code class="computeroutput"><span class="identifier">erase</span></code>
+        member functions) then any queued notifications for that signal are discarded.
       </p>
 <h5>
 <a name="boost_asio.reference.signal_set.h5"></a>
@@ -276,7 +303,7 @@ signals.async_wait(handler);
 <p>
         Note that multiple registration only works for signals that are registered
         using Asio. The application must not also register a signal handler using
-        functions such as <code class="computeroutput">signal()</code> or <code class="computeroutput">sigaction()</code>.
+        functions such as <code class="computeroutput"><span class="identifier">signal</span><span class="special">()</span></code> or <code class="computeroutput"><span class="identifier">sigaction</span><span class="special">()</span></code>.
       </p>
 <h5>
 <a name="boost_asio.reference.signal_set.h6"></a>
@@ -284,10 +311,10 @@ signals.async_wait(handler);
         masking on POSIX platforms</a>
       </h5>
 <p>
-        POSIX allows signals to be blocked using functions such as <code class="computeroutput">sigprocmask()</code>
-        and <code class="computeroutput">pthread_sigmask()</code>. For signals to be delivered, programs
-        must ensure that any signals registered using signal_set objects are unblocked
-        in at least one thread.
+        POSIX allows signals to be blocked using functions such as <code class="computeroutput"><span class="identifier">sigprocmask</span><span class="special">()</span></code>
+        and <code class="computeroutput"><span class="identifier">pthread_sigmask</span><span class="special">()</span></code>.
+        For signals to be delivered, programs must ensure that any signals registered
+        using signal_set objects are unblocked in at least one thread.
       </p>
 <h5>
 <a name="boost_asio.reference.signal_set.h7"></a>
@@ -300,18 +327,14 @@ signals.async_wait(handler);
         <span class="emphasis"><em>Convenience header: </em></span><code class="literal">boost/asio.hpp</code>
       </p>
 </div>
-<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright © 2003-2021 Christopher
-      M. Kohlhoff<p>
+<div class="copyright-footer">Copyright © 2003-2023 Christopher M. Kohlhoff<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>
-</div></td>
-</tr></table>
+</div>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="service_already_exists/service_already_exists.html"><img src="../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../reference.html"><img src="../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../boost_asio.html"><img src="../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="socket_base.html"><img src="../../../../doc/src/images/next.png" alt="Next"></a>
+<a accesskey="p" href="service_already_exists/service_already_exists.html"><img src="../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../reference.html"><img src="../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../boost_asio.html"><img src="../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="signal_set_base.html"><img src="../../../../doc/src/images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

@@ -8,6 +8,7 @@
 <link rel="up" href="../thread_pool.html" title="thread_pool">
 <link rel="prev" href="executor.html" title="thread_pool::executor">
 <link rel="next" href="fork_event.html" title="thread_pool::fork_event">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table cellpadding="2" width="100%"><tr>
@@ -31,7 +32,7 @@
 Executor
           used to submit functions to a thread pool.
         </p>
-<pre class="programlisting">typedef basic_executor_type&lt; std::allocator&lt; void &gt;, 0 &gt; executor_type;
+<pre class="programlisting"><span class="keyword">typedef</span> <span class="identifier">basic_executor_type</span><span class="special">&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">allocator</span><span class="special">&lt;</span> <span class="keyword">void</span> <span class="special">&gt;,</span> <span class="number">0</span> <span class="special">&gt;</span> <span class="identifier">executor_type</span><span class="special">;</span>
 </pre>
 <h6>
 <a name="boost_asio.reference.thread_pool.executor_type.h0"></a>
@@ -75,7 +76,7 @@ Executor
                 </td>
 <td>
                   <p>
-                    The sender type, when this type is used as a scheduler.
+                    (Deprecated.) The sender type, when this type is used as a scheduler.
                   </p>
                 </td>
 </tr>
@@ -136,7 +137,7 @@ Executor
                 </td>
 <td>
                   <p>
-                    Bulk execution function.
+                    (Deprecated.) Bulk execution function.
                   </p>
                 </td>
 </tr>
@@ -148,7 +149,7 @@ Executor
                 </td>
 <td>
                   <p>
-                    Connect function.
+                    (Deprecated.) Connect function.
                   </p>
                 </td>
 </tr>
@@ -273,9 +274,10 @@ Executor
                 </td>
 <td>
                   <p>
-                    Query the current value of the bulk_guarantee property. <br>
-                    <span class="silver"> —</span><br> Query the current value of the mapping property. <br>
-                    <span class="silver"> —</span><br> Query the current value of the outstanding_work property.
+                    (Deprecated.) Query the current value of the bulk_guarantee property.
+                    <br> <span class="silver"> —</span><br> Query the current value of the mapping property.
+                    <br> <span class="silver"> —</span><br> Query the current value of the outstanding_work
+                    property.
                   </p>
                 </td>
 </tr>
@@ -320,7 +322,7 @@ Executor
                 </td>
 <td>
                   <p>
-                    Schedule function.
+                    (Deprecated.) Schedule function.
                   </p>
                 </td>
 </tr>
@@ -397,15 +399,11 @@ Executor
           <span class="emphasis"><em>Convenience header: </em></span><code class="literal">boost/asio.hpp</code>
         </p>
 </div>
-<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright © 2003-2021 Christopher
-      M. Kohlhoff<p>
+<div class="copyright-footer">Copyright © 2003-2023 Christopher M. Kohlhoff<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>
-</div></td>
-</tr></table>
+</div>
 <hr>
 <div class="spirit-nav">
 <a accesskey="p" href="executor.html"><img src="../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../thread_pool.html"><img src="../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../../boost_asio.html"><img src="../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="fork_event.html"><img src="../../../../../doc/src/images/next.png" alt="Next"></a>

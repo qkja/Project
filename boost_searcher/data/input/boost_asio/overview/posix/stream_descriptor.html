@@ -8,6 +8,7 @@
 <link rel="up" href="../posix.html" title="POSIX-Specific Functionality">
 <link rel="prev" href="local.html" title="UNIX Domain Sockets">
 <link rel="next" href="fork.html" title="Fork">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table cellpadding="2" width="100%"><tr>
@@ -35,19 +36,19 @@
 <p>
           These classes also provide limited support for regular files. This support
           assumes that the underlying read and write operations provided by the operating
-          system never fail with <code class="computeroutput">EAGAIN</code> or <code class="computeroutput">EWOULDBLOCK</code>.
-          (This assumption normally holds for buffered file I/O.) Synchronous and
-          asynchronous read and write operations on file descriptors will succeed
-          but the I/O will always be performed immediately. Wait operations, and
-          operations involving <code class="computeroutput">boost::asio::null_buffers</code>, are not portably
-          supported.
+          system never fail with <code class="computeroutput"><span class="identifier">EAGAIN</span></code>
+          or <code class="computeroutput"><span class="identifier">EWOULDBLOCK</span></code>. (This assumption
+          normally holds for buffered file I/O.) Synchronous and asynchronous read
+          and write operations on file descriptors will succeed but the I/O will
+          always be performed immediately. Wait operations, and operations involving
+          <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">null_buffers</span></code>, are not portably supported.
         </p>
 <p>
           For example, to perform read and write operations on standard input and
           output, the following objects may be created:
         </p>
-<pre class="programlisting">posix::stream_descriptor in(my_io_context, ::dup(STDIN_FILENO));
-posix::stream_descriptor out(my_io_context, ::dup(STDOUT_FILENO));
+<pre class="programlisting"><span class="identifier">posix</span><span class="special">::</span><span class="identifier">stream_descriptor</span> <span class="identifier">in</span><span class="special">(</span><span class="identifier">my_io_context</span><span class="special">,</span> <span class="special">::</span><span class="identifier">dup</span><span class="special">(</span><span class="identifier">STDIN_FILENO</span><span class="special">));</span>
+<span class="identifier">posix</span><span class="special">::</span><span class="identifier">stream_descriptor</span> <span class="identifier">out</span><span class="special">(</span><span class="identifier">my_io_context</span><span class="special">,</span> <span class="special">::</span><span class="identifier">dup</span><span class="special">(</span><span class="identifier">STDOUT_FILENO</span><span class="special">));</span>
 </pre>
 <p>
           These are then used as synchronous or asynchronous read and write streams.
@@ -72,19 +73,15 @@ posix::stream_descriptor out(my_io_context, ::dup(STDOUT_FILENO));
         </h6>
 <p>
           POSIX stream descriptors are only available at compile time if supported
-          by the target operating system. A program may test for the macro <code class="computeroutput">BOOST_ASIO_HAS_POSIX_STREAM_DESCRIPTOR</code>
+          by the target operating system. A program may test for the macro <code class="computeroutput"><span class="identifier">BOOST_ASIO_HAS_POSIX_STREAM_DESCRIPTOR</span></code>
           to determine whether they are supported.
         </p>
 </div>
-<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright © 2003-2021 Christopher
-      M. Kohlhoff<p>
+<div class="copyright-footer">Copyright © 2003-2023 Christopher M. Kohlhoff<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>
-</div></td>
-</tr></table>
+</div>
 <hr>
 <div class="spirit-nav">
 <a accesskey="p" href="local.html"><img src="../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../posix.html"><img src="../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../../boost_asio.html"><img src="../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="fork.html"><img src="../../../../../doc/src/images/next.png" alt="Next"></a>

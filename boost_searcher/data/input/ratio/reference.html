@@ -6,9 +6,10 @@
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../ratio.html" title="Chapter 35. Boost.Ratio 2.1.0">
+<link rel="up" href="../ratio.html" title="Chapter 33. Boost.Ratio 2.1.0">
 <link rel="prev" href="users_guide.html" title="User's Guide">
 <link rel="next" href="appendices.html" title="Appendices">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table cellpadding="2" width="100%"><tr>
@@ -61,6 +62,18 @@
           is defined, <span class="bold"><strong>Boost.Ratio</strong></span> provides in addition
           some extension to the C++ standard, see below.
         </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../../doc/src/images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+            Support for <code class="computeroutput"><span class="identifier">BOOST_RATIO_EXTENSIONS</span></code>
+            is deprecated and will eventually be removed when Boost.Ratio is implemented
+            in terms of the standard C++11 <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">ratio</span><span class="special">&gt;</span></code>
+            header.
+          </p></td></tr>
+</table></div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -330,18 +343,22 @@
               Included only if <a class="link" href="reference.html#ratio.reference.config_hpp.ext" title="Extensions"><code class="computeroutput"><span class="identifier">BOOST_RATIO_EXTENSIONS</span></code></a> is
               defined.
             </p>
-<h7><a name="ratio.reference.std.ratio_hpp.ratio.ca.h0"></a>
+<h6>
+<a name="ratio.reference.std.ratio_hpp.ratio.ca.h0"></a>
               <span class="phrase"><a name="ratio.reference.std.ratio_hpp.ratio.ca.default_constructor"></a></span><a class="link" href="reference.html#ratio.reference.std.ratio_hpp.ratio.ca.default_constructor">Default
               Constructor</a>
-            </h7><pre class="programlisting"><span class="identifier">ratio</span><span class="special">()=</span><span class="keyword">default</span><span class="special">;</span>
+            </h6>
+<pre class="programlisting"><span class="identifier">ratio</span><span class="special">()=</span><span class="keyword">default</span><span class="special">;</span>
 </pre>
 <p>
               <span class="bold"><strong>Effects:</strong></span> Constructs a <a class="link" href="reference.html#ratio.reference.std.ratio_hpp.ratio" title="Class Template ratio&lt;&gt;"><code class="computeroutput"><span class="identifier">ratio</span></code></a> object.
             </p>
-<h7><a name="ratio.reference.std.ratio_hpp.ratio.ca.h1"></a>
+<h6>
+<a name="ratio.reference.std.ratio_hpp.ratio.ca.h1"></a>
               <span class="phrase"><a name="ratio.reference.std.ratio_hpp.ratio.ca.copy_constructor"></a></span><a class="link" href="reference.html#ratio.reference.std.ratio_hpp.ratio.ca.copy_constructor">Copy
               Constructor</a>
-            </h7><pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="identifier">intmax_t</span> <span class="identifier">N2</span><span class="special">,</span> <span class="identifier">intmax_t</span> <span class="identifier">D2</span><span class="special">&gt;</span>
+            </h6>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="identifier">intmax_t</span> <span class="identifier">N2</span><span class="special">,</span> <span class="identifier">intmax_t</span> <span class="identifier">D2</span><span class="special">&gt;</span>
   <span class="identifier">ratio</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="reference.html#ratio.reference.std.ratio_hpp.ratio" title="Class Template ratio&lt;&gt;"><code class="computeroutput"><span class="identifier">ratio</span></code></a><span class="special">&lt;</span><span class="identifier">N2</span><span class="special">,</span> <span class="identifier">D2</span><span class="special">&gt;&amp;</span> <span class="identifier">r</span><span class="special">);</span>
 </pre>
 <p>
@@ -352,9 +369,11 @@
               participate in overload resolution unless <code class="computeroutput"><span class="identifier">r</span></code>
               has the same normalized form as <code class="computeroutput"><span class="special">*</span><span class="keyword">this</span></code>.
             </p>
-<h7><a name="ratio.reference.std.ratio_hpp.ratio.ca.h2"></a>
+<h6>
+<a name="ratio.reference.std.ratio_hpp.ratio.ca.h2"></a>
               <span class="phrase"><a name="ratio.reference.std.ratio_hpp.ratio.ca.assignement"></a></span><a class="link" href="reference.html#ratio.reference.std.ratio_hpp.ratio.ca.assignement">Assignement</a>
-            </h7><pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="identifier">intmax_t</span> <span class="identifier">N2</span><span class="special">,</span> <span class="identifier">intmax_t</span> <span class="identifier">D2</span><span class="special">&gt;</span>
+            </h6>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="identifier">intmax_t</span> <span class="identifier">N2</span><span class="special">,</span> <span class="identifier">intmax_t</span> <span class="identifier">D2</span><span class="special">&gt;</span>
   <a class="link" href="reference.html#ratio.reference.std.ratio_hpp.ratio" title="Class Template ratio&lt;&gt;"><code class="computeroutput"><span class="identifier">ratio</span></code></a><span class="special">&amp;</span> <span class="keyword">operator</span><span class="special">=(</span><span class="keyword">const</span> <a class="link" href="reference.html#ratio.reference.std.ratio_hpp.ratio" title="Class Template ratio&lt;&gt;"><code class="computeroutput"><span class="identifier">ratio</span></code></a><span class="special">&lt;</span><span class="identifier">N2</span><span class="special">,</span> <span class="identifier">D2</span><span class="special">&gt;&amp;</span> <span class="identifier">r</span><span class="special">);</span>
 </pre>
 <p>
@@ -973,7 +992,7 @@
             and <code class="computeroutput"><span class="identifier">symbol</span><span class="special">()</span></code>.
           </p>
 <div class="table">
-<a name="ratio.reference.io.ratio_io_hpp.spe.the_return_values_of_specializations_of_ratio_string"></a><p class="title"><b>Table 35.1. The return values of specializations of ratio_string</b></p>
+<a name="ratio.reference.io.ratio_io_hpp.spe.the_return_values_of_specializations_of_ratio_string"></a><p class="title"><b>Table 33.1. The return values of specializations of ratio_string</b></p>
 <div class="table-contents"><table class="table" summary="The return values of specializations of ratio_string">
 <colgroup>
 <col>
@@ -3019,15 +3038,12 @@
 </div>
 </div>
 </div>
-<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright © 2008 Howard Hinnant<br>Copyright © 2006, 2008 Beman Dawes<br>Copyright © 2009-2012 Vicente
+<div class="copyright-footer">Copyright © 2008 Howard Hinnant<br>Copyright © 2006, 2008 Beman Dawes<br>Copyright © 2009-2012 Vicente
       J. Botet Escriba<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>
-</div></td>
-</tr></table>
+</div>
 <hr>
 <div class="spirit-nav">
 <a accesskey="p" href="users_guide.html"><img src="../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../ratio.html"><img src="../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="appendices.html"><img src="../../../doc/src/images/next.png" alt="Next"></a>

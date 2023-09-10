@@ -8,6 +8,7 @@
 <link rel="up" href="../basic_socket_iostream.html" title="basic_socket_iostream">
 <link rel="prev" href="endpoint_type.html" title="basic_socket_iostream::endpoint_type">
 <link rel="next" href="expires_after.html" title="basic_socket_iostream::expires_after">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table cellpadding="2" width="100%"><tr>
@@ -31,7 +32,7 @@
 Get
           the last error associated with the stream.
         </p>
-<pre class="programlisting">const boost::system::error_code &amp; error() const;
+<pre class="programlisting"><span class="keyword">const</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">system</span><span class="special">::</span><span class="identifier">error_code</span> <span class="special">&amp;</span> <span class="identifier">error</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
 </pre>
 <h6>
 <a name="boost_asio.reference.basic_socket_iostream.error.h0"></a>
@@ -39,7 +40,8 @@ Get
           Value</a>
         </h6>
 <p>
-          An <code class="computeroutput">error_code</code> corresponding to the last error from the stream.
+          An <code class="computeroutput"><span class="identifier">error_code</span></code> corresponding
+          to the last error from the stream.
         </p>
 <h6>
 <a name="boost_asio.reference.basic_socket_iostream.error.h1"></a>
@@ -48,22 +50,18 @@ Get
 <p>
           To print the error associated with a failure to establish a connection:
         </p>
-<pre class="programlisting">tcp::iostream s("www.boost.org", "http");
-if (!s)
-{
-  std::cout &lt;&lt; "Error: " &lt;&lt; s.error().message() &lt;&lt; std::endl;
-}
+<pre class="programlisting"><span class="identifier">tcp</span><span class="special">::</span><span class="identifier">iostream</span> <span class="identifier">s</span><span class="special">(</span><span class="string">"www.boost.org"</span><span class="special">,</span> <span class="string">"http"</span><span class="special">);</span>
+<span class="keyword">if</span> <span class="special">(!</span><span class="identifier">s</span><span class="special">)</span>
+<span class="special">{</span>
+  <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"Error: "</span> <span class="special">&lt;&lt;</span> <span class="identifier">s</span><span class="special">.</span><span class="identifier">error</span><span class="special">().</span><span class="identifier">message</span><span class="special">()</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
+<span class="special">}</span>
 </pre>
 </div>
-<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright © 2003-2021 Christopher
-      M. Kohlhoff<p>
+<div class="copyright-footer">Copyright © 2003-2023 Christopher M. Kohlhoff<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>
-</div></td>
-</tr></table>
+</div>
 <hr>
 <div class="spirit-nav">
 <a accesskey="p" href="endpoint_type.html"><img src="../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../basic_socket_iostream.html"><img src="../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../../boost_asio.html"><img src="../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="expires_after.html"><img src="../../../../../doc/src/images/next.png" alt="Next"></a>

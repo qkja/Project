@@ -6,9 +6,10 @@
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../process.html" title="Chapter 30. Boost.Process">
+<link rel="up" href="../process.html" title="Chapter 28. Boost.Process">
 <link rel="prev" href="../boost_process/faq.html" title="Frequently Asked Questions">
 <link rel="next" href="../boost/process/args.html" title="Global args">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table cellpadding="2" width="100%"><tr>
@@ -27,6 +28,7 @@
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="process.reference"></a>Reference</h2></div></div></div>
 <div class="toc"><dl class="toc">
+<dt><span class="section"><a href="reference.html#header.boost.process_hpp">Header &lt;boost/process.hpp&gt;</a></span></dt>
 <dt><span class="section"><a href="reference.html#header.boost.process.args_hpp">Header &lt;boost/process/args.hpp&gt;</a></span></dt>
 <dt><span class="section"><a href="reference.html#header.boost.process.async_hpp">Header &lt;boost/process/async.hpp&gt;</a></span></dt>
 <dt><span class="section"><a href="reference.html#header.boost.process.async_pipe_hpp">Header &lt;boost/process/async_pipe.hpp&gt;</a></span></dt>
@@ -39,6 +41,7 @@
 <dt><span class="section"><a href="reference.html#header.boost.process.exception_hpp">Header &lt;boost/process/exception.hpp&gt;</a></span></dt>
 <dt><span class="section"><a href="reference.html#header.boost.process.exe_hpp">Header &lt;boost/process/exe.hpp&gt;</a></span></dt>
 <dt><span class="section"><a href="reference.html#header.boost.process.extend_hpp">Header &lt;boost/process/extend.hpp&gt;</a></span></dt>
+<dt><span class="section"><a href="reference.html#header.boost.process.filesystem_hpp">Header &lt;boost/process/filesystem.hpp&gt;</a></span></dt>
 <dt><span class="section"><a href="reference.html#header.boost.process.group_hpp">Header &lt;boost/process/group.hpp&gt;</a></span></dt>
 <dt><span class="section"><a href="reference.html#header.boost.process.handles_hpp">Header &lt;boost/process/handles.hpp&gt;</a></span></dt>
 <dt><span class="section"><a href="reference.html#header.boost.process.io_hpp">Header &lt;boost/process/io.hpp&gt;</a></span></dt>
@@ -54,8 +57,13 @@
 </dl></div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
+<a name="header.boost.process_hpp"></a>Header &lt;<a href="../../../../../boost/process.hpp" target="_top">boost/process.hpp</a>&gt;</h3></div></div></div>
+<p>Convenience header which includes all public and platform-independent boost.process header files. </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
 <a name="header.boost.process.args_hpp"></a>Header &lt;<a href="../../../../../boost/process/args.hpp" target="_top">boost/process/args.hpp</a>&gt;</h3></div></div></div>
-<p>This header provides the <a class="link" href="../boost/process/args.html" title="Global args">args</a> property. It also provides the alternative name <a class="link" href="../boost/process/argv.html" title="Global argv">argv</a> .</p>
+<p>This header provides the  <a class="link" href="../boost/process/args.html" title="Global args">args</a> property. It also provides the alternative name  <a class="link" href="../boost/process/argv.html" title="Global argv">argv</a> .</p>
 <p> 
 </p>
 <pre class="programlisting">
@@ -72,7 +80,7 @@
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="header.boost.process.async_hpp"></a>Header &lt;<a href="../../../../../boost/process/async.hpp" target="_top">boost/process/async.hpp</a>&gt;</h3></div></div></div>
-<p>The header which provides the basic asynchrounous features. It provides the on_exit property, which allows callbacks when the process exits. It also implements the necessary traits for passing an boost::asio::io_context, which is needed for asynchronous communication.</p>
+<p>The header which provides the basic asynchronous features. It provides the on_exit property, which allows callbacks when the process exits. It also implements the necessary traits for passing an boost::asio::io_context, which is needed for asynchronous communication.</p>
 <p>It also pulls the <a href="http://www.boost.org/doc/libs/release/doc/html/boost_asio/reference/buffer.html" target="_top">boost::asio::buffer</a> into the boost::process namespace for convenience.</p>
 <p> 
 </p>
@@ -100,7 +108,7 @@
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="header.boost.process.async_system_hpp"></a>Header &lt;<a href="../../../../../boost/process/async_system.hpp" target="_top">boost/process/async_system.hpp</a>&gt;</h3></div></div></div>
-<p>Defines the asynchrounous version of the system function. </p>
+<p>Defines the asynchronous version of the system function. </p>
 <pre class="synopsis"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
   <span class="keyword">namespace</span> <span class="identifier">process</span> <span class="special">{</span>
     <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> ExitHandler<span class="special">,</span> <span class="keyword">typename</span> <span class="special">...</span> Args<span class="special">&gt;</span> 
@@ -124,7 +132,7 @@
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="header.boost.process.cmd_hpp"></a>Header &lt;<a href="../../../../../boost/process/cmd.hpp" target="_top">boost/process/cmd.hpp</a>&gt;</h3></div></div></div>
-<p>This header provides the <a class="link" href="../boost/process/cmd.html" title="Global cmd">cmd</a> property.</p>
+<p>This header provides the  <a class="link" href="../boost/process/cmd.html" title="Global cmd">cmd</a> property.</p>
 <p> 
 </p>
 <pre class="programlisting">
@@ -188,7 +196,7 @@
     <span class="identifier">wnative_environment</span> <a name="boost.this_process.wenvironment"></a><span class="identifier">wenvironment</span><span class="special">(</span><span class="special">)</span><span class="special">;</span>
 
     <span class="comment">// Get the path environment variable of the current process runs. </span>
-    <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">filesystem</span><span class="special">::</span><span class="identifier">path</span> <span class="special">&gt;</span> <a name="boost.this_process.path"></a><span class="identifier">path</span><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">process</span><span class="special">::</span><span class="identifier">filesystem</span><span class="special">::</span><span class="identifier">path</span> <span class="special">&gt;</span> <a name="boost.this_process.path"></a><span class="identifier">path</span><span class="special">(</span><span class="special">)</span><span class="special">;</span>
   <span class="special">}</span>
 <span class="special">}</span></pre>
 </div>
@@ -253,7 +261,7 @@ Please refer to the <a class="link" href="../boost_process/extend.html" title="E
       <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Char<span class="special">,</span> <span class="keyword">typename</span> Sequence<span class="special">&gt;</span> <span class="keyword">struct</span> <a class="link" href="../boost/process/extend/windows_executor.html" title="Struct template windows_executor">windows_executor</a><span class="special">;</span>
 
       <span class="emphasis"><em><span class="identifier">unspecified</span></em></span> <a class="link" href="../boost/process/extend/on_setup.html" title="Global on_setup">on_setup</a><span class="special">;</span>      <span class="comment">// This handler is invoked before the process in launched, to setup parameters. The required signature is <code class="computeroutput">void(Exec &amp;)</code>, where <code class="computeroutput">Exec</code> is a template parameter. </span>
-      <span class="emphasis"><em><span class="identifier">unspecified</span></em></span> <a class="link" href="../boost/process/extend/on_error.html" title="Global on_error">on_error</a><span class="special">;</span>      <span class="comment">// This handler is invoked if an error occured. The required signature is <code class="computeroutput">void(auto &amp; exec, const std::error_code&amp;)</code>, where <code class="computeroutput">Exec</code> is a template parameter. </span>
+      <span class="emphasis"><em><span class="identifier">unspecified</span></em></span> <a class="link" href="../boost/process/extend/on_error.html" title="Global on_error">on_error</a><span class="special">;</span>      <span class="comment">// This handler is invoked if an error occurred. The required signature is <code class="computeroutput">void(auto &amp; exec, const std::error_code&amp;)</code>, where <code class="computeroutput">Exec</code> is a template parameter. </span>
       <span class="emphasis"><em><span class="identifier">unspecified</span></em></span> <a class="link" href="../boost/process/extend/on_success.html" title="Global on_success">on_success</a><span class="special">;</span>      <span class="comment">// This handler is invoked if launching the process has succeeded. The required signature is <code class="computeroutput">void(auto &amp; exec)</code>, where <code class="computeroutput">Exec</code> is a template parameter. </span>
       <span class="emphasis"><em><span class="identifier">unspecified</span></em></span> <a class="link" href="../boost/process/extend/on_fork_error.html" title="Global on_fork_error">on_fork_error</a><span class="special">;</span>      <span class="comment">// This handler is invoked if the fork failed. The required signature is <code class="computeroutput">void(auto &amp; exec)</code>, where <code class="computeroutput">Exec</code> is a template parameter. </span>
       <span class="emphasis"><em><span class="identifier">unspecified</span></em></span> <a class="link" href="../boost/process/extend/on_exec_setup.html" title="Global on_exec_setup">on_exec_setup</a><span class="special">;</span>      <span class="comment">// This handler is invoked if the fork succeeded. The required signature is <code class="computeroutput">void(Exec &amp;)</code>, where <code class="computeroutput">Exec</code> is a template parameter. </span>
@@ -261,14 +269,16 @@ Please refer to the <a class="link" href="../boost_process/extend.html" title="E
 
       <span class="comment">// Helper function to get the last error code system-independent. </span>
       <span class="identifier">std</span><span class="special">::</span><span class="identifier">error_code</span> <a name="boost.process.extend.get_last_error"></a><span class="identifier">get_last_error</span><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-      <span class="keyword">void</span> <a class="link" href="../boost/process/extend/throw_last_error.html" title="Function throw_last_error"><span class="identifier">throw_last_error</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
-      <span class="keyword">void</span> <a class="link" href="../boost/process/extend/throw_last_error.html" title="Function throw_last_error"><span class="identifier">throw_last_error</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+      <span class="keyword">void</span> <a class="link" href="../boost/process/extend/throw_last_error_idm3722.html" title="Function throw_last_error"><span class="identifier">throw_last_error</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+      <span class="keyword">void</span> <a name="boost.process.extend.throw_last_error_idm3733"></a><span class="identifier">throw_last_error</span><span class="special">(</span><span class="special">)</span><span class="special">;</span>
       <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Sequence<span class="special">&gt;</span> 
         <span class="identifier">asio</span><span class="special">::</span><span class="identifier">io_context</span> <span class="special">&amp;</span> <a class="link" href="../boost/process/extend/get_io_context.html" title="Function template get_io_context"><span class="identifier">get_io_context</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">Sequence</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
     <span class="special">}</span>
   <span class="special">}</span>
 <span class="special">}</span></pre>
 </div>
+<div class="section"><div class="titlepage"><div><div><h3 class="title">
+<a name="header.boost.process.filesystem_hpp"></a>Header &lt;<a href="../../../../../boost/process/filesystem.hpp" target="_top">boost/process/filesystem.hpp</a>&gt;</h3></div></div></div></div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="header.boost.process.group_hpp"></a>Header &lt;<a href="../../../../../boost/process/group.hpp" target="_top">boost/process/group.hpp</a>&gt;</h3></div></div></div>
@@ -295,10 +305,10 @@ Please refer to the <a class="link" href="../boost_process/extend.html" title="E
   <span class="special">}</span>
   <span class="keyword">namespace</span> <span class="identifier">this_process</span> <span class="special">{</span>
     <span class="keyword">typedef</span> <span class="emphasis"><em><span class="identifier">unspecified</span></em></span> <a class="link" href="../boost/this_process/native_handle_type.html" title="Type definition native_handle_type"><span class="identifier">native_handle_type</span></a><span class="special">;</span>
-    <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span> <span class="identifier">native_handle_type</span> <span class="special">&gt;</span> <a class="link" href="../boost/this_process/get_handles.html" title="Function get_handles"><span class="identifier">get_handles</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-    <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span> <span class="identifier">native_handle_type</span> <span class="special">&gt;</span> <a class="link" href="../boost/this_process/get_handles.html" title="Function get_handles"><span class="identifier">get_handles</span></a><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">error_code</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
-    <span class="keyword">bool</span> <a class="link" href="../boost/this_process/is_stream_handle.html" title="Function is_stream_handle"><span class="identifier">is_stream_handle</span></a><span class="special">(</span><span class="identifier">native_handle_type</span><span class="special">)</span><span class="special">;</span>
-    <span class="keyword">bool</span> <a class="link" href="../boost/this_process/is_stream_handle.html" title="Function is_stream_handle"><span class="identifier">is_stream_handle</span></a><span class="special">(</span><span class="identifier">native_handle_type</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">error_code</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span> <span class="identifier">native_handle_type</span> <span class="special">&gt;</span> <a class="link" href="../boost/this_process/get_handles_idm3950.html" title="Function get_handles"><span class="identifier">get_handles</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span> <span class="identifier">native_handle_type</span> <span class="special">&gt;</span> <a name="boost.this_process.get_handles_idm3963"></a><span class="identifier">get_handles</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">error_code</span> <span class="special">&amp;</span> ec<span class="special">)</span><span class="special">;</span>
+    <span class="keyword">bool</span> <a class="link" href="../boost/this_process/is_stream_handle_idm3967.html" title="Function is_stream_handle"><span class="identifier">is_stream_handle</span></a><span class="special">(</span><span class="identifier">native_handle_type</span><span class="special">)</span><span class="special">;</span>
+    <span class="keyword">bool</span> <a name="boost.this_process.is_stream_handle_idm3976"></a><span class="identifier">is_stream_handle</span><span class="special">(</span><span class="identifier">native_handle_type</span> handle<span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">error_code</span> <span class="special">&amp;</span> ec<span class="special">)</span><span class="special">;</span>
   <span class="special">}</span>
 <span class="special">}</span></pre>
 </div>
@@ -324,9 +334,9 @@ Please refer to the <a class="link" href="../boost_process/extend.html" title="E
 <p><b>File I/O. </b></p>
 <p>
 The library allows full redirection of streams to files as shown below.</p>
-<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">filesystem</span><span class="special">::</span><span class="identifier">path</span> <span class="identifier">log</span>    <span class="special">=</span> <span class="string">"my_log_file.txt"</span><span class="special">;</span>
-<span class="identifier">boost</span><span class="special">::</span><span class="identifier">filesystem</span><span class="special">::</span><span class="identifier">path</span> <span class="identifier">input</span>  <span class="special">=</span> <span class="string">"input.txt"</span><span class="special">;</span>
-<span class="identifier">boost</span><span class="special">::</span><span class="identifier">filesystem</span><span class="special">::</span><span class="identifier">path</span> <span class="identifier">output</span> <span class="special">=</span> <span class="string">"output.txt"</span><span class="special">;</span>
+<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">process</span><span class="special">::</span><span class="identifier">filesystem</span><span class="special">::</span><span class="identifier">path</span> <span class="identifier">log</span>    <span class="special">=</span> <span class="string">"my_log_file.txt"</span><span class="special">;</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">process</span><span class="special">::</span><span class="identifier">filesystem</span><span class="special">::</span><span class="identifier">path</span> <span class="identifier">input</span>  <span class="special">=</span> <span class="string">"input.txt"</span><span class="special">;</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">process</span><span class="special">::</span><span class="identifier">filesystem</span><span class="special">::</span><span class="identifier">path</span> <span class="identifier">output</span> <span class="special">=</span> <span class="string">"output.txt"</span><span class="special">;</span>
 <span class="identifier">system</span><span class="special">(</span><span class="string">"my_prog"</span><span class="special">,</span> <span class="identifier">std_out</span><span class="special">&gt;</span><span class="identifier">output</span><span class="special">,</span> <span class="identifier">std_in</span><span class="special">&lt;</span><span class="identifier">input</span><span class="special">,</span> <span class="identifier">std_err</span><span class="special">&gt;</span><span class="identifier">log</span><span class="special">)</span><span class="special">;</span>
 </pre>
 <p><b>Synchronous Pipe I/O. </b></p>
@@ -456,9 +466,9 @@ Streams can be redirected to null, which means, that written date will be discar
 <p>Defines a function to search for an executable in path. </p>
 <pre class="synopsis"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
   <span class="keyword">namespace</span> <span class="identifier">process</span> <span class="special">{</span>
-    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">filesystem</span><span class="special">::</span><span class="identifier">path</span> 
-    <a class="link" href="../boost/process/search_path.html" title="Function search_path"><span class="identifier">search_path</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">filesystem</span><span class="special">::</span><span class="identifier">path</span> <span class="special">&amp;</span><span class="special">,</span> 
-                <span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">filesystem</span><span class="special">::</span><span class="identifier">path</span> <span class="special">&gt;</span> <span class="special">=</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">this_process</span><span class="special">::</span><span class="identifier">path</span><span class="special">(</span><span class="special">)</span><span class="special">)</span><span class="special">;</span>
+    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">process</span><span class="special">::</span><span class="identifier">filesystem</span><span class="special">::</span><span class="identifier">path</span> 
+    <a class="link" href="../boost/process/search_path.html" title="Function search_path"><span class="identifier">search_path</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">process</span><span class="special">::</span><span class="identifier">filesystem</span><span class="special">::</span><span class="identifier">path</span> <span class="special">&amp;</span><span class="special">,</span> 
+                <span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">process</span><span class="special">::</span><span class="identifier">filesystem</span><span class="special">::</span><span class="identifier">path</span> <span class="special">&gt;</span> <span class="special">=</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">this_process</span><span class="special">::</span><span class="identifier">path</span><span class="special">(</span><span class="special">)</span><span class="special">)</span><span class="special">;</span>
   <span class="special">}</span>
 <span class="special">}</span></pre>
 </div>
@@ -547,15 +557,12 @@ Streams can be redirected to null, which means, that written date will be discar
 </p>
 </div>
 </div>
-<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright © 2006-2012 Julio M. Merino Vidal, Ilya Sokolov,
+<div class="copyright-footer">Copyright © 2006-2012 Julio M. Merino Vidal, Ilya Sokolov,
       Felipe Tanus, Jeff Flinn, Boris Schaeling<br>Copyright © 2016 Klemens D. Morgenstern<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
       </p>
-</div></td>
-</tr></table>
+</div>
 <hr>
 <div class="spirit-nav">
 <a accesskey="p" href="../boost_process/faq.html"><img src="../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../process.html"><img src="../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="../boost/process/args.html"><img src="../../../doc/src/images/next.png" alt="Next"></a>

@@ -6,9 +6,10 @@
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../container.html" title="Chapter 9. Boost.Container">
+<link rel="up" href="../container.html" title="Chapter 8. Boost.Container">
 <link rel="prev" href="acknowledgements_notes.html" title="Acknowledgements, notes and links">
-<link rel="next" href="../hash.html" title="Chapter 10. Boost.ContainerHash">
+<link rel="next" href="../conversion.html" title="Chapter 9. The Conversion Library 1.7">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table cellpadding="2" width="100%"><tr>
@@ -21,13 +22,21 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="acknowledgements_notes.html"><img src="../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../container.html"><img src="../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="../hash.html"><img src="../../../doc/src/images/next.png" alt="Next"></a>
+<a accesskey="p" href="acknowledgements_notes.html"><img src="../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../container.html"><img src="../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="../conversion.html"><img src="../../../doc/src/images/next.png" alt="Next"></a>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="container.release_notes"></a><a class="link" href="release_notes.html" title="Release Notes">Release Notes</a>
 </h2></div></div></div>
 <div class="toc"><dl class="toc">
+<dt><span class="section"><a href="release_notes.html#container.release_notes.release_notes_boost_1_82_00">Boost
+      1.82 Release</a></span></dt>
+<dt><span class="section"><a href="release_notes.html#container.release_notes.release_notes_boost_1_81_00">Boost
+      1.81 Release</a></span></dt>
+<dt><span class="section"><a href="release_notes.html#container.release_notes.release_notes_boost_1_80_00">Boost
+      1.80 Release</a></span></dt>
+<dt><span class="section"><a href="release_notes.html#container.release_notes.release_notes_boost_1_79_00">Boost
+      1.79 Release</a></span></dt>
 <dt><span class="section"><a href="release_notes.html#container.release_notes.release_notes_boost_1_78_00">Boost
       1.78 Release</a></span></dt>
 <dt><span class="section"><a href="release_notes.html#container.release_notes.release_notes_boost_1_77_00">Boost
@@ -89,6 +98,141 @@
 <dt><span class="section"><a href="release_notes.html#container.release_notes.release_notes_boost_1_48_00">Boost
       1.48 Release</a></span></dt>
 </dl></div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="container.release_notes.release_notes_boost_1_82_00"></a><a class="link" href="release_notes.html#container.release_notes.release_notes_boost_1_82_00" title="Boost 1.82 Release">Boost
+      1.82 Release</a>
+</h3></div></div></div>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+            Fixed bugs/issues:
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; ">
+<li class="listitem">
+                  <a href="https://github.com/boostorg/container/issues/232" target="_top">GitHub
+                  #232: <span class="emphasis"><em>"Fix using pmr::polymorphic_allocator in pre-main"</em></span></a>.
+                </li>
+<li class="listitem">
+                  <a href="https://github.com/boostorg/container/issues/233" target="_top">GitHub
+                  #233: <span class="emphasis"><em>"Can't std::move small_vector with move-only
+                  type"</em></span></a>.
+                </li>
+<li class="listitem">
+                  <a href="https://github.com/boostorg/container/issues/238" target="_top">GitHub
+                  #238: <span class="emphasis"><em>"Containers should not be using memset to
+                  value-initialize POD types"</em></span></a>.
+                </li>
+<li class="listitem">
+                  <a href="https://github.com/boostorg/container/issues/236" target="_top">GitHub
+                  #236: <span class="emphasis"><em>"flat_tree::erase_unique uses wrong iterator"</em></span></a>.
+                </li>
+<li class="listitem">
+                  <a href="https://github.com/boostorg/container/issues/240" target="_top">GitHub
+                  #240: <span class="emphasis"><em>"_GLIBCXX_DEBUG detects issues in flat_set/map"</em></span></a>.
+                </li>
+</ul></div>
+          </li></ul></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="container.release_notes.release_notes_boost_1_81_00"></a><a class="link" href="release_notes.html#container.release_notes.release_notes_boost_1_81_00" title="Boost 1.81 Release">Boost
+      1.81 Release</a>
+</h3></div></div></div>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+            <code class="computeroutput"><a class="link" href="../boost/container/devector.html" title="Class template devector">devector</a></code>'s insertion
+            logic has been reimplemented to move elements to the center of the devector
+            if an insertion at one end has no free capacity but there is free capacity
+            on the other end. Current implementation keeps reallocating memory when
+            only inserting at one end and poping from the other, provoking very high
+            memory usage. The new strategy is based on the article <a href="http://larshagencpp.github.io/blog/2016/05/22/devector" target="_top">Double-ended
+            vector - is it useful?</a> by Lars Greger Nordland Hagen.
+          </li></ul></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="container.release_notes.release_notes_boost_1_80_00"></a><a class="link" href="release_notes.html#container.release_notes.release_notes_boost_1_80_00" title="Boost 1.80 Release">Boost
+      1.80 Release</a>
+</h3></div></div></div>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+            Fixed bugs/issues:
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; ">
+<li class="listitem">
+                  <a href="https://github.com/boostorg/container/issues/209" target="_top">GitHub
+                  #209: <span class="emphasis"><em>"Some boost warnings with my R package (Wclass-memaccess
+                  warnings with std::pair)"</em></span></a>.
+                </li>
+<li class="listitem">
+                  <a href="https://github.com/boostorg/container/issues/211" target="_top">GitHub
+                  #211: <span class="emphasis"><em>"Use atomics for pmr get/set default resource"</em></span></a>.
+                </li>
+<li class="listitem">
+                  <a href="https://github.com/boostorg/container/issues/210" target="_top">GitHub
+                  #210: <span class="emphasis"><em>"Use sized delete in boost::container::new_allocator
+                  if __cpp_sized_deallocation is defined"</em></span></a>.
+                </li>
+<li class="listitem">
+                  <a href="https://github.com/boostorg/container/issues/221" target="_top">GitHub
+                  #218: <span class="emphasis"><em>"small_vector static capacity is too small
+                  when not a multiple of 8 bytes"</em></span></a>.
+                </li>
+<li class="listitem">
+                  <a href="https://github.com/boostorg/container/issues/221" target="_top">GitHub
+                  #221: <span class="emphasis"><em>"flat_set and friends should offer a const
+                  sequence_type&amp; sequence() const method (...)"</em></span></a>.
+                </li>
+<li class="listitem">
+                  <a href="https://github.com/boostorg/container/pull/222" target="_top">GitHub
+                  #222: <span class="emphasis"><em>"Fix incomplete type error when using list
+                  with pair"</em></span></a>.
+                </li>
+<li class="listitem">
+                  <a href="https://github.com/boostorg/container/issues/223" target="_top">GitHub
+                  #223: <span class="emphasis"><em>"Possible copypaste typo"</em></span></a>.
+                </li>
+</ul></div>
+          </li></ul></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="container.release_notes.release_notes_boost_1_79_00"></a><a class="link" href="release_notes.html#container.release_notes.release_notes_boost_1_79_00" title="Boost 1.79 Release">Boost
+      1.79 Release</a>
+</h3></div></div></div>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem">
+            The library now compiles without warnings with GCC's -Wcast-align=strict
+          </li>
+<li class="listitem">
+            Fixed bugs/issues:
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; ">
+<li class="listitem">
+                  <a href="https://github.com/boostorg/container/issues/195" target="_top">GitHub
+                  #195: <span class="emphasis"><em>"vec_iterator member typedef iterator_concept
+                  should only be defined in C++20"</em></span></a>.
+                </li>
+<li class="listitem">
+                  <a href="https://github.com/boostorg/container/issues/199" target="_top">GitHub
+                  #199: <span class="emphasis"><em>"Apply LWG issue 3471 to memory_resource"</em></span></a>.
+                </li>
+<li class="listitem">
+                  <a href="https://github.com/boostorg/container/issues/204" target="_top">GitHub
+                  #204: <span class="emphasis"><em>"Inconsistent noexcept-ness of static_vector::reserve"</em></span></a>.
+                </li>
+<li class="listitem">
+                  <a href="https://github.com/boostorg/container/issues/206" target="_top">GitHub
+                  #206: <span class="emphasis"><em>"operator-&gt; on static_vector::iterator
+                  causes cast alignment warning"</em></span></a>.
+                </li>
+<li class="listitem">
+                  <a href="https://github.com/boostorg/container/issues/207" target="_top">GitHub
+                  #207: <span class="emphasis"><em>"boost.vector doesn't work with common_iterator"</em></span></a>.
+                </li>
+<li class="listitem">
+                  <a href="https://github.com/boostorg/container/issues/214" target="_top">GitHub
+                  #214: <span class="emphasis"><em>"string is not properly null-terminated in
+                  assignments"</em></span></a>.
+                </li>
+</ul></div>
+          </li>
+</ul></div>
+</div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="container.release_notes.release_notes_boost_1_78_00"></a><a class="link" href="release_notes.html#container.release_notes.release_notes_boost_1_78_00" title="Boost 1.78 Release">Boost
@@ -630,7 +774,7 @@
                   #76: <span class="emphasis"><em>"flat_set: undefined behaviour on empty range"</em></span></a>.
                 </li>
 <li class="listitem">
-                  Fixed race condition bug in <code class="computeroutput"><a class="link" href="../boost/container/pmr/unsynchronized_po_idm19114.html" title="Class unsynchronized_pool_resource">unsynchronized_pool_resource</a></code>
+                  Fixed race condition bug in <code class="computeroutput"><a class="link" href="../boost/container/pmr/unsynchronized_po_idm19692.html" title="Class unsynchronized_pool_resource">unsynchronized_pool_resource</a></code>
                   found by Arthur O'Dowyer in his blog post <a href="https://quuxplusone.github.io/blog/2018/06/05/libcpp-memory-resource/" target="_top">&lt;memory_resource&gt;
                   for libc++</a>
                 </li>
@@ -743,7 +887,8 @@
                 </li>
 <li class="listitem">
                   <a href="https://github.com/boostorg/container/pull/50" target="_top">GitHub
-                  #50: <span class="emphasis"><em>"Fixed bug Trac #13038"</em></span></a>.
+                  #50: <span class="emphasis"><em>"Fixed bug Trac #13038 (base64 iterators can't
+                  be used with iterator_advance)"</em></span></a>.
                 </li>
 <li class="listitem">
                   <a href="https://github.com/boostorg/container/pull/51" target="_top">GitHub
@@ -1394,17 +1539,14 @@
           </li></ul></div>
 </div>
 </div>
-<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright © 2009-2018 Ion Gaztanaga<p>
+<div class="copyright-footer">Copyright © 2009-2018 Ion Gaztanaga<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>
-</div></td>
-</tr></table>
+</div>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="acknowledgements_notes.html"><img src="../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../container.html"><img src="../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="../hash.html"><img src="../../../doc/src/images/next.png" alt="Next"></a>
+<a accesskey="p" href="acknowledgements_notes.html"><img src="../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../container.html"><img src="../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="../conversion.html"><img src="../../../doc/src/images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

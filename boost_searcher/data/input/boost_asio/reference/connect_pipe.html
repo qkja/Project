@@ -8,6 +8,7 @@
 <link rel="up" href="../reference.html" title="Reference">
 <link rel="prev" href="connect/overload12.html" title="connect (12 of 12 overloads)">
 <link rel="next" href="connect_pipe/overload1.html" title="connect_pipe (1 of 2 overloads)">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table cellpadding="2" width="100%"><tr>
@@ -27,25 +28,26 @@
 <a name="boost_asio.reference.connect_pipe"></a><a class="link" href="connect_pipe.html" title="connect_pipe">connect_pipe</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="boost_asio.indexterm.connect_pipe"></a> 
-Connect two pipe ends using
-        an anonymous pipe.
+        <a class="indexterm" name="boost_asio.indexterm.connect_pipe"></a>
       </p>
-<pre class="programlisting">template&lt;
-    typename <a class="link" href="Executor1.html" title="Executor requirements">Executor1</a>,
-    typename <a class="link" href="Executor1.html" title="Executor requirements">Executor2</a>&gt;
-void <a class="link" href="connect_pipe/overload1.html" title="connect_pipe (1 of 2 overloads)">connect_pipe</a>(
-    basic_readable_pipe&lt; Executor1 &gt; &amp; read_end,
-    basic_writable_pipe&lt; Executor2 &gt; &amp; write_end);
+<p>
+        Connect two pipe ends using an anonymous pipe.
+      </p>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span>
+    <span class="keyword">typename</span> <a class="link" href="Executor1.html" title="Executor requirements">Executor1</a><span class="special">,</span>
+    <span class="keyword">typename</span> <a class="link" href="Executor1.html" title="Executor requirements">Executor2</a><span class="special">&gt;</span>
+<span class="keyword">void</span> <a class="link" href="connect_pipe/overload1.html" title="connect_pipe (1 of 2 overloads)">connect_pipe</a><span class="special">(</span>
+    <span class="identifier">basic_readable_pipe</span><span class="special">&lt;</span> <span class="identifier">Executor1</span> <span class="special">&gt;</span> <span class="special">&amp;</span> <span class="identifier">read_end</span><span class="special">,</span>
+    <span class="identifier">basic_writable_pipe</span><span class="special">&lt;</span> <span class="identifier">Executor2</span> <span class="special">&gt;</span> <span class="special">&amp;</span> <span class="identifier">write_end</span><span class="special">);</span>
   <span class="emphasis"><em>» <a class="link" href="connect_pipe/overload1.html" title="connect_pipe (1 of 2 overloads)">more...</a></em></span>
 
-template&lt;
-    typename <a class="link" href="Executor1.html" title="Executor requirements">Executor1</a>,
-    typename <a class="link" href="Executor1.html" title="Executor requirements">Executor2</a>&gt;
-void <a class="link" href="connect_pipe/overload2.html" title="connect_pipe (2 of 2 overloads)">connect_pipe</a>(
-    basic_readable_pipe&lt; Executor1 &gt; &amp; read_end,
-    basic_writable_pipe&lt; Executor2 &gt; &amp; write_end,
-    boost::system::error_code &amp; ec);
+<span class="keyword">template</span><span class="special">&lt;</span>
+    <span class="keyword">typename</span> <a class="link" href="Executor1.html" title="Executor requirements">Executor1</a><span class="special">,</span>
+    <span class="keyword">typename</span> <a class="link" href="Executor1.html" title="Executor requirements">Executor2</a><span class="special">&gt;</span>
+<span class="keyword">void</span> <a class="link" href="connect_pipe/overload2.html" title="connect_pipe (2 of 2 overloads)">connect_pipe</a><span class="special">(</span>
+    <span class="identifier">basic_readable_pipe</span><span class="special">&lt;</span> <span class="identifier">Executor1</span> <span class="special">&gt;</span> <span class="special">&amp;</span> <span class="identifier">read_end</span><span class="special">,</span>
+    <span class="identifier">basic_writable_pipe</span><span class="special">&lt;</span> <span class="identifier">Executor2</span> <span class="special">&gt;</span> <span class="special">&amp;</span> <span class="identifier">write_end</span><span class="special">,</span>
+    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">system</span><span class="special">::</span><span class="identifier">error_code</span> <span class="special">&amp;</span> <span class="identifier">ec</span><span class="special">);</span>
   <span class="emphasis"><em>» <a class="link" href="connect_pipe/overload2.html" title="connect_pipe (2 of 2 overloads)">more...</a></em></span>
 </pre>
 <h5>
@@ -59,15 +61,11 @@ void <a class="link" href="connect_pipe/overload2.html" title="connect_pipe (2 o
         <span class="emphasis"><em>Convenience header: </em></span><code class="literal">boost/asio.hpp</code>
       </p>
 </div>
-<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright © 2003-2021 Christopher
-      M. Kohlhoff<p>
+<div class="copyright-footer">Copyright © 2003-2023 Christopher M. Kohlhoff<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>
-</div></td>
-</tr></table>
+</div>
 <hr>
 <div class="spirit-nav">
 <a accesskey="p" href="connect/overload12.html"><img src="../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../reference.html"><img src="../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../boost_asio.html"><img src="../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="connect_pipe/overload1.html"><img src="../../../../doc/src/images/next.png" alt="Next"></a>

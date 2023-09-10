@@ -1,5 +1,4 @@
-#ifndef __LOG_HPP__
-#define __LOG_HPP__
+#pragma once
 #include <iostream>
 #include <string>
 #include <ctime>
@@ -18,5 +17,3 @@ void log(std::string level, std::string message, std::string file, int line)
             << "[" << file << "]"
             << "[:" << line << "]" << std::endl;
 }
-
-#endif

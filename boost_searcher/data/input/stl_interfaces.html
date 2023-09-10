@@ -2,13 +2,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Chapter 39. Boost.STLInterfaces</title>
+<title>Chapter 37. Boost.STLInterfaces</title>
 <link rel="stylesheet" href="../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
 <link rel="up" href="libraries.html" title="Part I. The Boost C++ Libraries (BoostBook Subset)">
 <link rel="prev" href="boost_staticassert/test.html" title="Test Programs">
 <link rel="next" href="boost_stlinterfaces/this_library_s_relationship_to_boost_iterator.html" title="This Library's Relationship to Boost.Iterator">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table cellpadding="2" width="100%"><tr>
@@ -26,7 +27,7 @@
 <div class="chapter">
 <div class="titlepage"><div>
 <div><h2 class="title">
-<a name="stl_interfaces"></a>Chapter 39. Boost.STLInterfaces</h2></div>
+<a name="stl_interfaces"></a>Chapter 37. Boost.STLInterfaces</h2></div>
 <div><div class="author"><h3 class="author">
 <span class="firstname">Zach</span> <span class="surname">Laine</span>
 </h3></div></div>
@@ -55,6 +56,13 @@
     <code class="computeroutput"><span class="identifier">sequence_container_interface</span></code></a></span></dt>
 <dt><span class="section"><a href="boost_stlinterfaces/tutorial___reverse_iterator_.html">Tutorial:
     <code class="computeroutput"><span class="identifier">reverse_iterator</span></code></a></span></dt>
+<dt><span class="section"><a href="boost_stlinterfaces/tutorial__view_adaptors.html">Tutorial:
+    View Adaptors</a></span></dt>
+<dt><span class="section"><a href="boost_stlinterfaces/tutorial___closure__and__adaptor_.html">Tutorial:
+    <code class="computeroutput"><span class="identifier">closure</span></code> and <code class="computeroutput"><span class="identifier">adaptor</span></code></a></span></dt>
+<dt><span class="section"><a href="boost_stlinterfaces/tutorial___bind_back____and_more_complicated_view_adaptors.html">Tutorial:
+    <code class="computeroutput"><span class="identifier">bind_back</span><span class="special">()</span></code>
+    and More Complicated View Adaptors</a></span></dt>
 <dt><span class="section"><a href="boost_stlinterfaces/examples.html">Examples</a></span></dt>
 <dd><dl>
 <dt><span class="section"><a href="boost_stlinterfaces/examples.html#boost_stlinterfaces.examples.random_access_iterator">Random
@@ -99,6 +107,18 @@
       Boost.STLInterfaces provides a pre-C++20-friendly implementation.
     </p>
 <p>
+      Due to inconsistencies in the way different compilers implement their C++20
+      view adaptors' <code class="computeroutput"><span class="keyword">operator</span><span class="special">|</span></code>
+      support, its particularly thorny to try and write a view adaptor portable across
+      multiple versions of C++, or even across multiple compilers building in C++20
+      mode. Boost.STLInterfaces provides a type <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">stl_interfaces</span><span class="special">::</span><span class="identifier">range_adaptor_closure</span></code>
+      that is compatible with C++23's <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">range_adaptor_closure</span></code>,
+      and which works with earlier versions of C++ as well. Boost.STLInterfaces also
+      has helper templates that make it much easier to write view adaptors with
+      <code class="computeroutput"><span class="keyword">operator</span><span class="special">|</span></code>
+      support.
+    </p>
+<p>
       Most daunting of all is the task of writing a type or template that meets the
       container requirements in the standard. Boost.STLInterfaces provides another
       template called <code class="computeroutput">sequence_container_interface</code>
@@ -112,8 +132,11 @@
 <tr><td align="left" valign="top"><p>
         C++20 versions of <code class="computeroutput">iterator_interface</code> and <code class="computeroutput">sequence_container_interface</code>
         are provided (C++20 provides <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">view_interface</span></code>).
-        These are constrained templates using C++20 concepts. These are in the <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">stl_interfaces</span><span class="special">::</span><span class="identifier">v2</span></code> namespace, and are considered experimental,
-        because at the time of this writing, no C++20-conforming compiler exists.
+        These are constrained templates using C++20 concepts. These are in the <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">stl_interfaces</span><span class="special">::</span><span class="identifier">v2</span></code> namespace. There is also a C++23 version
+        of <code class="computeroutput">iterator_interface</code> that uses
+        deducing <code class="computeroutput"><span class="keyword">this</span></code> instead of <a href="https://en.wikipedia.org/wiki/Curiously_recurring_template_pattern" target="_top">CRTP</a>.
+        If you do nothing, you'll get the latest <code class="computeroutput"><span class="identifier">vN</span></code>
+        namespace inlined, depending on your compiler's language support.
       </p></td></tr>
 </table></div>
 <h4>
@@ -272,7 +295,9 @@
 <p>
 </p>
 <pre class="programlisting"><span class="keyword">struct</span> <span class="identifier">repeated_chars_iterator</span> <span class="special">:</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">stl_interfaces</span><span class="special">::</span><span class="identifier">iterator_interface</span><span class="special">&lt;</span>
+<span class="preprocessor">#if</span> <span class="special">!</span><span class="identifier">BOOST_STL_INTERFACES_USE_DEDUCED_THIS</span>
                                      <span class="identifier">repeated_chars_iterator</span><span class="special">,</span>
+<span class="preprocessor">#endif</span>
                                      <span class="identifier">std</span><span class="special">::</span><span class="identifier">random_access_iterator_tag</span><span class="special">,</span>
                                      <span class="keyword">char</span><span class="special">,</span>
                                      <span class="keyword">char</span><span class="special">&gt;</span>
@@ -325,10 +350,7 @@
 </table></div>
 </div>
 </div>
-<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><p><small>Last revised: December 02, 2021 at 06:54:13 GMT</small></p></td>
-<td align="right"><div class="copyright-footer"></div></td>
-</tr></table>
+<div class="copyright-footer"></div>
 <hr>
 <div class="spirit-nav">
 <a accesskey="p" href="boost_staticassert/test.html"><img src="../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="libraries.html"><img src="../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="index.html"><img src="../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="boost_stlinterfaces/this_library_s_relationship_to_boost_iterator.html"><img src="../../doc/src/images/next.png" alt="Next"></a>

@@ -1,17 +1,13 @@
-#ifndef __UTIL_HPP__
-#define __UTIL_HPP__
+#pragma once
 #include <iostream>
-#include <string>
-#include <cassert>
-#include <vector>
+#include <assert.h>
 #include <fstream>
-#include <unordered_map>
-#include <mutex>
+#include <string>
 #include <boost/algorithm/string.hpp>
 #include "cppjieba/Jieba.hpp"
-
+#include <mutex>
 #include "log.hpp"
-
+#include <unordered_map>
 // 这是一个工具集
 namespace ns_util
 {
@@ -19,10 +15,6 @@ namespace ns_util
   class FileUtil
   {
   public:
-    /// @brief 读取文件内容到 out中
-    /// @param file_path
-    /// @param out
-    /// @return
     static bool ReadFile(const std::string &file_path, std::string *out)
     {
       assert(out);
@@ -44,7 +36,6 @@ namespace ns_util
       return true;
     }
   };
-
   /// @brief 字符串切分
   class StringUtil
   {
@@ -57,7 +48,7 @@ namespace ns_util
                    boost::token_compress_on);
     }
   };
-  // 这是 我们词库的位置
+
   const char *const DICT_PATH = "./dict/jieba.dict.utf8";
   const char *const HMM_PATH = "./dict/hmm_model.utf8";
   const char *const USER_DICT_PATH = "./dict/user.dict.utf8";
@@ -68,35 +59,42 @@ namespace ns_util
   class JiebaUtil
   {
   public:
+    static void CutString(const std::string &src, std::vector<std::string> *out)
+    {
+      assert(out);
+      ns_util::JiebaUtil::get_instance()->CutStringHelper(src, out);
+    }
+
+  private:
     /// @brief 这里是分词
     /// @param src
     /// @param out
     void CutStringHelper(const std::string &src, std::vector<std::string> *out)
     {
-     jieba.CutForSearch(src, *out);
-     for(auto iter = out->begin(); iter!= out->end();)
-     {
-       auto it = stop_words.find(*iter);
-       if(it != stop_words.end())
-       {
-         //此时是暂停词 删除
-         // 避免迭代器失效
-         //std::cout << *iter << std::endl;
-         iter = out->erase(iter);
-       }
-       else
-       {
-         iter++;
-       }
-     }
+      jieba.CutForSearch(src, *out);
+      for (auto iter = out->begin(); iter != out->end();)
+      {
+        auto it = stop_words.find(*iter);
+        if (it != stop_words.end())
+        {
+          // 此时是暂停词 删除
+          //  避免迭代器失效
+          // std::cout << *iter << std::endl;
+          iter = out->erase(iter);
+        }
+        else
+        {
+          iter++;
+        }
+      }
     }
-    static JiebaUtil* get_instance()
+    static JiebaUtil *get_instance()
     {
       static std::mutex mtx;
-      if(nullptr == instance)
+      if (nullptr == instance)
       {
         mtx.lock();
-        if(nullptr == instance)
+        if (nullptr == instance)
         {
           instance = new JiebaUtil;
           instance->InitJiebaUtil();
@@ -105,23 +103,18 @@ namespace ns_util
       }
       return instance;
     }
-    static void CutString(const std::string &src, std::vector<std::string> *out)
-    {
-      assert(out);
-      ns_util::JiebaUtil::get_instance()->CutStringHelper(src,out);
-     // jieba.CutForSearch(src, *out);
-    }
+    // 这是我们的切分词
 
     void InitJiebaUtil()
     {
       std::ifstream in(STOP_WORD_PATH);
-      if(in.is_open() == false)
+      if (in.is_open() == false)
       {
         LOG(FATAL, "加载暂停词错误");
         return;
       }
       std::string line;
-      while(std::getline(in, line))
+      while (std::getline(in, line))
       {
         stop_words.insert(std::make_pair(line, true));
       }
@@ -129,16 +122,12 @@ namespace ns_util
     }
 
   private:
+    static JiebaUtil *instance;
 
-    static JiebaUtil* instance;
-
-    //static cppjieba::Jieba jieba;
     cppjieba::Jieba jieba;
     std::unordered_map<std::string, bool> stop_words;
-    JiebaUtil():jieba(DICT_PATH, HMM_PATH, USER_DICT_PATH, IDF_PATH, STOP_WORD_PATH){}
+    JiebaUtil() : jieba(DICT_PATH, HMM_PATH, USER_DICT_PATH, IDF_PATH, STOP_WORD_PATH) {}
     // 拷贝构造等 delte
   };
-  //cppjieba::Jieba JiebaUtil::jieba(DICT_PATH, HMM_PATH, USER_DICT_PATH, IDF_PATH, STOP_WORD_PATH);
-  JiebaUtil* JiebaUtil:: instance = nullptr;
+  JiebaUtil *JiebaUtil::instance = nullptr;
 }
-#endif
