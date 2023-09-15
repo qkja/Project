@@ -4,10 +4,14 @@
  * Date: 2023-03-14
  * Time: 20:30
  */
+
+// void ServerTest()
+// {
+//   aod::Server server(8081);
+//   server.RunModule();
+// }
+
 #include "util.hpp"
-#include "data.hpp"
-#include "server.hpp"
-/// @brief 工具集的测试
 void FileTset()
 {
   aod::FileUtil("./www").CreateDirectory();
@@ -17,7 +21,6 @@ void FileTset()
   std::cout << body << std::endl;
   std::cout << aod::FileUtil("./www/index.html").Size() << std::endl;
 }
-
 void JsonTset()
 {
   const char *name = "四小明";
@@ -46,50 +49,37 @@ void JsonTset()
   {
     std::cout << e.asFloat() << std::endl;
   }
-  // int sz = stu["成绩"].size();
-  // for (int i = 0; i < sz; i++)
-  // {
-  //   std::cout << stu["成绩"][i] << " ";
-  // }
-  // std::cout << std::endl;
 }
 
 void DataTset()
 {
   aod::TableVideo tb_video;
   Json::Value video;
-  // video["name"] = "白娘子传奇";
-  // video["info"] = "这是一条白蛇和青蛇之间的故事,精彩";
-  // video["video"] = "/video/snake.mp4";
-  // video["image"] = "/img/sanke.jpg";
+  video["name"] = "白娘子传奇";
+  video["info"] = "这是一条白蛇和青蛇之间的故事,精彩";
+  video["video"] = "/video/snake.mp4";
+  video["image"] = "/img/sanke.jpg";
 
-  // video["name"] = "变形金刚";
-  // video["info"] = "机器人大战,等你来战";
-  // video["video"] = "/video/robot.mp4";
-  // video["image"] = "/video/robot.jpg";
+  video["name"] = "变形金刚";
+  video["info"] = "机器人大战,等你来战";
+  video["video"] = "/video/robot.mp4";
+  video["image"] = "/video/robot.jpg";
 
-  // tb_video.Insert(video);
-  // tb_video.Update(2,video);
-  // tb_video.SelectAll(&video);
-  // tb_video.SelectOne(2, &video);
-  // tb_video.SelectLike("传奇", &video);
+  tb_video.Insert(video);
+  tb_video.Update(2,video);
+  tb_video.SelectAll(&video);
+  tb_video.SelectOne(2, &video);
+  tb_video.SelectLike("传奇", &video);
 
   // 如何产看结果 序列化
-  // std::string body;
-  // aod::JsonUtil::Serialize(video, &body);
-  // std::cout << body << std::endl;
+  std::string body;
+  aod::JsonUtil::Serialize(video, &body);
+  std::cout << body << std::endl;
   tb_video.Delete(1);
-}
-void ServerTest()
-{
-  aod::Server server(8081);
-  server.RunModule();
 }
 int main()
 {
   // FileTset();
-  // JsonTset();
-  // DataTset();
-  ServerTest();
+  JsonTset();
   return 0;
 }

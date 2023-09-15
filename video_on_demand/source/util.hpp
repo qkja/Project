@@ -1,5 +1,4 @@
-#ifndef __UTIL_HPP__
-#define __UTIL_HPP__
+#pragma once
 // 这是一个工具集
 
 #include <iostream>
@@ -28,7 +27,7 @@ namespace aod
     /// @return
     bool CreateDirectory()
     {
-      
+
       if (Exists() == true)
         return true;
 
@@ -170,5 +169,3 @@ namespace aod
   };
 
 }
-
-#endif
