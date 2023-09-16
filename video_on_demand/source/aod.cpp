@@ -12,6 +12,8 @@
 // }
 
 #include "util.hpp"
+#include "data.hpp"
+#include "server.hpp"
 void FileTset()
 {
   aod::FileUtil("./www").CreateDirectory();
@@ -53,33 +55,45 @@ void JsonTset()
 
 void DataTset()
 {
-  aod::TableVideo tb_video;
-  Json::Value video;
-  video["name"] = "白娘子传奇";
-  video["info"] = "这是一条白蛇和青蛇之间的故事,精彩";
-  video["video"] = "/video/snake.mp4";
-  video["image"] = "/img/sanke.jpg";
+  // aod::TableVideo tb_video;
+  // Json::Value video;
+  // video["name"] = "白娘子传奇";
+  // video["info"] = "这是一条白蛇和青蛇之间的故事,精彩";
+  // video["video"] = "/video/snake.mp4";
+  // video["image"] = "/img/sanke.jpg";
 
-  video["name"] = "变形金刚";
-  video["info"] = "机器人大战,等你来战";
-  video["video"] = "/video/robot.mp4";
-  video["image"] = "/video/robot.jpg";
+  // tb_video.Insert(video);
 
-  tb_video.Insert(video);
-  tb_video.Update(2,video);
-  tb_video.SelectAll(&video);
-  tb_video.SelectOne(2, &video);
-  tb_video.SelectLike("传奇", &video);
+  // video["name"] = "变形金刚";
+  // video["info"] = "机器人大战,等你来战";
+  // video["video"] = "/video/robot.mp4";
+  // video["image"] = "/video/robot.jpg";
+
+  // tb_video.Update(1, video);
+  // tb_video.SelectLike("传奇", &video);
+  // tb_video.SelectAll( &video);
+  // tb_video.SelectOne(1, &video);
+
+  // std::string body;
+  // aod::JsonUtil::Serialize(video, &body);
+  // std::cout << body << std::endl;
 
   // 如何产看结果 序列化
-  std::string body;
-  aod::JsonUtil::Serialize(video, &body);
-  std::cout << body << std::endl;
-  tb_video.Delete(1);
+  // tb_video.Delete(2);
+  // tb_video.Delete(3);
+  // tb_video.Delete(1);
 }
+void ServerTest()
+{
+  aod::Server server(8081);
+  server.RunModule();
+}
+
 int main()
 {
   // FileTset();
-  JsonTset();
+  // JsonTset();
+  // DataTset();
+  ServerTest();
   return 0;
 }

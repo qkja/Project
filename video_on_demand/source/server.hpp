@@ -39,6 +39,10 @@ namespace aod
       _svr.Get("/video/(\\d+)", SelectOne);
       _svr.Get("/video", SelectAll);
 
+
+
+      
+
       // 启动服务器
       _svr.listen("0.0.0.0", _port);
       return true;
